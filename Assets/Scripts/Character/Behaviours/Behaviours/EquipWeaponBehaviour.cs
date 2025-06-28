@@ -14,7 +14,7 @@ public class EquipWeaponBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IEquipWeaponBehaviour>(this);
+        behaviourHandler?.Register<IEquipWeaponBehaviour>(this);
     } 
     public override void EnableBeh()
     {
@@ -36,6 +36,6 @@ public class EquipWeaponBehaviour : BehaviourCharBase
     
     public override void EquipingWeapon(bool isReady)
     {
-        animator.EquipWeaponAnimation(isReady); 
+        animator?.EquipWeaponAnimation(isReady); 
     }
 }

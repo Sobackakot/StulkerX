@@ -14,7 +14,7 @@ public class MoveBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IMoveBehaviour>(this);
+        behaviourHandler?.Register<IMoveBehaviour>(this);
     }
     
     public override void EnableBeh()

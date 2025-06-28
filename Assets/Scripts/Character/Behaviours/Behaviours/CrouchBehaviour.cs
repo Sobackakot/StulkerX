@@ -14,15 +14,15 @@ public class CrouchBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<ICrouchBehaviour>(this);
+        behaviourHandler?.Register<ICrouchBehaviour>(this);
     }
     public override void EnableBeh()
     {
-        animator.CrouchAnimation(stateData.isCrouch);
+        animator?.CrouchAnimation(stateData.isCrouch);
     }
     public override void DisableBeh()
     {
-        animator.CrouchAnimation(stateData.isCrouch);
+        animator?.CrouchAnimation(stateData.isCrouch);
     }
     public override void UpdateBeh()
     { 
@@ -32,7 +32,7 @@ public class CrouchBehaviour : BehaviourCharBase
     }
     public override void FixedUpdateBeh()
     {
-        float speedMove = character.inputAxis.z < 0 ? character.speedWalkBack : character.speedWalkForward;
+        float speedMove = character?.inputAxis.z < 0 ? character.speedWalkBack : character.speedWalkForward;
         Vector3 newDirection = character.newDirection;
         CrouchingBehaviour(speedMove, newDirection); 
     }

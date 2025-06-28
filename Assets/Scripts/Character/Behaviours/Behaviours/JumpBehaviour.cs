@@ -14,7 +14,7 @@ public class JumpBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IJumpBehaviour>(this);
+        behaviourHandler?.Register<IJumpBehaviour>(this);
     }
     public override void EnableBeh()
     {

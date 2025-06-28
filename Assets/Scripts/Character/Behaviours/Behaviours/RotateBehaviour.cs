@@ -14,7 +14,7 @@ public class RotateBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IRotateBehaviour>(this);
+        behaviourHandler?.Register<IRotateBehaviour>(this);
     }
 
     public override void EnableBeh()
@@ -37,9 +37,9 @@ public class RotateBehaviour : BehaviourCharBase
     }
     public override void RotationBehaviour(float angleRotate, Vector3 direction)
     {
-        Rigidbody rb = character.rbCharacter;
+        Rigidbody rb = character?.rbCharacter;
         Quaternion rotate = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
         Quaternion newRotate = Quaternion.Lerp(rb.rotation, rotate, Time.fixedDeltaTime * angleRotate);
-        rb.MoveRotation(newRotate);
+        rb?.MoveRotation(newRotate);
     }
 }

@@ -14,7 +14,7 @@ public class SprintBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<ISprintBehaviour>(this);
+        behaviourHandler?.Register<ISprintBehaviour>(this);
     }
     private float speedMove;
     public override void EnableBeh()
@@ -32,7 +32,7 @@ public class SprintBehaviour : BehaviourCharBase
     }
     public override void FixedUpdateBeh()
     {
-        speedMove = stateData.inputAxis.z < 0 ? character.speedRunBack : character.speedSprint;
+        speedMove = stateData?.inputAxis.z < 0 ? character.speedRunBack : character.speedSprint;
         Vector3 newDirection = character.newDirection;
         SprintingBehaviour(speedMove, newDirection);
        
@@ -41,7 +41,7 @@ public class SprintBehaviour : BehaviourCharBase
     public override void SprintingBehaviour(float speed, Vector3 direction) 
     {
         base.MovingBehaviour(speed, direction);
-        animator.MoveAnimation(animator.speedSprint, stateData.inputAxis);
+        animator?.MoveAnimation(animator.speedSprint, stateData.inputAxis);
     } 
 
 }

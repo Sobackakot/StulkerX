@@ -13,7 +13,7 @@ public class LeanBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<ILeanBehaviour>(this);
+        behaviourHandler?.Register<ILeanBehaviour>(this);
     }
     public override void EnableBeh()
     {

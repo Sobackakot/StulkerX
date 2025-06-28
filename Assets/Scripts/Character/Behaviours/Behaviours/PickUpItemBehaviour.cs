@@ -14,7 +14,8 @@ public class PickUpItemBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler)
         : base(character, animator, stateData, inputEvent, behaviourHandler)
-    { behaviourHandler.Register<IPickUpItemBehaviour>(this); 
+    {
+        behaviourHandler?.Register<IPickUpItemBehaviour>(this); 
     }
 
     public override void EnableBeh()

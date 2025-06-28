@@ -15,7 +15,7 @@ public class IdleBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IIdleBehaviour>(this);
+        behaviourHandler?.Register<IIdleBehaviour>(this);
     }
     public override void EnableBeh() 
     { 
@@ -35,6 +35,6 @@ public class IdleBehaviour : BehaviourCharBase
     }
     public override void Idling()
     {
-        animator.MoveAnimation(0, Vector3.zero);
+        animator?.MoveAnimation(0, Vector3.zero);
     }
 }

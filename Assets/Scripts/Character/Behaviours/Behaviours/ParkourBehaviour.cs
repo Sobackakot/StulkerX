@@ -15,7 +15,7 @@ public class ParkourBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IParkourBehaviour>(this);
+        behaviourHandler?.Register<IParkourBehaviour>(this);
     }
     public event Action<string> onAnimParkour;  
     private ObstacleData curObst; 

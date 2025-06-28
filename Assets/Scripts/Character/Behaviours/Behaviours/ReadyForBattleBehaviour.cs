@@ -14,7 +14,7 @@ public class ReadyForBattleBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IReadyForBattleBehaviour>(this);
+        behaviourHandler?.Register<IReadyForBattleBehaviour>(this);
     }
     public override void EnableBeh()
     { 

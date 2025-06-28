@@ -14,7 +14,7 @@ public class FireWeaponBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IFireWeaponBehaviour>(this);
+        behaviourHandler?.Register<IFireWeaponBehaviour>(this);
     }
     public override void EnableBeh()
     { 
@@ -35,6 +35,6 @@ public class FireWeaponBehaviour : BehaviourCharBase
 
     public override void FiringWeapon() 
     {
-        character.weaponEfect.LateTick();
+        character?.weaponEfect?.LateTick();
     } 
 }

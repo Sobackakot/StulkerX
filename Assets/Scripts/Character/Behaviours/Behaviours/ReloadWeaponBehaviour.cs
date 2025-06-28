@@ -13,15 +13,21 @@ public class ReloadWeaponBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IReloadWeaponBehaviour>(this);
+        behaviourHandler?.Register<IReloadWeaponBehaviour>(this);
     }
     public override void EnableBeh()
     {
-        inputEvent.OnReloadWeapon += ReloadingWeapon;
+        if (inputEvent != null)
+        {
+            inputEvent.OnReloadWeapon += ReloadingWeapon;
+        } 
     }
     public override void DisableBeh()
     {
-        inputEvent.OnReloadWeapon -= ReloadingWeapon;
+        if (inputEvent != null)
+        {
+            inputEvent.OnReloadWeapon -= ReloadingWeapon;
+        }
     }
     public override void UpdateBeh()
     {

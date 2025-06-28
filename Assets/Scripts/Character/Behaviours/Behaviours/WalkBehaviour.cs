@@ -14,7 +14,7 @@ public class WalkBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IWalkBehaviour>(this);
+        behaviourHandler?.Register<IWalkBehaviour>(this);
     }
     private float speedMove;
     public override void EnableBeh()
@@ -32,13 +32,13 @@ public class WalkBehaviour : BehaviourCharBase
     }
     public override void FixedUpdateBeh()
     {
-        speedMove = stateData.inputAxis.z < 0 ? character.speedWalkBack : character.speedWalkForward;
+        speedMove = stateData?.inputAxis.z < 0 ? character.speedWalkBack : character.speedWalkForward;
         Vector3 newDirection = character.newDirection;
         WalkingBehaviour(speedMove, newDirection); 
     } 
     public override void WalkingBehaviour(float speed, Vector3 direction) 
     {
         base.MovingBehaviour(speed, direction);
-        animator.MoveAnimation(animator.speedWalk, stateData.inputAxis);
+        animator?.MoveAnimation(animator.speedWalk, stateData.inputAxis);
     } 
 }

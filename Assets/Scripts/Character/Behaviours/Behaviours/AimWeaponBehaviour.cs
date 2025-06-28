@@ -14,7 +14,7 @@ public class AimWeaponBehaviour : BehaviourCharBase
         IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
-        behaviourHandler.Register<IAimWeaponBehaviour>(this);
+        behaviourHandler?.Register<IAimWeaponBehaviour>(this);
     } 
     public override void EnableBeh()
     { 
@@ -36,6 +36,6 @@ public class AimWeaponBehaviour : BehaviourCharBase
     } 
     public override void AimingWeapon(bool isAim) 
     {
-        animator.AimingAnimation(isAim); 
+        animator?.AimingAnimation(isAim); 
     }
 }
