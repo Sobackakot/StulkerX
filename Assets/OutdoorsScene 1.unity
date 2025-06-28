@@ -756,7 +756,7 @@ GameObject:
   - component: {fileID: 242681592}
   - component: {fileID: 242681591}
   - component: {fileID: 242681595}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: BoxInventory
   m_TagString: BoxInventory
   m_Icon: {fileID: 0}
@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 274664052}
   - component: {fileID: 274664051}
   - component: {fileID: 274664050}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ArmorVest (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1259,7 +1259,7 @@ GameObject:
   - component: {fileID: 448176523}
   - component: {fileID: 448176522}
   - component: {fileID: 448176526}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: BoxInventory
   m_TagString: BoxInventory
   m_Icon: {fileID: 0}
@@ -1379,6 +1379,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 4502966251692376938, guid: 5279675baea04a143b0ebb2ece420a34,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8442013362803321779, guid: 5279675baea04a143b0ebb2ece420a34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1481,7 +1486,7 @@ GameObject:
   - component: {fileID: 854616194}
   - component: {fileID: 854616193}
   - component: {fileID: 854616192}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: BackPack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2516,11 +2521,6 @@ PrefabInstance:
       propertyPath: <targetAim>k__BackingField
       value: 
       objectReference: {fileID: 322543997}
-    - target: {fileID: 3594728004775117352, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_Avatar
-      value: 
-      objectReference: {fileID: 9000000, guid: 8206afd04cf0ee4438fbe0c43b4764e6, type: 3}
     - target: {fileID: 3853353423595758678, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
@@ -2566,12 +2566,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b76a29402ae8b64fb01b52dd633429a, type: 3}
---- !u!4 &1678273401 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3780710334165036219, guid: 8b76a29402ae8b64fb01b52dd633429a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1536750698}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1823688464 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 804838215127086365, guid: 851d0820970eabc429b9ae04f7fda33f,
@@ -2583,12 +2577,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 6703997955595912190, guid: 851d0820970eabc429b9ae04f7fda33f,
     type: 3}
   m_PrefabInstance: {fileID: 8510113885775272753}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1837894621 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4810836550123640355, guid: 8b76a29402ae8b64fb01b52dd633429a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1536750698}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2013410473
 GameObject:
@@ -2701,6 +2689,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackPack
       objectReference: {fileID: 0}
+    - target: {fileID: 8281385666063694759, guid: eb3cda4f13b22a548a8c1e780c8e9d49,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2768,6 +2761,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ArmorVest
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501000083251106072, guid: d62d21265f79713438c1116729b4d2f0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8411443582949221106, guid: d62d21265f79713438c1116729b4d2f0,
         type: 3}
@@ -11493,11 +11491,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 305069313166326029, guid: 851d0820970eabc429b9ae04f7fda33f,
-        type: 3}
-      propertyPath: targetLookPoint
-      value: 
-      objectReference: {fileID: 1837894621}
     - target: {fileID: 804838215127086365, guid: 851d0820970eabc429b9ae04f7fda33f,
         type: 3}
       propertyPath: m_Name
@@ -11553,11 +11546,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5687945811489551226, guid: 851d0820970eabc429b9ae04f7fda33f,
+    - target: {fileID: 5159062725527824622, guid: 851d0820970eabc429b9ae04f7fda33f,
         type: 3}
-      propertyPath: targetLookPoint
-      value: 
-      objectReference: {fileID: 1678273401}
+      propertyPath: layerMaskBox.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159062725527824622, guid: 851d0820970eabc429b9ae04f7fda33f,
+        type: 3}
+      propertyPath: layerMaskTake.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159062725527824622, guid: 851d0820970eabc429b9ae04f7fda33f,
+        type: 3}
+      propertyPath: climbLayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11580,8 +11583,8 @@ SceneRoots:
   - {fileID: 448176525}
   - {fileID: 242681594}
   - {fileID: 934465373}
-  - {fileID: 1159732550}
   - {fileID: 785895057}
   - {fileID: 94326629}
   - {fileID: 617829610}
   - {fileID: 1536750698}
+  - {fileID: 1159732550}

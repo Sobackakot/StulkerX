@@ -3,16 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BoxInventory
+  - Parkour
+  - EquipSlot
+  - SlotBox
+  - Slot
+  - FastSlot
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LootBox
   - Water
   - UI
-  - 
-  - 
+  - PickItem
+  - Obstacle
   - 
   - 
   - 

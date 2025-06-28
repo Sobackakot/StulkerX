@@ -5,7 +5,7 @@ using State.Character;
 
 public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
 {
-    [SerializeField] private Transform targetLookPoint;
+    private Transform targetLookPoint;
     [HideInInspector] public Transform transformCamera;
       
     [SerializeField] private float sensitivityMouse = 6f; 
@@ -32,6 +32,7 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
     private void Awake()
     {
         transformCamera = GetComponent<Transform>();
+        targetLookPoint = FindObjectOfType<TargetFirstCamera>()?.transform;
     }
     private void OnEnable()
     {

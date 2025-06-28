@@ -19,7 +19,7 @@ public class CharacterInspector : MonoBehaviour
     public RaycastCamera ray { get; set; }
     public Rigidbody rbCharacter { get; set; } 
     [field: SerializeField] public Transform targetAim { get; private set; }
-    public TirdCameraCharacter tirdCam { get; private set; }
+    public FreeCameraCharacter tirdCam { get; private set; }
     public FirstCameraCharacter firstCam { get; private set; }
     public Transform currCamTr { get; private set; }
     public Transform firstCamTr { get; private set; }
@@ -54,7 +54,7 @@ public class CharacterInspector : MonoBehaviour
     private void Awake()
     {
         rbCharacter = GetComponent<Rigidbody>();
-        tirdCam = FindFirstObjectByType<TirdCameraCharacter>();
+        tirdCam = FindFirstObjectByType<FreeCameraCharacter>();
         tirdCamTr = tirdCam.transform;
         firstCam = FindObjectOfType<FirstCameraCharacter>();
         firstCamTr = firstCam.transform;

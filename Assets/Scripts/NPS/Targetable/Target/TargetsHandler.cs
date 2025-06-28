@@ -6,12 +6,12 @@ namespace NPC.Target
 {
     public class TargetsHandler
     { 
-        public TargetsHandler(RegistryTargets registry, RaycastNPC ray)
+        public TargetsHandler(IRegistryTarget registry, RaycastNPC ray)
         {
             this.registry = registry;
             this.ray = ray;
         }
-        private readonly RegistryTargets registry;
+        private readonly IRegistryTarget registry;
         private readonly RaycastNPC ray;
         public List<ITargetable> nearTargets = new List<ITargetable>();
         public List<ITargetable> detectedTargets = new List<ITargetable>();
@@ -37,7 +37,7 @@ namespace NPC.Target
         public ITargetable GetTarget => CurrentTarget;
         public void SearchNearbyTargets(Vector3 npcPosition, float visionRadius)
         {
-            List<ITargetable> targets = registry.GetTargets();
+            List<ITargetable> targets = registry?.GetTargets();
             foreach (var target in targets)
             {
                 if (target != null && target.IsAlive() && IsMinRadius(npcPosition, target,visionRadius))
@@ -74,7 +74,7 @@ namespace NPC.Target
         {
             foreach(var target in detectedTargets)
             {
-                if (!rayHitTargets.Contains(target) && ray.RaycastForward(target.targetTr.position))
+                if (!rayHitTargets.Contains(target) && ray != null && ray.RaycastForward(target.targetTr.position))
                 {
                     rayHitTargets.Add(target); 
                 } 

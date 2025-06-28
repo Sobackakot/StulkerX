@@ -23,7 +23,7 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
    
     public void Initialize()
     {
-        character.Initialize();
+        character?.Initialize();
     }
 
     public void Dispose()
@@ -32,23 +32,23 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
     }
     public void Tick()
     { 
-        character.Tick();
-        animator.Tick();  
-        mainNPC.Tick();
-        camera.Tick(); 
+        character?.Tick();
+        animator?.Tick();  
+        mainNPC?.Tick();
+        camera?.Tick(); 
     }
     public void LateTick()
     { 
-        character.LateTick();
-        animator.LateTick();  
-        mainNPC.LateTick();
-        camera.LateTick(); 
+        character?.LateTick();
+        animator?.LateTick();  
+        mainNPC?.LateTick();
+        camera?.LateTick(); 
     }
     public void FixedTick()
     { 
-        character.FixedTick();
-        animator.FixedTick();  
-        mainNPC.FixedTick();
-        camera.FixedTick(); 
+        character?.FixedTick();
+        animator?.FixedTick();  
+        mainNPC?.FixedTick();
+        camera?.FixedTick(); 
     } 
 }

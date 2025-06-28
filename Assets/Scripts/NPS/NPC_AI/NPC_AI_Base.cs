@@ -1,6 +1,5 @@
 
 using NPC.Data;
-using NPC.Main; 
 using NPC.Target;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,14 +11,14 @@ namespace NPC
     public abstract class NPC_AI_Base : MonoBehaviour
     {
         [Inject]
-        private void Container(RegistryTargets registryTargets, RegistryNPC npcRegistr)
+        private void Container(IRegistryTarget registryTargets, IRegistryNPC npcRegistr)
         {  
             this.registryTargets = registryTargets;
             this.npcRegistr = npcRegistr;
             data = new NPC_Data(); 
         } 
-        private RegistryTargets registryTargets;
-        private RegistryNPC npcRegistr;
+        private IRegistryTarget registryTargets;
+        private IRegistryNPC npcRegistr;
         public NPC_Data data { get; private set; }
 
         public TargetsHandler target { get; private set; } 
@@ -55,11 +54,11 @@ namespace NPC
         }
         private void OnEnable()
         {
-            npcRegistr.AddNPC(this);
+            npcRegistr?.AddNPC(this);
         }
         private void OnDisable()
         {
-            npcRegistr.RemoveNPC(this);
+            npcRegistr?.RemoveNPC(this);
         } 
       
         public void StoppedDestination()

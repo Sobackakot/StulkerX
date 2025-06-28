@@ -7,7 +7,7 @@ using StateData.Character;
 
 public class RaycastCamera : MonoBehaviour
 {
-    [SerializeField] private Transform targetAiming;
+    private Transform targetAiming;
     [SerializeField] private float  aimPointSpeed = 45f;
     [SerializeField] private Vector3 offsetPointRayFor = new Vector3(0,0.25f,0);
     [SerializeField] private Vector3 offsetPointRayDown = new Vector3(0,6,0.6f);
@@ -51,6 +51,7 @@ public class RaycastCamera : MonoBehaviour
         windowUI = FindObjectOfType<WindowUI>(); 
         charact = FindObjectOfType<CharacterInspector>();
         charTransPointRay = charact.GetComponent<Transform>();
+        targetAiming = GetComponentInChildren<TargetRayPointAim>()?.transform;
     }
     private void OnEnable()
     {

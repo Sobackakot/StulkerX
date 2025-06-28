@@ -3,9 +3,9 @@ using UnityEngine;
 using Zenject;
 using State.Character;
 
-public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
+public class FreeCameraCharacter : MonoBehaviour, ICameraCharacter
 {
-    [SerializeField] private Transform targetLookPoint;  
+    private Transform targetLookPoint;  
       
     [HideInInspector]public Transform transformCamera; 
     [SerializeField] private float sensitivityMouse = 45f;
@@ -37,6 +37,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private void Awake()
     {
         transformCamera = GetComponent<Transform>();
+        targetLookPoint = FindObjectOfType<TargetFreeCamera>()?.transform;
     }
     private void OnEnable()
     {

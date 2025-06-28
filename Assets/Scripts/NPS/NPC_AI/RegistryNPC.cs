@@ -1,24 +1,27 @@
-using System.Collections;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 
 namespace NPC 
 {
-    public class RegistryNPC
+    public class RegistryNPC: IRegistryNPC
     {
-        public readonly List<NPC_AI_Base> npcList = new();
+        public RegistryNPC()
+        {
+            npcList = new();
+        }
+        public List<NPC_AI_Base> npcList { get; set; }
 
         public void AddNPC(NPC_AI_Base npc)
         {
             if (!npcList.Contains(npc))
             {
-                npcList.Add(npc);
+                npcList?.Add(npc);
             }
         }
         public void RemoveNPC(NPC_AI_Base npc)
         {
             if (npcList.Contains(npc))
             {
-                npcList.Remove(npc);
+                npcList?.Remove(npc);
             }
         }
         public List<NPC_AI_Base> GetListNPC()

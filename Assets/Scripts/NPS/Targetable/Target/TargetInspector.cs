@@ -7,11 +7,11 @@ namespace NPC.Target
     public class TargetInspector : MonoBehaviour, ITargetable
     {
         [Inject]
-        private void Container(RegistryTargets regist)
+        private void Container(IRegistryTarget regist)
         {
             this.regist = regist;
         }
-        private RegistryTargets regist;
+        private IRegistryTarget regist;
         public Transform targetTr { get; set; }
         private Transform npcTr;
 
@@ -30,12 +30,12 @@ namespace NPC.Target
         private void OnEnable()
         {
             isAlive = true;
-            regist.RegisterTarget(this);
+            regist?.RegisterTarget(this);
         }
         private void OnDisable()
         {
             isAlive = false;
-            regist.UnregisterTarget(this);
+            regist?.UnregisterTarget(this);
         }
 
         private void FixedUpdate()

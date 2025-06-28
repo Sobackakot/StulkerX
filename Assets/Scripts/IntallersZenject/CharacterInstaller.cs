@@ -47,8 +47,8 @@ public class CharacterInstaller : ScriptableObjectInstaller
     }
     private void BindTargetSystem()
     {
-        Container.Bind<RegistryTargets>().FromNew().AsSingle().NonLazy(); 
-        Container.Bind<RegistryNPC>().FromNew().AsSingle().NonLazy(); 
+        Container.BindInterfacesAndSelfTo<RegistryTargets>().FromNew().AsSingle().NonLazy(); 
+        Container.BindInterfacesAndSelfTo<RegistryNPC>().FromNew().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<NPC_Main>().FromNew().AsSingle().NonLazy(); 
     }
     private void FSM()
@@ -60,7 +60,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
     {
         Container.BindInterfacesAndSelfTo<CameraController>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();  
-        Container.Bind<ICameraCharacter>().WithId(CameraTird_ID).To<TirdCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<ICameraCharacter>().WithId(CameraTird_ID).To<FreeCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<ICameraCharacter>().WithId(CameraFerst_ID).To<FirstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
     }

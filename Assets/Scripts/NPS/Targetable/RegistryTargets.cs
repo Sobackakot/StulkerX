@@ -4,22 +4,27 @@ using UnityEngine;
 
 namespace NPC.Target
 {
-    public class RegistryTargets
+    public class RegistryTargets: IRegistryTarget
     {
-        private readonly List<ITargetable> activeTargets = new();
+        public RegistryTargets()
+        {
+            activeTargets = new();
+        }
+
+        public List<ITargetable> activeTargets { get; set; }
 
         public void RegisterTarget(ITargetable target)
         {
             if (!activeTargets.Contains(target))
             {
-                activeTargets.Add(target);
+                activeTargets?.Add(target);
             }
         }
         public void UnregisterTarget(ITargetable target)
         {
             if (activeTargets.Contains(target))
             {
-                activeTargets.Remove(target);
+                activeTargets?.Remove(target);
             }
         }
         public List<ITargetable> GetTargets() => activeTargets;
