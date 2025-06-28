@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace Menu
 {
+    //this Main scene = 0;
     public class GameMainMenu : MonoBehaviour
     {
 

@@ -56,9 +56,9 @@ public class CharacterInspector : MonoBehaviour
     {
         rbCharacter = GetComponent<Rigidbody>();
         tirdCam = FindFirstObjectByType<FreeCameraCharacter>();
-        tirdCamTr = tirdCam.transform;
+        tirdCamTr = tirdCam?.transform;
         firstCam = FindObjectOfType<FirstCameraCharacter>();
-        firstCamTr = firstCam.transform;
+        firstCamTr = firstCam?.transform;
         currCamTr = tirdCamTr;
 
         charTrans = GetComponent<Transform>();

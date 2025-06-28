@@ -5,16 +5,20 @@ using UnityEngine.SceneManagement;
 
 namespace Menu 
 {
-    //This Game scene - 1;
+    //This Game scene = 1;
     public class PanelMenu : MonoBehaviour
     {
         // later need set inactive inventory for active Menu
-        public GameObject personCamera;
-        public GameObject personWindowUI;
-        public GameObject panelMenu; // instance for Camera_menu and Canvas_Menu
+        private GameObject charCam;
+        private GameObject windowUI;
+        private GameObject menuUI; // instance for Camera_menu and Canvas_Menu
         public bool isActiveMenu { get; private set; } = true;
+
         private void OnEnable()
         {
+            charCam = FindObjectOfType<FreeCameraCharacter>()?.gameObject;
+            windowUI = FindObjectOfType<WindowUI>()?.gameObject;
+            menuUI = GetComponentInChildren<MenuGameObjectUI>()?.gameObject;
             SetMenuState(false);
             UpdateCursorLockState();
         }
@@ -43,9 +47,9 @@ namespace Menu
         private void SetMenuState(bool isActiva)
         {
             isActiveMenu = isActiva;
-            panelMenu.SetActive(isActiveMenu);
-            personCamera.SetActive(!isActiveMenu);
-            personWindowUI.SetActive(!isActiveMenu); 
+            menuUI?.SetActive(isActiveMenu);
+            charCam?.SetActive(!isActiveMenu);
+            windowUI?.SetActive(!isActiveMenu); 
         }
        
         private void UpdateCursorLockState()
