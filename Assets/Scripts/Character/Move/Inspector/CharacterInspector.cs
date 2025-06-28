@@ -3,7 +3,7 @@ using StateData.Character;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-
+using Character.Camera;
 
 
 public class CharacterInspector : MonoBehaviour 

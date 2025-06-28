@@ -2,6 +2,7 @@
 using NPC.Main;
 using System;
 using Zenject;
+using Character.Camera;
 
 public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializable, IDisposable
 {   

@@ -8,6 +8,7 @@ using Zenject;
 using NPC.Main;
 using StateData.Character;
 using Character.InputEvents;
+using Character.Camera;
 
 
 [CreateAssetMenu(fileName = "Installer(State)", menuName = "Installers/State")]

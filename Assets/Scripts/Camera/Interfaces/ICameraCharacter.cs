@@ -1,14 +1,18 @@
  
 using UnityEngine; 
 
-public interface ICameraCharacter  
+namespace Character.Camera
 {
-    void RotateCamera(bool isAim);
-    void FollowCamera();
-    void ZoomCamera(bool isAiming, bool isReload);
-    void InputCamera_OnInputAxis(Vector2 inputAxis);
-    void InputCamera_OnScrollMouse(Vector2 scrollMouse);
-    float CheckCameraRotateAngle();
-    void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching); 
+    public interface ICameraCharacter
+    {
+        void RotateCamera(bool isAim);
+        void FollowCamera();
+        void ZoomCamera(bool isAiming, bool isReload);
+        void InputCamera_OnInputAxis(Vector2 inputAxis);
+        void InputCamera_OnScrollMouse(Vector2 scrollMouse);
+        float CheckCameraRotateAngle();
+        void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching);
 
+    }
 }
+

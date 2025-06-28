@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Character.Camera;
 
 namespace Menu 
 {

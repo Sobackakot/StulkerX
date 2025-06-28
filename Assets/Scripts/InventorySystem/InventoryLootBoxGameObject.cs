@@ -30,7 +30,7 @@ namespace Inventory_
         {
             materialBox.color = Color.red;
         }
-        public void OnActiveInventoryLootBox(bool isActive) // coll from raycast
+        public void ActiveInventoryUIPanel(bool isActive) // coll from raycast
         {
             boxInventoryPanel.gameObject.SetActive(isActive);
             playerInventoryPanel.gameObject.SetActive(isActive);

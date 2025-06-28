@@ -1,12 +1,10 @@
-
-using State.Character;
-using UnityEngine;
-using Zenject;
+using Character.InputEvents;
 using Inventory_;
 using StateData.Character;
-using Character.InputEvents;
+using UnityEngine;
+using Zenject;
 
-public class RaycastCamera : MonoBehaviour
+public class RaycastCamera : MonoBehaviour, IRaycastHitFPS, IRaycastHitItem, IRaycastHitLootBox, IRaycastHitParcour
 {
     private Transform targetAiming;
     [SerializeField] private float  aimPointSpeed = 45f;
@@ -20,8 +18,8 @@ public class RaycastCamera : MonoBehaviour
     [SerializeField] private float maxRayHeightParcoure = 6f;
     private float maxRayAiming = 1000f;
      
-    public LayerMask layerMaskBox;
-    public LayerMask layerMaskTake;
+    public LayerMask layerMaskLootBox;
+    public LayerMask layerMaskItem;
     public LayerMask ignorLayerMask;
     public LayerMask climbLayerMask;
 
@@ -58,16 +56,16 @@ public class RaycastCamera : MonoBehaviour
     {
         if(inputEvent!= null)
         {
-            inputEvent.OnActiveInventoryLootBox += InputCharacter_OnSearcheInventoryLootBox;
-            inputEvent.OnHasWeapon += InputCharacter_IsRaycastHitItem;
+            inputEvent.OnActiveInventoryLootBox += OnActiveInventoryUIPanel;
+            inputEvent.OnHasWeapon += OnRaycastHitForItem;
         } 
     }
     private void OnDisable()
     {
         if (inputEvent != null)
         {
-            inputEvent.OnActiveInventoryLootBox -= InputCharacter_OnSearcheInventoryLootBox;
-            inputEvent.OnHasWeapon -= InputCharacter_IsRaycastHitItem;
+            inputEvent.OnActiveInventoryLootBox -= OnActiveInventoryUIPanel;
+            inputEvent.OnHasWeapon -= OnRaycastHitForItem;
         }
     }
     public void Shooting(bool isLeftButtonDown)
@@ -75,63 +73,62 @@ public class RaycastCamera : MonoBehaviour
         if (isLeftButtonDown )
         {
            
-            rayForward = GetRayForward();
+            rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayAiming))
             {
                 hitForward.rigidbody?.AddForce(-hitForward.normal * 1f, ForceMode.Impulse);
             }
         }  
     }
-    public void GetPointRayAim()
+    public void UpdateRayPointAim()
     { 
-        rayForward = GetRayForward();
+        rayForward = GetRayForwardFromCamera();
         if (Physics.Raycast(rayForward, out hitForward, maxRayAiming, ~ignorLayerMask))
-            targetAiming.position = Vector3.Lerp(targetAiming.position, hitForward.point, Time.deltaTime * aimPointSpeed);
+            targetAiming.position = Vector3.Lerp(targetAiming.position, hitForward.point, Time.deltaTime * aimPointSpeed);//null ref
         else
             targetAiming.position = Vector3.Lerp(targetAiming.position, rayForward.GetPoint(1000), Time.deltaTime * aimPointSpeed);
     }
-    public void RayHitTakeItemInteract()
+    public void RaycastHitForItemInteract()
     {
-        rayForward = GetRayForward(); 
-        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskTake.value))
+        rayForward = GetRayForwardFromCamera(); 
+        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskItem.value))
         {
             stateData.isRayHitToItem = true;
             stateData.isRayHitToInventoryLootBox = false;
-            windowUI.SetInteractText("Take (F)"); 
+            windowUI?.SetInteractText("Take (F)"); 
         }
-        else RayHitInventoryBoxInteract();
+        else RaycastHitForLootBox();
     }
-    private void RayHitInventoryBoxInteract()
+    public void RaycastHitForLootBox()
     {
-        rayForward = GetRayForward();
-        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskBox.value))
+        rayForward = GetRayForwardFromCamera();
+        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskLootBox.value))
         {
             stateData.isRayHitToItem = false;
             stateData.isRayHitToInventoryLootBox = true;
-            windowUI.SetInteractText("Search (F)");
+            windowUI?.SetInteractText("Search (F)");
         }
         else
         {
             stateData.isRayHitToItem = false;
             stateData.isRayHitToInventoryLootBox = false;
-            windowUI.SetInteractText(" ");
+            windowUI?.SetInteractText(" ");
         }
             
     } 
-    public void InputCharacter_OnSearcheInventoryLootBox(bool isActive)
+    public void OnActiveInventoryUIPanel(bool isActive)
     {
-        rayForward = GetRayForward();
-        isActiveInventoryBox = isActive;
-        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract))
+        rayForward = GetRayForwardFromCamera(); 
+        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskLootBox.value))
         {
             InventoryLootBoxGameObject box = hitForward.collider.transform.GetComponent<InventoryLootBoxGameObject>(); 
-            box?.OnActiveInventoryLootBox(isActiveInventoryBox); 
+            box?.ActiveInventoryUIPanel(isActive); 
         } 
     }
-    public bool InputCharacter_IsRaycastHitItem()
+    public bool OnRaycastHitForItem()
     {
-        rayForward = GetRayForward();
-        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract))
+        rayForward = GetRayForwardFromCamera();
+        if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskItem.value))
         {
             PickUpItems pickUpItem = hitForward.collider.transform.GetComponent<PickUpItems>(); 
             if (PickUpWeapon(pickUpItem, hitForward)) return true; 
@@ -148,8 +145,8 @@ public class RaycastCamera : MonoBehaviour
     } 
     public bool SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown)
     {
-        bool isHitForward = RayForward(charTransPointRay, offsetPointRayFor);
-        bool isHitDown = RayDown(this.hitForward, isHitForward);
+        bool isHitForward = GetRayForwardFromCharacter(charTransPointRay, offsetPointRayFor);
+        bool isHitDown = GetRayDownFromCharacter(this.hitForward, isHitForward);
         stateData.isRayHitToObstacle = isHitDown;
         if (isHitDown)
         {
@@ -164,18 +161,18 @@ public class RaycastCamera : MonoBehaviour
         return isHitDown; 
     }
    
-    private bool RayForward(Transform charTrans, Vector3 offset)
+    private bool GetRayForwardFromCharacter(Transform charTrans, Vector3 offset)
     {  
         rayForward = new Ray(charTrans.position + offset, charTrans.forward);
         return Physics.Raycast(rayForward, out hitForward, maxRayForwardParcoure, climbLayerMask);  
     }
-    private bool RayDown(RaycastHit hit, bool isHitForward)
+    private bool GetRayDownFromCharacter(RaycastHit hit, bool isHitForward)
     {
         if (!isHitForward) return false; 
         rayDown = new Ray(hit.point + (Vector3.up * maxRayHeightParcoure), Vector3.down);
         return Physics.Raycast(rayDown, out hitDown, maxRayHeightParcoure, climbLayerMask);  
     } 
-    private Ray GetRayForward()
+    public Ray GetRayForwardFromCamera()
     {
         return new Ray(pointRay.position, pointRay.forward);
     }
