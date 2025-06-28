@@ -1,49 +1,56 @@
-using State.Character; 
+using Character.InputEvents;
 using UnityEngine;
 using Zenject;
 
 public class WeaponFreeParent : MonoBehaviour
 { 
     private Transform newParent;
-    [SerializeField] private Transform weaponOriginParent;
-    private Weapon weapon;
-    private CharacterInputEventHandler inputEvent;
+    private Transform weaponOriginParent;
+    private Transform trWeapon;
+    private IInputEvents inputEvent;
     [Inject]
-    private void Construct(CharacterInputEventHandler inputEvent)
+    private void Construct(IInputEvents inputEvent)
     {
         this.inputEvent = inputEvent; 
     }
     private void Awake()
     {
         newParent = GetComponent<Transform>();
+        weaponOriginParent = FindObjectOfType<WeaponHandle>()?.transform;
     }
     private void OnEnable()
-    {
-        inputEvent.OnSetParentWeapon += SetParentWeapon;
-        inputEvent.OnResetParenWeapon += ResetParenWeapon;
+    { 
+        if(inputEvent != null)
+        {
+            inputEvent.OnSetParentWeapon += SetParentWeapon;
+            inputEvent.OnResetParenWeapon += ResetParenWeapon;
+        } 
     }
     private void OnDisable()
     {
-        inputEvent.OnSetParentWeapon -= SetParentWeapon;
-        inputEvent.OnResetParenWeapon -= ResetParenWeapon;
+        if (inputEvent != null)
+        {
+            inputEvent.OnSetParentWeapon -= SetParentWeapon;
+            inputEvent.OnResetParenWeapon -= ResetParenWeapon;
+        }
     }
     private void SetParentWeapon()
-    { 
-        weapon = weaponOriginParent.GetComponentInChildren<Weapon>();
-        if (weapon != null)
-        {  
-            weapon.transform.SetParent(newParent);
-            weapon.transform.localPosition = Vector3.zero;
-            weapon.transform.localRotation = Quaternion.identity;
+    {
+        trWeapon = weaponOriginParent.GetComponentInChildren<Weapon>()?.transform;
+        if (trWeapon != null)
+        {
+            trWeapon.SetParent(newParent);
+            trWeapon.localPosition = Vector3.zero;
+            trWeapon.localRotation = Quaternion.identity;
         }
     } 
     private void ResetParenWeapon()
     { 
-        if (weapon != null)
-        { 
-            weapon.transform.SetParent(weaponOriginParent);
-            weapon.transform.localPosition = Vector3.zero;
-            weapon.transform.localRotation = Quaternion.identity;
+        if (trWeapon != null)
+        {
+            trWeapon.SetParent(weaponOriginParent);
+            trWeapon.localPosition = Vector3.zero;
+            trWeapon.localRotation = Quaternion.identity;
         }
     }
 }

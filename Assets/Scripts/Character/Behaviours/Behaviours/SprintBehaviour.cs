@@ -3,6 +3,7 @@ using Behaviour.Character.Base;
 using Behaviour.Handler;
 using StateData.Character;
 using UnityEngine;
+using Character.InputEvents;
 public class SprintBehaviour : BehaviourCharBase
 {
     public SprintBehaviour(
@@ -10,7 +11,7 @@ public class SprintBehaviour : BehaviourCharBase
         CharacterInspector character,
         CharacterAnimatorInspector animator,
         CharacterStateContext stateData,
-        CharacterInputEventHandler inputEvent,
+        IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
         behaviourHandler.Register<ISprintBehaviour>(this);

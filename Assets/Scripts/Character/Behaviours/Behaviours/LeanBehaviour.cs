@@ -2,6 +2,7 @@ using Behaviour.Character;
 using Behaviour.Character.Base;
 using Behaviour.Handler;
 using StateData.Character;
+using Character.InputEvents;
 public class LeanBehaviour : BehaviourCharBase
 {
     public LeanBehaviour(
@@ -9,7 +10,7 @@ public class LeanBehaviour : BehaviourCharBase
         CharacterInspector character,
         CharacterAnimatorInspector animator,
         CharacterStateContext stateData,
-        CharacterInputEventHandler inputEvent,
+        IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
         behaviourHandler.Register<ILeanBehaviour>(this);

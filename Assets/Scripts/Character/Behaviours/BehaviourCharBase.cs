@@ -1,4 +1,5 @@
-using Behaviour.Handler; 
+using Behaviour.Handler;
+using Character.InputEvents;
 using StateData.Character; 
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace Behaviour.Character.Base
             CharacterInspector character,
             CharacterAnimatorInspector animator,
             CharacterStateContext stateData,
-            CharacterInputEventHandler inputEvent,
+            IInputEvents inputEvent,
             IBehaviourHandler behaviourHandler)
         {  
             this.character = character;
@@ -42,7 +43,7 @@ namespace Behaviour.Character.Base
         public CharacterAnimatorInspector animator { get; private set; }
 
         public CharacterStateContext stateData { get; private set; }
-        public CharacterInputEventHandler inputEvent { get; private set; }
+        public IInputEvents inputEvent { get; private set; }
 
         public readonly IBehaviourHandler behaviourHandler;
 

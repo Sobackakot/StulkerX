@@ -1,4 +1,5 @@
 using Behaviour.Handler;
+using Character.InputEvents;
 using State.Character.Battle;
 using State.Character.Move;
 using State.Character.Weapon;
@@ -9,7 +10,7 @@ public class CharacterMoveMain
 
         CharacterInspector charac, 
         CharacterAnimatorInspector animator,
-        CharacterInputEventHandler inputEvent,
+        IInputEvents inputEvent,
         CharacterStateContext stateContex)
     {
         behaviourHandler = new();
@@ -25,7 +26,7 @@ public class CharacterMoveMain
     private CharacterAnimatorInspector animator; 
 
      
-    private CharacterInputEventHandler inputEvent;
+    private IInputEvents inputEvent;
     private CharacterStateContext stateContext;
     private PlanerCharacter<CharacterStateContext> planer;
 

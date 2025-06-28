@@ -3,6 +3,7 @@ using Behaviour.Character.Base;
 using Behaviour.Handler;
 using StateData.Character;
 using UnityEngine;
+using Character.InputEvents;
 public class RotateBehaviour : BehaviourCharBase
 {
     public RotateBehaviour(
@@ -10,7 +11,7 @@ public class RotateBehaviour : BehaviourCharBase
         CharacterInspector character,
         CharacterAnimatorInspector animator,
         CharacterStateContext stateData,
-        CharacterInputEventHandler inputEvent,
+        IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
         behaviourHandler.Register<IRotateBehaviour>(this);

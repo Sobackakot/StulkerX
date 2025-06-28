@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using Inventory_;
 using StateData.Character;
+using Character.InputEvents;
 
 public class RaycastCamera : MonoBehaviour
 {
@@ -36,10 +37,10 @@ public class RaycastCamera : MonoBehaviour
     private bool isActiveInventoryBox;
 
     private CharacterStateContext stateData;
-    private CharacterInputEventHandler inputEvent;
+    private IInputEvents inputEvent;
 
     [Inject]
-    private void Construct(CharacterInputEventHandler inputEvent, CharacterStateContext stateData)
+    private void Construct(IInputEvents inputEvent, CharacterStateContext stateData)
     {
         this.inputEvent = inputEvent;
         this.stateData = stateData;
@@ -55,13 +56,19 @@ public class RaycastCamera : MonoBehaviour
     }
     private void OnEnable()
     {
-        inputEvent.OnActiveInventoryLootBox += InputCharacter_OnSearcheInventoryLootBox;
-        inputEvent.OnHasWeapon += InputCharacter_IsRaycastHitItem;
+        if(inputEvent!= null)
+        {
+            inputEvent.OnActiveInventoryLootBox += InputCharacter_OnSearcheInventoryLootBox;
+            inputEvent.OnHasWeapon += InputCharacter_IsRaycastHitItem;
+        } 
     }
     private void OnDisable()
     {
-        inputEvent.OnActiveInventoryLootBox -= InputCharacter_OnSearcheInventoryLootBox;
-        inputEvent.OnHasWeapon -= InputCharacter_IsRaycastHitItem;
+        if (inputEvent != null)
+        {
+            inputEvent.OnActiveInventoryLootBox -= InputCharacter_OnSearcheInventoryLootBox;
+            inputEvent.OnHasWeapon -= InputCharacter_IsRaycastHitItem;
+        }
     }
     public void Shooting(bool isLeftButtonDown)
     {

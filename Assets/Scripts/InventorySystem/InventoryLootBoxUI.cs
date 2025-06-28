@@ -1,15 +1,16 @@
 
 using UnityEngine;
+using Character.InputEvents;
 using Zenject;
 
 namespace Inventory_
 {
     public class InventoryLootBoxUI : MonoBehaviour
     { 
-        private CharacterInputEventHandler inputEvent;
+        private IInputEvents inputEvent;
 
         [Inject]
-        private void Construct(CharacterInputEventHandler state)
+        private void Construct(IInputEvents state)
         {
             this.inputEvent = state;
         } 
@@ -19,11 +20,13 @@ namespace Inventory_
         }
         private void OnEnable()
         {
-            inputEvent.OnActiveInventory += InputCharacter_OnExitInventoryLootBox;  
+            if(inputEvent!= null)
+                inputEvent.OnActiveInventory += InputCharacter_OnExitInventoryLootBox;  
         }
         private void OnDisable()
         {
-            inputEvent.OnActiveInventory -= InputCharacter_OnExitInventoryLootBox; 
+            if (inputEvent != null)
+                inputEvent.OnActiveInventory -= InputCharacter_OnExitInventoryLootBox; 
         }  
         public void InputCharacter_OnExitInventoryLootBox(bool isActive)
         {

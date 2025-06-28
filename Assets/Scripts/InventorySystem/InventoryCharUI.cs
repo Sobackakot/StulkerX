@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Zenject;
+using Character.InputEvents;
 using State.Character;
 
 
@@ -8,10 +9,10 @@ namespace Inventory_
 {
     public class InventoryCharUI : MonoBehaviour
     {
-        private CharacterInputEventHandler inputEvent;
+        private IInputEvents inputEvent;
 
         [Inject]
-        private void Construct(CharacterInputEventHandler inputEvent)
+        private void Construct(IInputEvents inputEvent)
         {
             this.inputEvent = inputEvent;
         }
@@ -21,13 +22,19 @@ namespace Inventory_
         }
         private void OnEnable()
         {
-            inputEvent.OnActiveInventory += Input_OnActivateInventory;
-            inputEvent.OnExitInventory += Input_OnExitInventory; 
+            if (inputEvent != null)
+            {
+                inputEvent.OnActiveInventory += Input_OnActivateInventory;
+                inputEvent.OnExitInventory += Input_OnExitInventory;
+            } 
         }
         private void OnDestroy()// this class inactive start game - can't be in onDisable
         {
-            inputEvent.OnActiveInventory -= Input_OnActivateInventory;
-            inputEvent.OnExitInventory -= Input_OnExitInventory; 
+            if (inputEvent != null)
+            {
+                inputEvent.OnActiveInventory -= Input_OnActivateInventory;
+                inputEvent.OnExitInventory -= Input_OnExitInventory;
+            }
         }
         private void Input_OnActivateInventory(bool isActive)
         {

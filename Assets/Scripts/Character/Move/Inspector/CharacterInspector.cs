@@ -1,3 +1,4 @@
+using Character.InputEvents;
 using StateData.Character;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,10 +42,10 @@ public class CharacterInspector : MonoBehaviour
 
     public FireEffectsMain weaponEfect { get; private set; }
     public CharacterStateContext stateData { get; private set; }
-    public CharacterInputEventHandler inputEvent { get; private set; }
+    public IInputEvents inputEvent { get; private set; }
 
     [Inject] 
-    private void Construct(CharacterStateContext stateData, CharacterInputEventHandler inputEvent, FireEffectsMain weaponEfect)
+    private void Construct(CharacterStateContext stateData, IInputEvents inputEvent, FireEffectsMain weaponEfect)
     {
         this.stateData = stateData;
         this.inputEvent = inputEvent;

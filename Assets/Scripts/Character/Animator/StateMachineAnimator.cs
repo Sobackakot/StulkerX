@@ -1,7 +1,7 @@
- 
+
 using UnityEngine;
 using Zenject;
-using State.Character; 
+using Character.InputEvents;
 
 public class StateMachineAnimator : StateMachineBehaviour
 {  
@@ -18,10 +18,10 @@ public class StateMachineAnimator : StateMachineBehaviour
 
     public bool isParcoureState;
 
-    private CharacterInputEventHandler inputEvent;
+    private IInputEvents inputEvent;
 
     [Inject]
-    private void Construct(CharacterInputEventHandler inputEvent)
+    private void Construct(IInputEvents inputEvent)
     {
         this.inputEvent = inputEvent;
     }

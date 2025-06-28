@@ -7,6 +7,7 @@ using UnityEngine;
 using Zenject;
 using NPC.Main;
 using StateData.Character;
+using Character.InputEvents;
 
 
 [CreateAssetMenu(fileName = "Installer(State)", menuName = "Installers/State")]
@@ -70,7 +71,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<InputCharacter>().FromNew().AsSingle().NonLazy();
         Container.Bind<CharacterMoveMain>().FromNew().AsSingle().NonLazy();
         
-        Container.Bind<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy(); 
+        Container.BindInterfacesAndSelfTo<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy(); 
           
         Container.Bind<CharacterStateContext>().FromNew().AsSingle().NonLazy();   
         //MonoBehaviour  

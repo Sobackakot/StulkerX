@@ -1,6 +1,7 @@
 using Behaviour.Character;
 using Behaviour.Character.Base;
 using Behaviour.Handler;
+using Character.InputEvents;
 using StateData.Character;
 using System;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class ParkourBehaviour : BehaviourCharBase
         CharacterInspector character,
         CharacterAnimatorInspector animator,
         CharacterStateContext stateData,
-        CharacterInputEventHandler inputEvent,
+        IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
         behaviourHandler.Register<IParkourBehaviour>(this);

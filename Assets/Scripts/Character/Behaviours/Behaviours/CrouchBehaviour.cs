@@ -2,6 +2,7 @@ using Behaviour.Character;
 using Behaviour.Character.Base;
 using Behaviour.Handler;
 using StateData.Character;
+using Character.InputEvents;
 using UnityEngine;
 public class CrouchBehaviour : BehaviourCharBase
 {
@@ -10,7 +11,7 @@ public class CrouchBehaviour : BehaviourCharBase
         CharacterInspector character,
         CharacterAnimatorInspector animator,
         CharacterStateContext stateData,
-        CharacterInputEventHandler inputEvent,
+        IInputEvents inputEvent,
         IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
     {
         behaviourHandler.Register<ICrouchBehaviour>(this);
