@@ -12,21 +12,26 @@ public class InputCamera : IInitializable, IDisposable
         inputActions = new InputActions();
         inputActions.Enable();
         inputActions.ActionMaps.CameraSwitch.performed += ctx => EventBus.Publish(new SwitchEventCamera());
+
         inputActions.ActionMaps.MouseDelta.performed += ctx => EventBus.Publish(new InputEventCamera(ctx.ReadValue<Vector2>()));
+        inputActions.ActionMaps.MouseDelta.canceled += ctx => EventBus.Publish(new InputEventCamera(Vector2.zero));
+
         inputActions.ActionMaps.MouseScroll.performed += ctx => EventBus.Publish(new CameraZoomEvent(ctx.ReadValue<Vector2>()));
     } 
     public void Dispose()
     {
         inputActions.ActionMaps.CameraSwitch.performed -= ctx => EventBus.Publish(new SwitchEventCamera());
-        inputActions.ActionMaps.MouseDelta.performed -= ctx => EventBus.Publish(new InputEventCamera(Vector2.zero));
+
+        inputActions.ActionMaps.MouseDelta.performed -= ctx => EventBus.Publish(new InputEventCamera(ctx.ReadValue<Vector2>()));
+        inputActions.ActionMaps.MouseDelta.canceled -= ctx => EventBus.Publish(new InputEventCamera(Vector2.zero));
+
         inputActions.ActionMaps.MouseScroll.performed -= ctx => EventBus.Publish(new CameraZoomEvent(Vector2.zero));
 
         inputActions.Disable();
     } 
 }
 public struct SwitchEventCamera
-{
-    public bool IsFirstPerson; 
+{ 
 }
 public struct InputEventCamera
 {

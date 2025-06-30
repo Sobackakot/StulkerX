@@ -1,11 +1,9 @@
- 
+
 using UnityEngine;
-using Zenject;
-using State.Character;
 
 namespace Character.Camera
 {
-    public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
+    public class FirstCameraCharacter : MonoBehaviour, IFirstCamera
     {
         private Transform targetLookPoint;
         [HideInInspector] public Transform transformCamera;
@@ -24,26 +22,13 @@ namespace Character.Camera
         private float minZoom = 0f;
         private float maxZoom = 0f;
 
-        private CharacterStateBootstrap state;
-
-        [Inject]
-        private void Construct(CharacterStateBootstrap state)
-        {
-            this.state = state;
-        }
+   
         private void Awake()
         {
             transformCamera = GetComponent<Transform>();
             targetLookPoint = FindObjectOfType<TargetFirstCamera>()?.transform;
         }
-        private void OnEnable()
-        {
-            state.Camera.OnInputAxis += InputCamera_OnInputAxis;
-        }
-        private void OnDisable()
-        {
-            state.Camera.OnInputAxis -= InputCamera_OnInputAxis;
-        }
+ 
         void Start()
         {
             offset = transformCamera.position - targetLookPoint.position;
@@ -67,13 +52,10 @@ namespace Character.Camera
             transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
         }
 
-        public void InputCamera_OnInputAxis(Vector2 inputAxis)
-        {
-            if (state.Camera.isStopingRotate)
-            {
-                mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
-                mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
-            }
+        public void SetInputAxis(Vector2 inputAxis)
+        { 
+            mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
+            mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
         }
         public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
         {

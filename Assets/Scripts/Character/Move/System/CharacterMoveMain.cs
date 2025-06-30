@@ -27,7 +27,7 @@ public class CharacterMoveMain
 
      
     private IInputEvents inputEvent;
-    private CharacterStateContext stateContext;
+    public CharacterStateContext stateContext { get; private set; }
     private PlanerCharacter<CharacterStateContext> planer;
 
     private BehaviourHandler behaviourHandler;
@@ -38,7 +38,8 @@ public class CharacterMoveMain
     private WeaponStateHandler weaponFSM;
 
     public void Initialize()
-    { 
+    {
+        inputEvent.Initialize();
         InitializeBehaviour();
         InitializeMoveState();
         InitializeReadyForBattleState();
@@ -52,6 +53,7 @@ public class CharacterMoveMain
 
     public void Dispose()
     {
+        inputEvent.Dispose();
         planer.OnDisable(stateContext);
     }
     private void InitializeActions()

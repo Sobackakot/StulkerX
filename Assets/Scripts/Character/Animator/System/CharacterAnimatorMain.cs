@@ -5,24 +5,20 @@ using StateData.Character;
 public class CharacterAnimatorMain  
 { 
     public CharacterAnimatorMain(CharacterAnimatorInspector characterAnimator,
-        CharacterStateContext stateData, CharacterIK characterIK, CharacterStateBootstrap state)
+        CharacterStateContext stateData, CharacterIK characterIK)
     {
         this.characterAnimator = characterAnimator; 
         this.stateData = stateData;
         this.characterIK = characterIK;
-        this.state = state;
     }
     private CharacterStateContext stateData;
     private CharacterAnimatorInspector characterAnimator; 
     private CharacterIK characterIK;
 
-    private CharacterStateBootstrap state;
     public void Tick()
     {
-        var camera = state.Camera;
-        characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isStopingRotate);
-        characterAnimator.TurnAnimation(camera.inputAxis, camera.isStopingRotate, camera.isMaxAngle);
-
+        characterAnimator.SwitchAnimationTurn(stateData.currentAngle, stateData.isStopingRotate);
+        characterAnimator.TurnAnimation(stateData.inputAxis, stateData.isStopingRotate, stateData.isMaxAngle);
     }  
     public void LateTick()
     {

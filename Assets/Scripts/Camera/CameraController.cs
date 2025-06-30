@@ -1,64 +1,55 @@
-
-using State.Character;
 using StateData.Character;
-using System.Collections.Generic;
-using Zenject;
+using UnityEngine;
 
 namespace Character.Camera
 {
     public class CameraController
     {
-        public CameraController(CharacterStateBootstrap state, CharacterStateContext stateData, RaycastCamera ray,
-        [Inject(Id = "cameraTird")] ICameraCharacter cameraTird, [Inject(Id = "firstCam")] ICameraCharacter cameraFerst)
+        public CameraController(
+
+            CharacterStateContext stateContext, RaycastCamera ray,
+            IFreeCamera freeCamera, IFirstCamera firstCamera)
         {
             this.ray = ray;
-            this.state = state;
-            this.stateData = stateData;
-
-            cameras = new Dictionary<bool, ICameraCharacter>
-        {
-            { true, cameraFerst },
-            { false, cameraTird }
-        };
-            activeCamera = cameras[this.state.Camera.isFerst];
-
+            this.stateContext = stateContext;
+            this.freeCamera = freeCamera;
+            this.firstCamera = firstCamera;
         }
 
-        private CharacterStateContext stateData;
-        private CharacterStateBootstrap state;
+        public CharacterStateContext stateContext { get; private set; }
         private RaycastCamera ray;
 
-        private ICameraCharacter activeCamera;
-        private readonly Dictionary<bool, ICameraCharacter> cameras;
+        private IFreeCamera freeCamera;
+        private IFirstCamera firstCamera;
+        private ICameraCharacter activeCamera; 
 
 
         private void SwitchCamera()
         {
-            activeCamera = cameras[state.Camera.isFerst];
+            activeCamera = stateContext.isFerst ? firstCamera : freeCamera;
         }
         public void Tick()
         {
             SwitchCamera();
-            activeCamera.SwitchLookPointCamera(stateData.isLeftTargerPoint, stateData.isCrouch);
-            state.Camera.SetStateRotateCamera(stateData.isActiveInventory);
+            activeCamera.SwitchLookPointCamera(stateContext.isLeftTargerPoint, stateContext.isCrouch); 
             float angle = activeCamera.CheckCameraRotateAngle();
-            state.Camera.SetAngleForCamera(angle);
+            activeCamera.SetInputAxis(stateContext.inputAxisCamera);
         }
         public void LateTick()
         {
-            activeCamera.FollowCamera();
-            if (state.Camera.isStopingRotate)
-                activeCamera.RotateCamera(stateData.isAim);
-            activeCamera.ZoomCamera(stateData.isAim, stateData.isReloadingState);
+            
+            activeCamera.FollowCamera(); 
+            activeCamera.RotateCamera(stateContext.isAim);
+            activeCamera.ZoomCamera(stateContext.isAim, stateContext.isReloadingState);
         }
 
         public void FixedTick()
         {
             ray.RaycastHitForItemInteract();
-            if (stateData.isAim)
+            if (stateContext.isAim)
             {
                 ray.UpdateRayPointAim();
-                ray.Shooting(stateData.isFire);
+                ray.Shooting(stateContext.isFire);
             }
         }
     }

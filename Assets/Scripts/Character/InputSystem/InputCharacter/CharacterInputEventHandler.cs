@@ -8,7 +8,7 @@ namespace Character.InputEvents
     {
         public CharacterInputEventHandler(CharacterStateContext stateData)
         {
-            this.stateData = stateData;
+            this.stateData = stateData; 
         }
         private CharacterStateContext stateData;
 
@@ -27,8 +27,11 @@ namespace Character.InputEvents
         public event Action OnSetParentWeapon;
         public event Action OnResetParenWeapon;
 
-        public void Enable()
+        public void Initialize()
         {
+            EventBus.Subscribe<SwitchEventCamera>(InputCamera_OnSwitchCamera);
+            EventBus.Subscribe<InputEventCamera>(InputCamera_OnInputAxisCamera);
+
             EventBus.Subscribe<ReloadWeaponEvent>(ReloadWeaponBehaviour);
             EventBus.Subscribe<AimInputEvent>(AimWeaponBehaviour);
             EventBus.Subscribe<EquipWeaponToggleEvent>(EquipWeaponBehaviour);
@@ -48,8 +51,11 @@ namespace Character.InputEvents
             EventBus.Subscribe<InventoryLootBoxActiveEvent>(InventoryLootBoxActive);
             EventBus.Subscribe<InventoryActiveEvent>(InventoryActive);
         }
-        public void Disable()
+        public void Dispose()
         {
+            EventBus.Unsubscribe<SwitchEventCamera>(InputCamera_OnSwitchCamera);
+            EventBus.Unsubscribe<InputEventCamera>(InputCamera_OnInputAxisCamera);
+
             EventBus.Unsubscribe<ReloadWeaponEvent>(ReloadWeaponBehaviour);
             EventBus.Unsubscribe<AimInputEvent>(AimWeaponBehaviour);
             EventBus.Unsubscribe<EquipWeaponToggleEvent>(EquipWeaponBehaviour);
@@ -68,6 +74,15 @@ namespace Character.InputEvents
             EventBus.Unsubscribe<InventoryExitEvent>(ExitInventory);
             EventBus.Unsubscribe<InventoryLootBoxActiveEvent>(InventoryLootBoxActive);
             EventBus.Unsubscribe<InventoryActiveEvent>(InventoryActive);
+        }
+
+        public void InputCamera_OnInputAxisCamera(InputEventCamera inputAxis)
+        { 
+            stateData.inputAxisCamera = inputAxis.InputAxis; 
+        }
+        public void InputCamera_OnSwitchCamera(SwitchEventCamera a)
+        {
+            stateData.isFerst = !stateData.isFerst;
         }
 
         public void ExitInventory(InventoryExitEvent inventory)

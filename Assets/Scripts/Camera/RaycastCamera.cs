@@ -51,6 +51,7 @@ public class RaycastCamera : MonoBehaviour, IRaycastHitFPS, IRaycastHitItem, IRa
         charact = FindObjectOfType<CharacterInspector>();
         charTransPointRay = charact.GetComponent<Transform>();
         targetAiming = GetComponentInChildren<TargetRayPointAim>()?.transform;
+        if (targetAiming == null) Debug.Log("target raycast hit null");
     }
     private void OnEnable()
     {
@@ -84,7 +85,7 @@ public class RaycastCamera : MonoBehaviour, IRaycastHitFPS, IRaycastHitItem, IRa
     { 
         rayForward = GetRayForwardFromCamera();
         if (Physics.Raycast(rayForward, out hitForward, maxRayAiming, ~ignorLayerMask))
-            targetAiming.position = Vector3.Lerp(targetAiming.position, hitForward.point, Time.deltaTime * aimPointSpeed);//null ref
+            targetAiming.position = Vector3.Lerp(targetAiming.position, hitForward.point, Time.deltaTime * aimPointSpeed); 
         else
             targetAiming.position = Vector3.Lerp(targetAiming.position, rayForward.GetPoint(1000), Time.deltaTime * aimPointSpeed);
     }

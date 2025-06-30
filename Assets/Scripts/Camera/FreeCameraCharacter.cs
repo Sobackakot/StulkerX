@@ -1,11 +1,9 @@
- 
+
 using UnityEngine;
-using Zenject;
-using State.Character;
 
 namespace Character.Camera
 {
-    public class FreeCameraCharacter : MonoBehaviour, ICameraCharacter
+    public class FreeCameraCharacter : MonoBehaviour, IFreeCamera
     {
         private Transform targetLookPoint;
 
@@ -29,26 +27,13 @@ namespace Character.Camera
 
         private float newHeigth;
 
-        private CharacterStateBootstrap state;
-
-        [Inject]
-        private void Construct(CharacterStateBootstrap state)
-        {
-            this.state = state;
-        }
+     
         private void Awake()
         {
             transformCamera = GetComponent<Transform>();
             targetLookPoint = FindObjectOfType<TargetFreeCamera>()?.transform;
         }
-        private void OnEnable()
-        {
-            state.Camera.OnInputAxis += InputCamera_OnInputAxis;
-        }
-        private void OnDisable()
-        {
-            state.Camera.OnInputAxis -= InputCamera_OnInputAxis;
-        }
+ 
         private void Start()
         {
             offset = transformCamera.position - targetLookPoint.position;
@@ -73,20 +58,14 @@ namespace Character.Camera
             transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
         }
 
-        public void InputCamera_OnInputAxis(Vector2 inputAxis)
+        public void SetInputAxis(Vector2 inputAxis)
         {
-            if (state.Camera.isStopingRotate)
-            {
-                mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
-                mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
-            }
+            mouseAxisX += inputAxis.x * sensitivityMouse * Time.unscaledDeltaTime;
+            mouseAxisY -= inputAxis.y * sensitivityMouse * Time.unscaledDeltaTime;
         }
         public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
         {
-            if (state.Camera.isStopingRotate)
-            {
-                mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
-            }
+            mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
         }
 
 

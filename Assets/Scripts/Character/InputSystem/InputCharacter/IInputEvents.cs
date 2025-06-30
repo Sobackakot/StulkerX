@@ -16,8 +16,8 @@ namespace Character.InputEvents
         event Action OnReloadWeapon;
         event Action OnSetParentWeapon;
         event Action OnResetParenWeapon;
-        void Enable();
-        void Disable();
+        void Initialize();
+        void Dispose();
         void SetReloadWeaponAnimationState(bool isReload);
         void SetEquippWeaponAnimationState(bool isEquipping);
     }

@@ -33,7 +33,7 @@ namespace State.CoreFSM
                     var next = rule.Invoke(); 
                     if (!EqualityComparer<StateType>.Default.Equals(next, currentStateType))
                     {
-                        Debug.Log($"[FSM] Transitioning from {currentStateType} to {next}");
+                        //Debug.Log($"[FSM] Transitioning from {currentStateType} to {next}");
                         SetFSM(next);
                         break;
                     }

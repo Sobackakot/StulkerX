@@ -41,13 +41,13 @@ public class CharacterInspector : MonoBehaviour
 
 
     public FireEffectsMain weaponEfect { get; private set; }
-    public CharacterStateContext stateData { get; private set; }
+    public CharacterStateContext stateContext { get; private set; }
     public IInputEvents inputEvent { get; private set; }
 
     [Inject] 
     private void Construct(CharacterStateContext stateData, IInputEvents inputEvent, FireEffectsMain weaponEfect)
     {
-        this.stateData = stateData;
+        this.stateContext = stateData;
         this.inputEvent = inputEvent;
         this.weaponEfect = weaponEfect;
     }
@@ -66,17 +66,9 @@ public class CharacterInspector : MonoBehaviour
         animator = GetComponent<Animator>();
         stateMachin = animator.GetBehaviour<StateMachineAnimator>(); 
     }
-    private void OnEnable()
-    {
-        inputEvent.Enable();
-    }
-    private void OnDisable()
-    {
-        inputEvent.Disable();
-    }
     public void UpdateDirectionMove()
     { 
-        inputAxis = stateData.inputAxis;
+        inputAxis = stateContext.inputAxis;
         directionForward = Vector3.ProjectOnPlane(currCamTr.forward, Vector3.up).normalized;
         directionRight = Vector3.ProjectOnPlane(currCamTr.right, Vector3.up).normalized;
         newDirection = (inputAxis.z * directionForward) + (inputAxis.x * directionRight); 
@@ -94,11 +86,11 @@ public class CharacterInspector : MonoBehaviour
     
     private void OnCollisionStay(Collision collision)
     {
-        stateData.isCollision = true;
+        stateContext.isCollision = true;
     }
     private void OnCollisionExit(Collision collision)
     {
-        stateData.isCollision = false;
+        stateContext.isCollision = false;
     } 
    
 }

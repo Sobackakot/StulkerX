@@ -22,13 +22,10 @@ public class CharacterInstaller : ScriptableObjectInstaller
     private const string InventoryBoxUI_ID = "inventoryBoxUI";
     private const string EquipmentUI_ID = "equipmentUI";
 
-    private const string CameraTird_ID = "cameraTird";
-    private const string CameraFerst_ID = "firstCam";
      
 
     public override void InstallBindings()
-    {
-        FSM(); 
+    { 
         BindCharacter();
         BindCamera();
         BindInventory();
@@ -52,18 +49,13 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<RegistryTargets>().FromNew().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<RegistryNPC>().FromNew().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<NPC_Main>().FromNew().AsSingle().NonLazy(); 
-    }
-    private void FSM()
-    {
-        Container.Bind<CharacterStateBootstrap>().FromNew().AsSingle().NonLazy(); 
-    }
-     
+    } 
     private void BindCamera()
     {
         Container.BindInterfacesAndSelfTo<CameraController>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();  
-        Container.Bind<ICameraCharacter>().WithId(CameraTird_ID).To<FreeCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<ICameraCharacter>().WithId(CameraFerst_ID).To<FirstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IFreeCamera>().To<FreeCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IFirstCamera>().To<FirstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
     }
 
@@ -72,9 +64,9 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<InputCharacter>().FromNew().AsSingle().NonLazy();
         Container.Bind<CharacterMoveMain>().FromNew().AsSingle().NonLazy();
         
-        Container.BindInterfacesAndSelfTo<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy(); 
-          
-        Container.Bind<CharacterStateContext>().FromNew().AsSingle().NonLazy();   
+        Container.BindInterfacesAndSelfTo<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy();
+
+        Container.Bind<CharacterStateContext>().FromNew().AsSingle();
         //MonoBehaviour  
         Container.Bind<CharacterInspector>().FromComponentInHierarchy(this).AsSingle();
         

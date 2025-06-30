@@ -4,12 +4,19 @@ using UnityEngine;
 
 namespace StateData.Character 
 {
-    [Serializable]
     public class CharacterStateContext : CharacterContext
     {
         public override event Action onExecuteMoveTransition;
         public override event Action onExecuteReadyTransition;
         public override event Action onExecuteWeaponTransition;
+
+         
+        public Vector2 inputAxisCamera;
+        public float currentAngle { get; private set; }
+        public bool isFerst { get; set; }
+        public bool isStopingRotate { get; private set; }
+        public bool isMaxAngle { get; private set; }
+
 
         public Vector3 inputAxis { get; set; }
 
@@ -77,7 +84,7 @@ namespace StateData.Character
             get => _isAim;
             set
             {
-                if (_isAim == value) return;
+                if (_isAim == value) return; 
                 _isAim = value;
                 onExecuteMoveTransition?.Invoke();
                 onExecuteWeaponTransition?.Invoke();

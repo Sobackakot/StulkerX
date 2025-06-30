@@ -35,7 +35,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3630686862268621799}
-  - {fileID: 3770395400378081503}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 7.268, z: 0}
 --- !u!20 &6703997955595912190
@@ -285,12 +284,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3287111826007443781}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 14.41}
+  m_LocalRotation: {x: -0, y: 0.70710677, z: 0.000000007450579, w: 0.70710677}
+  m_LocalPosition: {x: 0, y: 0, z: 14.410003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1410987045741087982}
+  m_Father: {fileID: 3630686862268621799}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &5638658208064117672
 MonoBehaviour:
@@ -333,7 +332,8 @@ Transform:
   m_LocalPosition: {x: -0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3770395400378081503}
   m_Father: {fileID: 1410987045741087982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5159062725527824622
@@ -348,17 +348,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5cf3877bafae5e489d58255ce124df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAiming: {fileID: 3770395400378081503}
   aimPointSpeed: 45
   offsetPointRayFor: {x: 0, y: 0.25, z: 0}
   offsetPointRayDown: {x: 0, y: 6, z: 0.6}
   maxRayInteract: 4
   maxRayForwardParcoure: 1.2
   maxRayHeightParcoure: 6
-  layerMaskBox:
+  layerMaskLootBox:
     serializedVersion: 2
     m_Bits: 0
-  layerMaskTake:
+  layerMaskItem:
     serializedVersion: 2
     m_Bits: 0
   ignorLayerMask:
