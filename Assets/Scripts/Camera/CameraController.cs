@@ -26,13 +26,13 @@ namespace Character.Camera
 
         private void SwitchCamera()
         {
-            activeCamera = stateContext.isFerst ? firstCamera : freeCamera;
+            activeCamera = stateContext.isFirstCamera ? firstCamera : freeCamera;
         }
         public void Tick()
         {
             SwitchCamera();
-            activeCamera.SwitchLookPointCamera(stateContext.isLeftTargerPoint, stateContext.isCrouch); 
-            float angle = activeCamera.CheckCameraRotateAngle();
+            activeCamera.SwitchLookPointCamera(stateContext.isLeftTargerPoint, stateContext.isCrouch);  
+            stateContext.currentAngle = activeCamera.CheckCameraRotateAngle();
             activeCamera.SetInputAxis(stateContext.inputAxisCamera);
         }
         public void LateTick()

@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Character.Camera
@@ -6,8 +8,9 @@ namespace Character.Camera
     public class FreeCameraCharacter : MonoBehaviour, IFreeCamera
     {
         private Transform targetLookPoint;
-
-        [HideInInspector] public Transform transformCamera;
+        private Transform rightLookPointTr;
+        private Transform leftLookPointTr;
+        public Transform transformCamera { get; private set; }
         [SerializeField] private float sensitivityMouse = 45f;
         [SerializeField] private float scrollSpeed = 3f;
         [SerializeField] private float transitionSpeed = 9f;
@@ -31,11 +34,13 @@ namespace Character.Camera
         private void Awake()
         {
             transformCamera = GetComponent<Transform>();
-            targetLookPoint = FindObjectOfType<TargetFreeCamera>()?.transform;
+            rightLookPointTr = FindObjectOfType<RightFreeLookPointCamera>().transform;
+            leftLookPointTr = FindObjectOfType<LeftFreeLookPointCamera>().transform;
         }
  
         private void Start()
         {
+            targetLookPoint = rightLookPointTr;
             offset = transformCamera.position - targetLookPoint.position;
         }
         public void FollowCamera()
@@ -78,10 +83,7 @@ namespace Character.Camera
 
         public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
         {
-            float heightPoint = isCrouching ? 1.2f : 1.6f;
-            newHeigth = Mathf.Lerp(newHeigth, heightPoint, Time.deltaTime * transitionSpeed);
-            Vector3 targetPosition = new Vector3(isLeftPointLook ? leftTarget : rightTarget, newHeigth, 0);
-            targetLookPoint.localPosition = Vector3.Lerp(targetLookPoint.localPosition, targetPosition, Time.deltaTime * transitionSpeed);
+            targetLookPoint = isLeftPointLook ? leftLookPointTr : rightLookPointTr;
         }
 
     }

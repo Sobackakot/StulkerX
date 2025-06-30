@@ -12,10 +12,18 @@ namespace StateData.Character
 
          
         public Vector2 inputAxisCamera;
-        public float currentAngle { get; private set; }
-        public bool isFerst { get; set; }
-        public bool isStopingRotate { get; private set; }
-        public bool isMaxAngle { get; private set; }
+        private float _currentAngle;
+        public float currentAngle 
+        { 
+            get => _currentAngle;
+            set { _currentAngle = value; }
+        }
+        private bool _isFirstCamera; 
+        public bool isFirstCamera 
+        {
+            get => _isFirstCamera;
+            set { _isFirstCamera = value; } 
+        } 
 
 
         public Vector3 inputAxis { get; set; }

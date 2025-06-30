@@ -82,7 +82,7 @@ namespace Character.InputEvents
         }
         public void InputCamera_OnSwitchCamera(SwitchEventCamera a)
         {
-            stateData.isFerst = !stateData.isFerst;
+            stateData.isFirstCamera = !stateData.isFirstCamera;
         }
 
         public void ExitInventory(InventoryExitEvent inventory)

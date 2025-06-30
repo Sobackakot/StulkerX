@@ -17,8 +17,8 @@ public class CharacterAnimatorMain
 
     public void Tick()
     {
-        characterAnimator.SwitchAnimationTurn(stateData.currentAngle, stateData.isStopingRotate);
-        characterAnimator.TurnAnimation(stateData.inputAxis, stateData.isStopingRotate, stateData.isMaxAngle);
+        characterAnimator.SwitchAnimationTurn(stateData.currentAngle);
+        characterAnimator.TurnAnimation(stateData.inputAxisCamera);
     }  
     public void LateTick()
     {

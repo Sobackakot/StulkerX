@@ -26,7 +26,7 @@ namespace Character.Camera
         private void Awake()
         {
             transformCamera = GetComponent<Transform>();
-            targetLookPoint = FindObjectOfType<TargetFirstCamera>()?.transform;
+            targetLookPoint = FindObjectOfType<FirstLookPointCamera>()?.transform;
         }
  
         void Start()
