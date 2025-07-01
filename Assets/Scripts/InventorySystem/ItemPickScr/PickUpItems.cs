@@ -1,15 +1,16 @@
 
 using UnityEngine; 
 using Zenject;
-using Inventory_;
+using Inventory;
+using Inventory.Handler;
 
 public class PickUpItems : Interactable 
 {   
     [field : SerializeField] public ItemScrObj item {  get; private set; }
-    private IInventoryController inventory;
+    private IInventoryHandler inventory;
 
     [Inject]
-    private void Container([Inject(Id = "inventory")] IInventoryController inventory)
+    private void Container(IInventoryHandler inventory)
     {
         this.inventory = inventory;
     }

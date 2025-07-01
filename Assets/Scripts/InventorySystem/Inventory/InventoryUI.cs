@@ -1,13 +1,11 @@
 
-
-using State.Character;
+ 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
+using UnityEngine; 
 
 
-namespace Inventory_
+namespace Inventory.UI
 {
     public class InventoryUI : MonoBehaviour, IInventoryUI
     {
@@ -37,7 +35,7 @@ namespace Inventory_
                 itemsInSlots[i].slotIndex = i;
             }
         }
-        void IInventoryUI.SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
+        void IInventoryUIBase.SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
         {
             List<ItemScrObj> items = onSetNewItem?.Invoke();
             if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
@@ -45,7 +43,7 @@ namespace Inventory_
                 inventorySlots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem);
             }
         }
-        void IInventoryUI.ResetItemByInventoryCell(short slot) //coll from InventoryController
+        void IInventoryUIBase.ResetItemByInventoryCell(short slot) //coll from InventoryController
         {
             List<ItemScrObj> items = onSetNewItem?.Invoke(); 
             if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
@@ -53,7 +51,7 @@ namespace Inventory_
                 inventorySlots[slot].RemoveItemInSlot(itemsInSlots[slot]);
             }
         }
-        void IInventoryUI.UpdateInventorySlots() //coll from InventoryController
+        void IInventoryUIBase.UpdateInventorySlots() //coll from InventoryController
         {
             List<ItemScrObj> items = onSetNewItem?.Invoke();
             for (short i = 0; i < inventorySlots.Count; i++) //Updates the inventoryController UI completely when changing characters
@@ -69,7 +67,7 @@ namespace Inventory_
             }
         }
 
-        short IInventoryUI.GetIndexFreeSlot(ItemScrObj item, string slotType)
+        short IInventoryUIBase.GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             if (slotType == "EquipSlot" && CheckFreeSlot(item, out short index))
             {

@@ -1,14 +1,11 @@
+using Inventory.UI;
+using System.Collections.Generic;
 
-using System; 
-using System.Collections.Generic; 
-using Zenject; 
-
-
-namespace Inventory_
+namespace Inventory.Handler
 { 
-    public class InventoryController : IInventoryController 
+    public class InventoryController : IInventoryHandler
     {
-        public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
+        public InventoryController(IInventoryUI inventoryUI)
         {
             this.inventoryUI = inventoryUI;
 
@@ -29,7 +26,7 @@ namespace Inventory_
         public readonly List<ItemScrObj> itemsInventory;
         private int space = 48;
          
-        bool IInventoryController.AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
+        bool IInventoryHandlerBase.AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
         {
             for (byte i = 0; i < itemsInventory.Count; i++)
             {
@@ -43,7 +40,7 @@ namespace Inventory_
             }
             return false; // InventoryPerson is full 
         }
-        void IInventoryController.RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
+        void IInventoryHandlerBase.RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
         { 
             for (byte i = 0; i < itemsInventory.Count; i++)
             {
@@ -83,7 +80,7 @@ namespace Inventory_
                 }
             }
         }
-        ItemScrObj IInventoryController.UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+        ItemScrObj IInventoryHandlerBase.UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
         {
             if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
             {
@@ -100,12 +97,12 @@ namespace Inventory_
         {
             return itemsInventory;
         }
-        short IInventoryController.GetIndexFreeSlot(ItemScrObj item, string slotType)
+        short IInventoryHandlerBase.GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             return inventoryUI.GetIndexFreeSlot(item, slotType);
         }
 
-        void IInventoryController.SetBoxByInventory(InventoryBoxScrObj box)
+        void IInventoryHandlerBase.SetBoxByInventory(InventoryBoxScrObj box)
         { 
         }
     }

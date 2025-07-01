@@ -3,7 +3,7 @@ using UnityEngine;
 using Character.InputEvents;
 using Zenject;
 
-namespace Inventory_
+namespace Inventory
 {
     public class InventoryLootBoxUI : MonoBehaviour
     { 

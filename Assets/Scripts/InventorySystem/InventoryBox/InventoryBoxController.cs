@@ -1,37 +1,36 @@
-using System;
-using System.Collections.Generic; 
-using Zenject; 
+using Inventory.UI;
+using System.Collections.Generic;
 
-namespace Inventory_
+namespace Inventory.Handler
 {
-    public class InventoryBoxController : IInventoryController 
+    public class InventoryBoxController : IInventoryLootBoxHandler
     {
-        public InventoryBoxController([Inject(Id = "inventoryBoxUI")] IInventoryUI inventoryBoxUI)
+        public InventoryBoxController(IInvetnoryLootBoxUI inventoryBoxUI)
         {
             this.inventoryBoxUI = inventoryBoxUI;
             this.inventoryBoxUI.onSetNewItem += GetCurrentItems;
         }
-        ~InventoryBoxController()// не работает bind ---------------------------------------------------------------------------------
+        ~InventoryBoxController()
         {
             inventoryBoxUI.onSetNewItem -= GetCurrentItems;
         }
 
-        private IInventoryUI inventoryBoxUI;
+        private IInvetnoryLootBoxUI inventoryBoxUI;
         public InventoryBox inventoryBox;
          
         
-        void IInventoryController.SetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
+        void IInventoryHandlerBase.SetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
         {
             inventoryBox = box.inventoryBox; // get pick Box for inventory
             inventoryBoxUI.UpdateInventorySlots();
         }
-        bool IInventoryController.AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
+        bool IInventoryHandlerBase.AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
         {
             bool isHas = inventoryBox.AddItemToInventory(newItem, out short index);
             inventoryBoxUI.SetNewItemByInventoryCell(newItem, index);
             return isHas;
         }
-        void IInventoryController.RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
+        void IInventoryHandlerBase.RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
         {
             inventoryBox.RemoveItemFromInventory(item, out short index);
             inventoryBoxUI.ResetItemByInventoryCell(index);// update inventoryController equipmentSlots 
@@ -66,7 +65,7 @@ namespace Inventory_
                 }
             }
         }
-        ItemScrObj IInventoryController.UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+        ItemScrObj IInventoryHandlerBase.UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
         {
             if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
             {
@@ -82,7 +81,7 @@ namespace Inventory_
         {
             return inventoryBox.GetCurrentItems();//
         }
-        short IInventoryController.GetIndexFreeSlot(ItemScrObj item, string slotType)
+        short IInventoryHandlerBase.GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             return inventoryBoxUI.GetIndexFreeSlot(item, slotType);
         }

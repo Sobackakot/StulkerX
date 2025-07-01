@@ -1,9 +1,9 @@
- 
+
 using System.Collections.Generic;
 
-namespace Inventory_
+namespace Inventory.Handler
 {
-    public interface IInventoryController
+    public interface IInventoryHandlerBase
     {
         bool AddItemToInventory(ItemScrObj newItem);
         void RemoveItemFromInventory(ItemScrObj item);
@@ -12,7 +12,6 @@ namespace Inventory_
         List<ItemScrObj> GetCurrentItems();
         short GetIndexFreeSlot(ItemScrObj item, string slotType);
         void SetBoxByInventory(InventoryBoxScrObj box);
-
     }
-}
 
+}

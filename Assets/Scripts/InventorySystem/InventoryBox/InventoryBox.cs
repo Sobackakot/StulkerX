@@ -1,8 +1,7 @@
- 
-using System.Collections.Generic;
-using UnityEngine;
 
-namespace Inventory_
+using System.Collections.Generic;
+
+namespace Inventory.UI
 {
     public class InventoryBox
     {

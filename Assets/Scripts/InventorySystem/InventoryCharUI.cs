@@ -5,7 +5,7 @@ using Character.InputEvents;
 using State.Character;
 
 
-namespace Inventory_
+namespace Inventory
 {
     public class InventoryCharUI : MonoBehaviour
     {

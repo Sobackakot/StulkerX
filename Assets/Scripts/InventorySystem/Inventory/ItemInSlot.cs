@@ -1,13 +1,13 @@
 
-using State.Character;
+using Inventory.Handler;
 using StateData.Character;
-using TMPro; 
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Inventory_
+namespace Inventory.UI
 {
     public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
     {
@@ -23,15 +23,19 @@ namespace Inventory_
         private Image itemIcon;
         private TextMeshProUGUI itemAmount;
 
-        private IInventoryController inventory;
-        private IInventoryController inventoryEquip;
-        private IInventoryController inventoryBox;
+        private IInventoryHandler inventory;
+        private IInventoryEquipmentHandler inventoryEquip;
+        private IInventoryLootBoxHandler inventoryBox;
 
         private protected CharacterStateContext stateData;
 
         [Inject]
-        private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
-            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, CharacterStateContext stateData)
+        private void Container(
+            
+            IInventoryHandler inventory, 
+            IInventoryEquipmentHandler inventoryEquip,
+            IInventoryLootBoxHandler inventoryBox, 
+            CharacterStateContext stateData)
         {
             this.inventory = inventory;
             this.inventoryEquip = inventoryEquip;

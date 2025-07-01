@@ -2,19 +2,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
+using Inventory.Handler;
 
-namespace Inventory_
+namespace Inventory.UI
 {
     public class InventorySlot : MonoBehaviour, IDropHandler
     {
-        private IInventoryController inventory;
-        private IInventoryController inventoryEquip;
-        private IInventoryController inventoryBox;
+        private IInventoryHandler inventory;
+        private IInventoryEquipmentHandler inventoryEquip;
+        private IInventoryLootBoxHandler inventoryBox;
         private RectTransform transformSlot;
 
         [Inject]
-        private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
-            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
+        private void Container(
+
+            IInventoryHandler inventory, 
+            IInventoryEquipmentHandler inventoryEquip,
+            IInventoryLootBoxHandler inventoryBox)
         {   
              this.inventory = inventory;
              this.inventoryEquip = inventoryEquip;

@@ -1,29 +1,20 @@
 
-using Inventory_;
-using State.Character;
+using Character.Camera;
+using Character.InputEvents;
+using Inventory;
+using Inventory.Handler;
+using Inventory.UI;
 using NPC;
+using NPC.Main;
 using NPC.Target;
+using StateData.Character;
 using UnityEngine;
 using Zenject;
-using NPC.Main;
-using StateData.Character;
-using Character.InputEvents;
-using Character.Camera;
 
 
 [CreateAssetMenu(fileName = "Installer(State)", menuName = "Installers/State")]
 public class CharacterInstaller : ScriptableObjectInstaller 
-{
-    private const string Inventory_ID = "inventory";
-    private const string InventoryBox_ID = "inventoryBox";
-    private const string InventoryEquip_ID = "inventoryEquip";
-
-    private const string InventoryUI_ID = "inventoryUI";
-    private const string InventoryBoxUI_ID = "inventoryBoxUI";
-    private const string EquipmentUI_ID = "equipmentUI";
-
-     
-
+{  
     public override void InstallBindings()
     { 
         BindCharacter();
@@ -75,21 +66,21 @@ public class CharacterInstaller : ScriptableObjectInstaller
     private void BindInventory()
     {
         // Bind InventoryUI with an identifier
-        Container.Bind<IInventoryUI>().WithId(InventoryUI_ID).To<InventoryUI>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IInventoryUI>().FromComponentInHierarchy(this).AsSingle();
 
-        Container.Bind<IInventoryUI>().WithId(InventoryBoxUI_ID).To<InventoryBoxUI>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IInvetnoryLootBoxUI>().FromComponentInHierarchy(this).AsSingle();
 
-        Container.Bind<IInventoryUI>().WithId(EquipmentUI_ID).To<EquipmentUI>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IInventoryEquipmentUI>().FromComponentInHierarchy(this).AsSingle();
 
         Container.Bind<InventoryCharUI>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<InventoryLootBoxUI>().FromComponentInHierarchy(this).AsTransient();
 
 
-        Container.Bind<IInventoryController>().WithId(Inventory_ID).To<InventoryController>().AsSingle().NonLazy(); 
+        Container.Bind<IInventoryHandler>().To<InventoryController>().AsSingle().NonLazy(); 
 
-        Container.Bind<IInventoryController>().WithId(InventoryEquip_ID).To<EquipmentController>().AsSingle().NonLazy(); 
+        Container.Bind<IInventoryEquipmentHandler>().To<EquipmentController>().AsSingle().NonLazy(); 
 
-        Container.Bind<IInventoryController>().WithId(InventoryBox_ID).To<InventoryBoxController>().AsSingle().NonLazy(); 
+        Container.Bind<IInventoryLootBoxHandler>().To<InventoryBoxController>().AsSingle().NonLazy(); 
     }
     private void BindAnimatorChar()
     {

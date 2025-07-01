@@ -1,6 +1,6 @@
  
-using UnityEngine;
-using Inventory_;
+using UnityEngine; 
+using Inventory.UI;
 
 [CreateAssetMenu(fileName = "InventoryBox" , menuName = "Inventory/inventoryBox")]
 public class InventoryBoxScrObj : ScriptableObject

@@ -26,30 +26,31 @@ namespace Character.Camera
 
         private void SwitchCamera()
         {
+            if (stateContext == null) return;
             activeCamera = stateContext.isFirstCamera ? firstCamera : freeCamera;
         }
         public void Tick()
         {
             SwitchCamera();
-            activeCamera.SwitchLookPointCamera(stateContext.isLeftTargerPoint, stateContext.isCrouch);  
+            activeCamera?.SwitchLookPointCamera(stateContext.isLeftTargerPoint, stateContext.isCrouch);  
             stateContext.currentAngle = activeCamera.CheckCameraRotateAngle();
-            activeCamera.SetInputAxis(stateContext.inputAxisCamera);
+            activeCamera?.SetInputAxis(stateContext.inputAxisCamera);
         }
         public void LateTick()
         {
             
-            activeCamera.FollowCamera(); 
-            activeCamera.RotateCamera(stateContext.isAim);
-            activeCamera.ZoomCamera(stateContext.isAim, stateContext.isReloadingState);
+            activeCamera?.FollowCamera(); 
+            activeCamera?.RotateCamera(stateContext.isAim);
+            activeCamera?.ZoomCamera(stateContext.isAim, stateContext.isReloadingState);
         }
 
         public void FixedTick()
         {
-            ray.RaycastHitForItemInteract();
+            ray?.RaycastHitForItemInteract();
             if (stateContext.isAim)
             {
-                ray.UpdateRayPointAim();
-                ray.Shooting(stateContext.isFire);
+                ray?.UpdateRayPointAim();
+                ray?.Shooting(stateContext.isFire);
             }
         }
     }

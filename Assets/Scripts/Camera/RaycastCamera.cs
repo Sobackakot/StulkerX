@@ -1,5 +1,5 @@
 using Character.InputEvents;
-using Inventory_;
+using Inventory;
 using StateData.Character;
 using UnityEngine;
 using Zenject;

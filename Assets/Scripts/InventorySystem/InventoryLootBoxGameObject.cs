@@ -1,9 +1,10 @@
  
 using UnityEngine;
-using Zenject; 
+using Zenject;
+using Inventory.Handler;
 
 
-namespace Inventory_
+namespace Inventory
 {
     public class InventoryLootBoxGameObject : MonoBehaviour
     {
@@ -11,11 +12,11 @@ namespace Inventory_
         private InventoryCharUI playerInventoryPanel;
 
         public InventoryBoxScrObj inventoryBoxScrObj;
-        private IInventoryController inventoryBox;
+        private IInventoryLootBoxHandler inventoryBox;
 
         [SerializeField] private Material materialBox;
         [Inject]
-        private void Container([Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
+        private void Container(IInventoryLootBoxHandler inventoryBox)
         {
             this.inventoryBox = inventoryBox;
         }

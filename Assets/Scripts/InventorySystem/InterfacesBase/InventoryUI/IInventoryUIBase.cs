@@ -1,16 +1,16 @@
-
-
 using System;
 using System.Collections.Generic;
 
-namespace Inventory_
+
+namespace Inventory.UI
 {
-    public interface IInventoryUI
+    public interface IInventoryUIBase
     {
-        event Func<List<ItemScrObj>> onSetNewItem; 
+        event Func<List<ItemScrObj>> onSetNewItem;
         void SetNewItemByInventoryCell(ItemScrObj item, short slot);
         void ResetItemByInventoryCell(short slot);
         void UpdateInventorySlots();
         short GetIndexFreeSlot(ItemScrObj item, string slotType);
     }
 }
+
