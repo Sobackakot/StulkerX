@@ -10,6 +10,7 @@ using NPC.Target;
 using StateData.Character;
 using UnityEngine;
 using Zenject;
+using MainCamera.Raycast;
 
 
 [CreateAssetMenu(fileName = "Installer(State)", menuName = "Installers/State")]
@@ -47,7 +48,8 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();  
         Container.Bind<IFreeCamera>().To<FreeCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<IFirstCamera>().To<FirstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
+
+        Container.BindInterfacesAndSelfTo<RaycastPointCamera>().FromComponentInHierarchy(this).AsCached();
     }
 
     private void BindCharacter()
@@ -55,7 +57,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<InputCharacter>().FromNew().AsSingle().NonLazy();
         Container.Bind<CharacterMoveMain>().FromNew().AsSingle().NonLazy();
         
-        Container.BindInterfacesAndSelfTo<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy();
+        Container.Bind<IInputEvents>().To<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy();
 
         Container.Bind<CharacterStateContext>().FromNew().AsSingle();
         //MonoBehaviour  

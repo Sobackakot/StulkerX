@@ -1,5 +1,5 @@
+using MainCamera.Raycast;
 using StateData.Character;
-using UnityEngine;
 
 namespace Character.Camera
 {
@@ -7,17 +7,23 @@ namespace Character.Camera
     {
         public CameraController(
 
-            CharacterStateContext stateContext, RaycastCamera ray,
-            IFreeCamera freeCamera, IFirstCamera firstCamera)
+            CharacterStateContext stateContext, 
+            IRaycastHitItem raycastHitItem, 
+            IRaycastHitFPS raycastHitFPS,
+            IFreeCamera freeCamera, 
+            IFirstCamera firstCamera)
         {
-            this.ray = ray;
+            this.raycastHitItem = raycastHitItem;
+            this.raycastHitFPS = raycastHitFPS;
             this.stateContext = stateContext;
             this.freeCamera = freeCamera;
             this.firstCamera = firstCamera;
         }
 
         public CharacterStateContext stateContext { get; private set; }
-        private RaycastCamera ray;
+
+        private IRaycastHitItem raycastHitItem;
+        private IRaycastHitFPS raycastHitFPS;
 
         private IFreeCamera freeCamera;
         private IFirstCamera firstCamera;
@@ -46,11 +52,11 @@ namespace Character.Camera
 
         public void FixedTick()
         {
-            ray?.RaycastHitForItemInteract();
+            raycastHitItem?.RaycastHitForItemInteract();
             if (stateContext.isAim)
             {
-                ray?.UpdateRayPointAim();
-                ray?.Shooting(stateContext.isFire);
+                raycastHitFPS?.UpdateRaycastHitPointAim();
+                raycastHitFPS?.RaycastHitShooting(stateContext.isFire);
             }
         }
     }

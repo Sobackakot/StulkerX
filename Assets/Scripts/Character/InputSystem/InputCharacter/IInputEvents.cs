@@ -7,7 +7,8 @@ namespace Character.InputEvents
         event Action OnJump;
         event Action OnParkour;
         event Action OnPickUpItem;
-         
+        event Action OnSwichCamera;
+
         event Action<bool> OnActiveInventoryLootBox;
         event Action<bool> OnActiveInventory;
         event Action OnExitInventory;

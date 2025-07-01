@@ -15,6 +15,7 @@ namespace Character.InputEvents
         public event Action OnJump;
         public event Action OnParkour;
         public event Action OnPickUpItem;
+        public event Action OnSwichCamera;
 
 
 
@@ -83,6 +84,7 @@ namespace Character.InputEvents
         public void InputCamera_OnSwitchCamera(SwitchEventCamera a)
         {
             stateData.isFirstCamera = !stateData.isFirstCamera;
+            OnSwichCamera?.Invoke();
         }
 
         public void ExitInventory(InventoryExitEvent inventory)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Character.Camera;
+using MainCamera.Raycast;
 
 
 public class CharacterInspector : MonoBehaviour 
@@ -17,9 +18,14 @@ public class CharacterInspector : MonoBehaviour
     public Animator animator { get; set; }
     public StateMachineAnimator stateMachin { get; set; }
     public Transform charTrans { get; set; }
-    public RaycastCamera ray { get; set; }
+
+    public IRaycastHitFPS raycastHitFPS { get; set; }
+    public IRaycastHitItem raycastHitItem { get; set; }
+    public IRaycastHitLootBox raycastHitLootBox { get; set; }
+    public IRaycastHitParcour raycastHitParcour { get; set; }
+
     public Rigidbody rbCharacter { get; set; } 
-    [field: SerializeField] public Transform targetAim { get; private set; }
+    public Transform targetAim { get; private set; }
     public FreeCameraCharacter tirdCam { get; private set; }
     public FirstCameraCharacter firstCam { get; private set; }
     public Transform currCamTr { get; private set; }
@@ -55,16 +61,34 @@ public class CharacterInspector : MonoBehaviour
     private void Awake()
     {
         rbCharacter = GetComponent<Rigidbody>();
+
+        targetAim = FindObjectOfType<TargetRayPointAim>()?.transform;
+
         tirdCam = FindFirstObjectByType<FreeCameraCharacter>();
         tirdCamTr = tirdCam?.transform;
+
         firstCam = FindObjectOfType<FirstCameraCharacter>();
         firstCamTr = firstCam?.transform;
+
         currCamTr = tirdCamTr;
 
         charTrans = GetComponent<Transform>();
-        ray = FindObjectOfType<RaycastCamera>();
+
+        raycastHitFPS = FindObjectOfType<RaycastPointCamera>();
+        raycastHitItem = FindObjectOfType<RaycastPointCamera>();
+        raycastHitLootBox = FindObjectOfType<RaycastPointCamera>();
+        raycastHitParcour = FindObjectOfType<RaycastPointCamera>();
+
         animator = GetComponent<Animator>();
         stateMachin = animator.GetBehaviour<StateMachineAnimator>(); 
+    }
+    private void OnEnable()
+    {
+        inputEvent.OnSwichCamera += SetActiveCamera;
+    }
+    private void OnDisable()
+    {
+        inputEvent.OnSwichCamera -= SetActiveCamera;
     }
     public void UpdateDirectionMove()
     { 
@@ -73,17 +97,17 @@ public class CharacterInspector : MonoBehaviour
         directionRight = Vector3.ProjectOnPlane(currCamTr.right, Vector3.up).normalized;
         newDirection = (inputAxis.z * directionForward) + (inputAxis.x * directionRight); 
     }
-    //public void SetActiveCamera()
-    //{
-    //    bool isActive = state.Camera.isFerst;
-    //    firstCam.enabled = isActive;
-    //    tirdCam.enabled = !isActive;
-    //    head.SetActive(!isActive);
-    //    capOnHead.SetActive(!isActive);
-    //    currCamTr = state.Camera.isFerst ? firstCamTr : tirdCamTr; 
-    //}
-   
-    
+    public void SetActiveCamera()
+    {
+        bool isActive = stateContext.isFirstCamera;
+        firstCam.enabled = isActive;
+        tirdCam.enabled = !isActive;
+        head.SetActive(!isActive);
+        capOnHead.SetActive(!isActive);
+        currCamTr = stateContext.isFirstCamera ? firstCamTr : tirdCamTr;
+    }
+
+
     private void OnCollisionStay(Collision collision)
     {
         stateContext.isCollision = true;

@@ -5,6 +5,7 @@ using Character.InputEvents;
 using StateData.Character;
 using System;
 using UnityEngine;
+using MainCamera.Raycast;
 public class ParkourBehaviour : BehaviourCharBase
 {
     public ParkourBehaviour(
@@ -42,7 +43,7 @@ public class ParkourBehaviour : BehaviourCharBase
     } 
     public override void ParkouringBehaviour()
     {
-        isStartParkour = character.ray.SetRayHitParcour(out RaycastHit hitForward, out RaycastHit hitDown);
+        isStartParkour = character.raycastHitParcour.SetRayHitParcour(out RaycastHit hitForward, out RaycastHit hitDown);
 
         if (isStartParkour)
         {
