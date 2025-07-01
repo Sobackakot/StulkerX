@@ -16,11 +16,11 @@ public class MoveStateAim : MoveStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-            behaviourHandler.Get<IAimWeaponBehaviour>(),
-            behaviourHandler.Get<ICrouchBehaviour>(),
-            behaviourHandler.Get<IWalkBehaviour>(),
-            behaviourHandler.Get<IRotateBehaviour>(),
-            behaviourHandler.Get<IMoveBehaviour>()
+            behaviourHandler?.Get<IAimWeaponBehaviour>(),
+            behaviourHandler?.Get<ICrouchBehaviour >(),
+            behaviourHandler?.Get<IWalkBehaviour >(),
+            behaviourHandler?.Get<IRotateBehaviour >(),
+            behaviourHandler?.Get<IMoveBehaviour >()
         };
     }
 
@@ -53,7 +53,7 @@ public class MoveStateAim : MoveStateBase
     private void AddTransition()
     { 
         var typeAim = MoveStateType.Aim;
-        moveFSM.AddTransition(typeAim, () => !stateData.isAim ? MoveStateType.Idle : typeAim);
-        moveFSM.AddTransition(typeAim, () => stateData.isCrouch ? MoveStateType.Crouch : typeAim);
+        moveFSM?.AddTransition(typeAim, () => !stateData.isAim ? MoveStateType.Idle : typeAim);
+        moveFSM?.AddTransition(typeAim, () => stateData.isCrouch ? MoveStateType.Crouch : typeAim);
     } 
 }

@@ -9,11 +9,13 @@ public class MoveAction : CharacterAction
 
     public override void Subscribe(IContext context)
     {
+        if (context == null || fsm == null) return;
         context.onExecuteMoveTransition += fsm.Transition;
     }
 
     public override void Unsubscribe(IContext context)
     {
+        if (context == null || fsm == null) return;
         context.onExecuteMoveTransition -= fsm.Transition;
     }
 }

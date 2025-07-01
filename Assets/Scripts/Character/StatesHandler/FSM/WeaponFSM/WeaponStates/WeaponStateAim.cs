@@ -18,8 +18,8 @@ public class WeaponStateAim : WeaponStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-            behaviourHandler.Get<IAimWeaponBehaviour>(),
-            behaviourHandler.Get<IFireWeaponBehaviour>() 
+            behaviourHandler?.Get<IAimWeaponBehaviour>(),
+            behaviourHandler?.Get<IFireWeaponBehaviour>() 
         };
     }
 
@@ -55,7 +55,7 @@ public class WeaponStateAim : WeaponStateBase
     private void AddTransition()
     {
         var type = WeaponStateType.Aim; 
-        weaponFSM.AddTransition(type, () => !stateData.isAim ? WeaponStateType.Default : type);
+        weaponFSM?.AddTransition(type, () => !stateData.isAim ? WeaponStateType.Default : type);
     }
     
 }

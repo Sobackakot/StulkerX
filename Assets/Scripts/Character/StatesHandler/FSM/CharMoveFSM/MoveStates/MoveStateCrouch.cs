@@ -17,11 +17,11 @@ public class MoveStateCrouch : MoveStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-            behaviourHandler.Get<ICrouchBehaviour>(),
-            behaviourHandler.Get<IWalkBehaviour>(),
-            behaviourHandler.Get<IPickUpItemBehaviour>(),
-            behaviourHandler.Get<IRotateBehaviour>(),
-             behaviourHandler.Get<IMoveBehaviour>()
+            behaviourHandler?.Get<ICrouchBehaviour>(),
+            behaviourHandler?.Get<IWalkBehaviour>(),
+            behaviourHandler?.Get<IPickUpItemBehaviour>(),
+            behaviourHandler?.Get<IRotateBehaviour>(),
+            behaviourHandler?.Get<IMoveBehaviour>()
         };
     }
 
@@ -54,6 +54,6 @@ public class MoveStateCrouch : MoveStateBase
     private void AddTransition()
     { 
         var moveType = MoveStateType.Crouch; 
-        moveFSM.AddTransition(moveType, () => !stateData.isCrouch ? MoveStateType.Idle: moveType);
+        moveFSM?.AddTransition(moveType, () => !stateData.isCrouch ? MoveStateType.Idle: moveType);
     } 
 }

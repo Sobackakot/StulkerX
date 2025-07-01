@@ -29,7 +29,7 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
 
     public void Dispose()
     {
-        character.Dispose();
+        character?.Dispose();
     }
     public void Tick()
     { 

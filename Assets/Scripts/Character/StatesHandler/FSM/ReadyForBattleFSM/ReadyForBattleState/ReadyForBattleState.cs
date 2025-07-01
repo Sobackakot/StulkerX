@@ -17,8 +17,8 @@ public class ReadyForBattleState : ReadyForBattleStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-            behaviourHandler.Get<IReadyForBattleBehaviour>(),
-             behaviourHandler.Get<IEquipWeaponBehaviour>() 
+            behaviourHandler?.Get<IReadyForBattleBehaviour>(),
+             behaviourHandler?.Get < IEquipWeaponBehaviour >() 
         };
     }
 
@@ -52,7 +52,7 @@ public class ReadyForBattleState : ReadyForBattleStateBase
     private void AddTransition()
     { 
         var type = ReadyStateType.Ready; 
-        battleFSM.AddTransition(type, () => !stateData.isReadyForBattle ? ReadyStateType.None : type);
+        battleFSM?.AddTransition(type, () => !stateData.isReadyForBattle ? ReadyStateType.None : type);
     }
     
 }

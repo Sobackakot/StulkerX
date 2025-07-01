@@ -16,12 +16,12 @@ public class MoveStateIdle : MoveStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         { 
-            behaviourHandler.Get<IIdleBehaviour>(),
-            behaviourHandler.Get<IPickUpItemBehaviour>(),
-            behaviourHandler.Get<IRotateBehaviour>(),
-            behaviourHandler.Get<IJumpBehaviour>(),
-            behaviourHandler.Get<IParkourBehaviour>(),
-             behaviourHandler.Get<IMoveBehaviour>()
+            behaviourHandler?.Get<IIdleBehaviour>(),
+            behaviourHandler?.Get<IPickUpItemBehaviour>(),
+            behaviourHandler?.Get<IRotateBehaviour>(),
+            behaviourHandler?.Get<IJumpBehaviour>(),
+            behaviourHandler?.Get<IParkourBehaviour>(),
+            behaviourHandler?.Get<IMoveBehaviour>()
         };
     }
 
@@ -54,8 +54,8 @@ public class MoveStateIdle : MoveStateBase
     private void AddTransition()
     {  
         var moveType = MoveStateType.Idle; 
-        moveFSM.AddTransition(moveType, () => stateData.inputAxis.sqrMagnitude > 0.2f ? MoveStateType.Run : moveType);
-        moveFSM.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType);
-        moveFSM.AddTransition(moveType, () => stateData.isAim ? MoveStateType.Aim : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.inputAxis.sqrMagnitude > 0.2f ? MoveStateType.Run : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.isAim ? MoveStateType.Aim : moveType);
     }  
 }

@@ -17,8 +17,8 @@ public class WeaponStateDefault : WeaponStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-            behaviourHandler.Get<IReloadWeaponBehaviour>(),
-            behaviourHandler.Get<IAimWeaponBehaviour>() 
+            behaviourHandler?.Get<IReloadWeaponBehaviour>(),
+            behaviourHandler?.Get<IAimWeaponBehaviour>() 
         };
     }
 
@@ -51,7 +51,7 @@ public class WeaponStateDefault : WeaponStateBase
     private void AddTransition()
     { 
         var type = WeaponStateType.Default; 
-        weaponFSM.AddTransition(type, () => stateData.isAim ? WeaponStateType.Aim : type);
-        weaponFSM.AddTransition(type, () => stateData.isReloadingState ? WeaponStateType.Reload : type);
+        weaponFSM?.AddTransition(type, () => stateData.isAim ? WeaponStateType.Aim : type);
+        weaponFSM?.AddTransition(type, () => stateData.isReloadingState ? WeaponStateType.Reload : type);
     }
 }

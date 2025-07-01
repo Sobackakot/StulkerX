@@ -34,8 +34,8 @@ namespace Character.Camera
         private void Awake()
         {
             transformCamera = GetComponent<Transform>();
-            rightLookPointTr = FindObjectOfType<RightFreeLookPointCamera>().transform;
-            leftLookPointTr = FindObjectOfType<LeftFreeLookPointCamera>().transform;
+            rightLookPointTr = FindObjectOfType<RightFreeLookPointCamera>()?.transform;
+            leftLookPointTr = FindObjectOfType<LeftFreeLookPointCamera>()?.transform;
         }
  
         private void Start()

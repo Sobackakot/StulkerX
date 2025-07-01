@@ -21,12 +21,12 @@ namespace Menu
         public void OppenSettingsGameButton()
         {
             // oppen panel settings
-            panelSettingsGame.SetActive(true);
+            panelSettingsGame?.SetActive(true);
         }
         public void CloseSettingsGameButton()
         {
             // oppen panel settings
-            panelSettingsGame.SetActive(false);
+            panelSettingsGame?.SetActive(false);
         }
         public void ExitGameButton()
         {

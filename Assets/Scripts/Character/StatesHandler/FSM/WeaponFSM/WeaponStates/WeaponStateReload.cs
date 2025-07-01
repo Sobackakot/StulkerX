@@ -17,7 +17,7 @@ public class WeaponStateReload : WeaponStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-             behaviourHandler.Get<IReloadWeaponBehaviour>() 
+             behaviourHandler?.Get<IReloadWeaponBehaviour>() 
         };
     }
 
@@ -25,14 +25,12 @@ public class WeaponStateReload : WeaponStateBase
     {
         AddTransition();
         foreach (var behaviour in activeBehaviours)
-            behaviour?.EnableBeh();
-        Debug.Log("reload state  enter ");
+            behaviour?.EnableBeh(); 
     }
     public override void ExitState()
     {
         foreach (var behaviour in activeBehaviours)
-            behaviour?.DisableBeh();
-        Debug.Log("reload state exit");
+            behaviour?.DisableBeh(); 
     }
     public override void UpdateState()
     {
@@ -52,6 +50,6 @@ public class WeaponStateReload : WeaponStateBase
     private void AddTransition()
     { 
         var type = WeaponStateType.Reload; 
-        weaponFSM.AddTransition(type, () => !stateData.isReloadingState ? WeaponStateType.Default : type);
+        weaponFSM?.AddTransition(type, () => !stateData.isReloadingState ? WeaponStateType.Default : type);
     }
 }

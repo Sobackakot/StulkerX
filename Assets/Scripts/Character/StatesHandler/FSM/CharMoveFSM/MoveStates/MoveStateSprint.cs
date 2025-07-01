@@ -16,12 +16,12 @@ public class MoveStateSprint : MoveStateBase
     {
         activeBehaviours = new List<IUnitBehaviour>
         {
-            behaviourHandler.Get<ISprintBehaviour>(),
-            behaviourHandler.Get<IPickUpItemBehaviour>(),
-            behaviourHandler.Get<IRotateBehaviour>(),
-            behaviourHandler.Get<IJumpBehaviour>(),
-            behaviourHandler.Get<IParkourBehaviour>(),
-            behaviourHandler.Get<IMoveBehaviour>()
+            behaviourHandler?.Get<ISprintBehaviour>(),
+            behaviourHandler?.Get<IPickUpItemBehaviour>(),
+            behaviourHandler?.Get<IRotateBehaviour>(),
+            behaviourHandler?.Get<IJumpBehaviour>(),
+            behaviourHandler?.Get<IParkourBehaviour>(),
+            behaviourHandler?.Get<IMoveBehaviour>()
         };
     }
 
@@ -54,8 +54,8 @@ public class MoveStateSprint : MoveStateBase
     private void AddTransition()
     { 
         var moveType = MoveStateType.Sprint;  
-        moveFSM.AddTransition(moveType, () => !stateData.isSprint ? MoveStateType.Run : moveType);
-        moveFSM.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType);
-        moveFSM.AddTransition(moveType, () => stateData.isAim ? MoveStateType.Aim : moveType);
+        moveFSM?.AddTransition(moveType, () => !stateData.isSprint ? MoveStateType.Run : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.isAim ? MoveStateType.Aim : moveType);
     } 
 }

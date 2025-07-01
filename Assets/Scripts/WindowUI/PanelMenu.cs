@@ -1,8 +1,6 @@
-
-using System;
+using Character.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Character.Camera;
 
 namespace Menu 
 {
