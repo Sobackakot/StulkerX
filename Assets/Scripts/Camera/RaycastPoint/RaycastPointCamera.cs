@@ -51,24 +51,19 @@ namespace MainCamera.Raycast
             windowUI = FindObjectOfType<WindowUI>();
             charact = FindObjectOfType<CharacterInspector>();
             charTransPointRay = charact.GetComponent<Transform>();
-            targetAiming = GetComponentInChildren<TargetRayPointAim>()?.transform;
-            if (targetAiming == null) Debug.Log("target raycast hit null");
+            targetAiming = GetComponentInChildren<TargetRayPointAim>()?.transform; 
         }
         private void OnEnable()
         {
-            if (inputEvent != null)
-            {
-                inputEvent.OnActiveInventoryLootBox += OnActiveInventoryUIPanel;
-                inputEvent.OnHasWeapon += OnRaycastHitForItem;
-            }
+            if (inputEvent == null) return;
+            inputEvent.OnActiveInventoryLootBox += OnActiveInventoryUIPanel;
+            inputEvent.OnHasWeapon += OnRaycastHitForItem;
         }
         private void OnDisable()
         {
-            if (inputEvent != null)
-            {
-                inputEvent.OnActiveInventoryLootBox -= OnActiveInventoryUIPanel;
-                inputEvent.OnHasWeapon -= OnRaycastHitForItem;
-            }
+            if (inputEvent == null) return;
+            inputEvent.OnActiveInventoryLootBox -= OnActiveInventoryUIPanel;
+            inputEvent.OnHasWeapon -= OnRaycastHitForItem;
         }
         void IRaycastHitFPS.RaycastHitShooting(bool isLeftButtonDown)
         {
@@ -107,7 +102,7 @@ namespace MainCamera.Raycast
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskLootBox.value))
             {
-                InventoryLootBoxGameObject box = hitForward.collider.transform.GetComponent<InventoryLootBoxGameObject>();
+                InventoryLootBoxGameObject box = hitForward.collider.transform?.GetComponent<InventoryLootBoxGameObject>();
                 box?.ActiveInventoryUIPanel(isActive);
             }
         }
@@ -116,9 +111,9 @@ namespace MainCamera.Raycast
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskItem.value))
             {
-                PickUpItems pickUpItem = hitForward.collider.transform.GetComponent<PickUpItems>();
+                PickUpItems pickUpItem = hitForward.collider.transform?.GetComponent<PickUpItems>();
                 if (PickUpWeapon(pickUpItem, hitForward)) return true;
-                Interactable interact = hitForward.collider.transform.GetComponent<Interactable>();
+                Interactable interact = hitForward.collider.transform?.GetComponent<Interactable>();
                 interact?.Interaction();
             }
             return false;
