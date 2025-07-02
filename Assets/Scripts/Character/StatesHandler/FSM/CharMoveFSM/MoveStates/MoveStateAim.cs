@@ -53,7 +53,7 @@ public class MoveStateAim : MoveStateBase
     private void AddTransition()
     { 
         var typeAim = MoveStateType.Aim;
-        moveFSM?.AddTransition(typeAim, () => !stateData.isAim ? MoveStateType.Idle : typeAim);
+        moveFSM?.AddTransition(typeAim, () => !stateData.isAim ? MoveStateType.Run : typeAim);
         moveFSM?.AddTransition(typeAim, () => stateData.isCrouch ? MoveStateType.Crouch : typeAim);
     } 
 }

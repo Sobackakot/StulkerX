@@ -54,7 +54,7 @@ public class MoveStateRun : MoveStateBase
     private void AddTransition()
     { 
         var moveType = MoveStateType.Run;  
-        moveFSM?.AddTransition(moveType, () => stateData.inputAxis.sqrMagnitude <= 0 ? MoveStateType.Idle : moveType);
+        moveFSM?.AddTransition(moveType, () => !stateData.isRun ? MoveStateType.Idle : moveType);
         moveFSM?.AddTransition(moveType, () => stateData.isWalk ? MoveStateType.Walk : moveType);
         moveFSM?.AddTransition(moveType, () => stateData.isSprint ? MoveStateType.Sprint : moveType);
         moveFSM?.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType); 

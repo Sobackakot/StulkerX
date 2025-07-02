@@ -56,6 +56,8 @@ public class MoveStateSprint : MoveStateBase
         var moveType = MoveStateType.Sprint;  
         moveFSM?.AddTransition(moveType, () => !stateData.isSprint ? MoveStateType.Run : moveType);
         moveFSM?.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.isRun ? MoveStateType.Run : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.isWalk ? MoveStateType.Walk : moveType);
         moveFSM?.AddTransition(moveType, () => stateData.isAim ? MoveStateType.Aim : moveType);
     } 
 }
