@@ -9,11 +9,7 @@ namespace State.CoreFSM
     {
         void AddTransition(StateType fromState, Func<StateType> transition);
         void RegisterFSM(StateType type, TInterface state);
-        void SetFSM(StateType newState);
-        void Transition();
-        void UpdateFSM();
-        void LateUpdateFSM();
-        void FixedUpdateFSM();
+        void SetFSM(StateType newState); 
     }
 }
 

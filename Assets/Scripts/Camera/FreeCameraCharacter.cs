@@ -10,9 +10,7 @@ namespace Character.MainCamera
         public Transform transformCamera { get; private set; }
         [SerializeField] private float sensitivityMouse = 45f;
         [SerializeField] private float scrollSpeed = 3f;
-        [SerializeField] private float transitionSpeed = 9f;
-        [SerializeField] private float leftTarget = -0.500f;
-        [SerializeField] private float rightTarget = 0.500f;
+        [SerializeField] private float transitionSpeed = 9f; 
 
 
         private Vector3 offset;

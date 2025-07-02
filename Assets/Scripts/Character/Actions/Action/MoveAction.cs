@@ -10,12 +10,12 @@ public class MoveAction : CharacterAction
     public override void Subscribe(IContext context)
     {
         if (context == null || fsm == null) return;
-        context.onExecuteMoveTransition += fsm.Transition;
+        context.onExecuteMoveTransition += fsm.TransitionFSM;
     }
 
     public override void Unsubscribe(IContext context)
     {
         if (context == null || fsm == null) return;
-        context.onExecuteMoveTransition -= fsm.Transition;
+        context.onExecuteMoveTransition -= fsm.TransitionFSM;
     }
 }

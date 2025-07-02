@@ -24,7 +24,7 @@ namespace State.CoreFSM
             currentStateType = newState;
             (currentState as IState)?.EnterState();
         }
-        public virtual void Transition()
+        public virtual void TransitionFSM()
         { 
             if (transitionRules.TryGetValue(currentStateType, out var rules))
             {
