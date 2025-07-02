@@ -3,8 +3,8 @@ using StateData.Character;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Character.Camera;
-using MainCamera.Raycast;
+using Character.MainCamera.Raycast;
+using Character.MainCamera;
 
 
 public class CharacterInspector : MonoBehaviour 

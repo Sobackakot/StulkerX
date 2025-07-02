@@ -1,5 +1,4 @@
-
-using Character.Camera;
+ 
 using Character.InputEvents;
 using Inventory;
 using Inventory.Handler;
@@ -10,7 +9,9 @@ using NPC.Target;
 using StateData.Character;
 using UnityEngine;
 using Zenject;
-using MainCamera.Raycast;
+using Character.MainCamera.Raycast;
+using Character.MainCamera.BootStrap;
+using Character.MainCamera;
 
 
 [CreateAssetMenu(fileName = "Installer(State)", menuName = "Installers/State")]
@@ -44,7 +45,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
     } 
     private void BindCamera()
     {
-        Container.BindInterfacesAndSelfTo<CameraController>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<MainCameraEntryPoint>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();  
         Container.Bind<IFreeCamera>().To<FreeCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<IFirstCamera>().To<FirstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();

@@ -1,4 +1,4 @@
-using Character.Camera;
+using Character.MainCamera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

@@ -1,6 +1,6 @@
  
 using UnityEngine;
-using MainCamera.Raycast;
+using Character.MainCamera.Raycast;
 
 public class WeaponHandle : MonoBehaviour
 {
