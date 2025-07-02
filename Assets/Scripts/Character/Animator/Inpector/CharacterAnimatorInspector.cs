@@ -28,40 +28,22 @@ public class CharacterAnimatorInspector : MonoBehaviour
         
         
     }
-  
-    private void OnEnable()
-    { 
-        //state.Move.OnJumping += InputCharacter_OnJump;  
-        //state.Item.OnPickUpItemAnim += CharacterState_OnPickUpItem;
-        //state.Weapon.OnEquipAnim += CharacterState_OnWeaponEquip; 
-        //parkour.onAnimParkour += CharacterState_OnAnimParcoure;
-        //state.Weapon.OnReloadWeapon += CharacterState_OnReloadWeeapon;
-    }
-    private void OnDisable()
-    { 
-        //state.Move.OnJumping -= InputCharacter_OnJump;  
-        //state.Item.OnPickUpItemAnim -= CharacterState_OnPickUpItem;
-        //state.Weapon.OnEquipAnim -= CharacterState_OnWeaponEquip;
-        //parkour.onAnimParkour -= CharacterState_OnAnimParcoure;
-        //state.Weapon.OnReloadWeapon -= CharacterState_OnReloadWeeapon;
-    } 
-
     public void MoveAnimation(float speedAnimation, Vector3 inputAxis)
     { 
         if (inputAxis.sqrMagnitude > 0.2f)
         {
-            anim.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.smoothDeltaTime);
-            anim.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime);
+            anim?.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.smoothDeltaTime);
+            anim?.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime);
         }
         else
         { 
-            anim.SetFloat("Y", 0, 0.2f, Time.smoothDeltaTime);
-            anim.SetFloat("X", 0, 0.2f, Time.smoothDeltaTime);
+            anim?.SetFloat("Y", 0, 0.2f, Time.smoothDeltaTime);
+            anim?.SetFloat("X", 0, 0.2f, Time.smoothDeltaTime);
         }
     }
     public void CrouchAnimation(bool isCrouching)
     {
-        anim.SetBool("isCrouching", isCrouching);
+        anim?.SetBool("isCrouching", isCrouching);
     }
     public void StartingRunning()
     {
@@ -72,13 +54,13 @@ public class CharacterAnimatorInspector : MonoBehaviour
     public void StoppingRunning()
     {
         runningLayer = anim.GetLayerIndex("Running_Layer");
-        anim.SetLayerWeight(runningLayer, 1);
-        anim.SetTrigger("StoppingRun");
+        anim?.SetLayerWeight(runningLayer, 1);
+        anim?.SetTrigger("StoppingRun");
     }
    
     public void AimingAnimation(bool isAiming)
     {
-        anim.SetBool("isAiming", isAiming);
+        anim?.SetBool("isAiming", isAiming);
     }
 
     public void TurnAnimation(Vector3 input)
@@ -88,8 +70,8 @@ public class CharacterAnimatorInspector : MonoBehaviour
         {
             float currentDeltaMouse = anim.GetFloat("DeltaMouse");
             float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
-            anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime); 
-        } else anim.SetFloat("DeltaMouse", 0, 0.1f, Time.smoothDeltaTime); 
+            anim?.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime); 
+        } else anim?.SetFloat("DeltaMouse", 0, 0.1f, Time.smoothDeltaTime); 
     } 
  
     public void SwitchAnimationTurn(float angle)
@@ -99,33 +81,33 @@ public class CharacterAnimatorInspector : MonoBehaviour
   
     public void InputCharacter_OnJump()
     {
-        anim.SetTrigger("isJumping"); 
+        anim?.SetTrigger("isJumping"); 
     }
     public void ReloadWeeaponAnimation()
     {
-        anim.SetLayerWeight(reloadWeaponLayer, 1);
-        anim.SetTrigger("ReloadWeapon_Trigger");
+        anim?.SetLayerWeight(reloadWeaponLayer, 1);
+        anim?.SetTrigger("ReloadWeapon_Trigger");
     }
 
     public void PickUpItemAnimation()
     {
-        anim.SetLayerWeight(pickUpItemLayer, 1);
-        anim.SetTrigger("PickUpItem_Trigger"); 
+        anim?.SetLayerWeight(pickUpItemLayer, 1);
+        anim?.SetTrigger("PickUpItem_Trigger"); 
     }
     public void ReadyForBattleAnim(bool isReadyForBattle)
     {
-        anim.SetBool("isReadyForBattle", isReadyForBattle); 
+        anim?.SetBool("isReadyForBattle", isReadyForBattle); 
     }
     public void EquipWeaponAnimation(bool isEquipWeapon)
     {
-        anim.SetLayerWeight(equipWeaponLayer, 1); 
+        anim?.SetLayerWeight(equipWeaponLayer, 1); 
         if (isEquipWeapon)
-            anim.SetTrigger("EquipWeapon");
-        else  anim.SetTrigger("UnquipWeapon");
+            anim?.SetTrigger("EquipWeapon");
+        else  anim?.SetTrigger("UnquipWeapon");
     }
     public void CharacterState_OnAnimParcoure(string nameAnim)
     {
-        anim.CrossFade(nameAnim, 0.2f);
+        anim?.CrossFade(nameAnim, 0.2f);
     }
    
 }

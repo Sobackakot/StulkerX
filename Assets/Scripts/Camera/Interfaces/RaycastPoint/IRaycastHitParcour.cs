@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace MainCamera.Raycast
+namespace Character.MainCamera.Raycast
 {
     public interface IRaycastHitParcour
     {

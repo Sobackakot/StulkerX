@@ -1,9 +1,6 @@
-
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Character.Camera
+namespace Character.MainCamera
 {
     public class FreeCameraCharacter : MonoBehaviour, IFreeCamera
     {

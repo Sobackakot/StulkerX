@@ -13,9 +13,9 @@ public class WeaponEffects : MonoBehaviour
     {
         if (isKeyDownLeft)
         {
-            trailBulets.Play();
-            fireEffect.Play();
-            smokeStart.Play();
+            trailBulets?.Play();
+            fireEffect?.Play();
+            smokeStart?.Play();
         }
     } 
 }

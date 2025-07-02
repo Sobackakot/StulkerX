@@ -80,14 +80,16 @@ public class CharacterInspector : MonoBehaviour
         raycastHitParcour = FindObjectOfType<RaycastPointCamera>();
 
         animator = GetComponent<Animator>();
-        stateMachin = animator.GetBehaviour<StateMachineAnimator>(); 
+        stateMachin = animator?.GetBehaviour<StateMachineAnimator>(); 
     }
     private void OnEnable()
     {
+        if (inputEvent == null) return;
         inputEvent.OnSwichCamera += SetActiveCamera;
     }
     private void OnDisable()
     {
+        if (inputEvent == null) return;
         inputEvent.OnSwichCamera -= SetActiveCamera;
     }
     public void UpdateDirectionMove()

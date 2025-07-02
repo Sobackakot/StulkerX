@@ -1,4 +1,4 @@
-namespace Character.Camera
+namespace Character.MainCamera
 {
     public interface IFreeCamera : ICameraCharacter
     {

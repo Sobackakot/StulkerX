@@ -1,5 +1,3 @@
- 
-using State.Character;
 using StateData.Character;
 using UnityEngine;
 
@@ -33,15 +31,15 @@ public class FireEffectsMain
         if (stateData.isAim && nextTime < Time.time)
         {
             nextTime = Time.time + intervalTime / coefficient;
-            particles.PlayParticleShooting(stateData.isFire);
-            audios.PlayAudioShooting(stateData.isFire);
-            lights.EnableLight(stateData.isFire);
-            fireMesh.EnableRenderer(stateData.isFire);
+            particles?.PlayParticleShooting(stateData.isFire);
+            audios?.PlayAudioShooting(stateData.isFire);
+            lights?.EnableLight(stateData.isFire);
+            fireMesh?.EnableRenderer(stateData.isFire);
         }
         else
         {
-            lights.DisableLight(nextTime);
-            fireMesh.DisableRenderer(nextTime);
+            lights?.DisableLight(nextTime);
+            fireMesh?.DisableRenderer(nextTime);
         }
     } 
 }

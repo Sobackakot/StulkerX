@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Character.Camera
+namespace Character.MainCamera
 {
     public class FirstCameraCharacter : MonoBehaviour, IFirstCamera
     {
@@ -57,18 +57,8 @@ namespace Character.Camera
             mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
         }
-        public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
-        {
-
-        }
-
-        public float CheckCameraRotateAngle()
-        {
-            return 5;
-        }
-
-        public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
-        {
-        }
+        public void InputCamera_OnScrollMouse(Vector2 scrollMouse) { } 
+        public float CheckCameraRotateAngle() { return 0; } 
+        public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching) { }
     }
 }

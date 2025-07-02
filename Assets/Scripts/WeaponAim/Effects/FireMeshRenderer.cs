@@ -25,7 +25,7 @@ public class FireMeshRenderer : MonoBehaviour
     {
         if (isKeyDownLeft)
         {
-            gameObject.SetActive(true);
+            gameObject?.SetActive(true);
         }
     }
     public void DisableRenderer(float nextTime)
@@ -33,7 +33,7 @@ public class FireMeshRenderer : MonoBehaviour
         if (time < Time.time)
         {
             time = nextTime;
-            gameObject.SetActive(false);
+            gameObject?.SetActive(false);
         }
     }
     private void ShowFireEffect()

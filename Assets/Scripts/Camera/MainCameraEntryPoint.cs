@@ -1,11 +1,11 @@
-using MainCamera.Raycast;
 using StateData.Character;
+using Character.MainCamera.Raycast;
 
-namespace Character.Camera
+namespace Character.MainCamera.BootStrap
 {
-    public class CameraController
+    public class MainCameraEntryPoint
     {
-        public CameraController(
+        public MainCameraEntryPoint(
 
             CharacterStateContext stateContext, 
             IRaycastHitItem raycastHitItem, 

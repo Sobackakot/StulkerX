@@ -1,20 +1,24 @@
 using Character.InputEvents;
 using Inventory;
 using StateData.Character;
+using System;
 using UnityEngine;
 using Zenject;
 
 
-namespace MainCamera.Raycast
+namespace Character.MainCamera.Raycast
 {
     public class RaycastPointCamera : MonoBehaviour, IRaycastHitFPS, IRaycastHitItem, IRaycastHitParcour, IRaycastHitLootBox
     {
-        private Transform targetAiming;
+        public event Action<string> onShowInfoHitPoint;
+        public event Func<GameObject,bool> onSetParentByWeapon;
+
+        private Transform targetAimingTr;
         [SerializeField] private float aimPointSpeed = 45f;
         [SerializeField] private Vector3 offsetPointRayFor = new Vector3(0, 0.25f, 0);
 
-        private Transform pointRay;
-        private Transform charTransPointRay;
+        private Transform pointRayCameraTr;
+        private Transform pointRayCharacterTr;
         [SerializeField] private float maxRayInteract = 4f;
         [SerializeField] private float maxRayForwardParcoure = 0.8f;
         [SerializeField] private float maxRayHeightParcoure = 6f;
@@ -29,11 +33,7 @@ namespace MainCamera.Raycast
         private Ray rayDown;
         private RaycastHit hitForward;
         private RaycastHit hitDown;
-
-
-        private WeaponHandle weapon;
-        private CharacterInspector charact;
-        private WindowUI windowUI; 
+         
 
         private CharacterStateContext stateData;
         private IInputEvents inputEvent;
@@ -46,12 +46,9 @@ namespace MainCamera.Raycast
         }
         private void Awake()
         {
-            pointRay = GetComponent<Transform>();
-            weapon = FindObjectOfType<WeaponHandle>();
-            windowUI = FindObjectOfType<WindowUI>();
-            charact = FindObjectOfType<CharacterInspector>();
-            charTransPointRay = charact.GetComponent<Transform>();
-            targetAiming = GetComponentInChildren<TargetRayPointAim>()?.transform; 
+            pointRayCameraTr = GetComponent<Transform>();  
+            pointRayCharacterTr = FindObjectOfType<CharacterInspector>()?.transform;
+            targetAimingTr = GetComponentInChildren<TargetRayPointAim>()?.transform; 
         }
         private void OnEnable()
         {
@@ -81,9 +78,9 @@ namespace MainCamera.Raycast
         {
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayAiming, ~ignorLayerMask))
-                targetAiming.position = Vector3.Lerp(targetAiming.position, hitForward.point, Time.deltaTime * aimPointSpeed);
+                targetAimingTr.position = Vector3.Lerp(targetAimingTr.position, hitForward.point, Time.deltaTime * aimPointSpeed);
             else
-                targetAiming.position = Vector3.Lerp(targetAiming.position, rayForward.GetPoint(1000), Time.deltaTime * aimPointSpeed);
+                targetAimingTr.position = Vector3.Lerp(targetAimingTr.position, rayForward.GetPoint(1000), Time.deltaTime * aimPointSpeed);
         }
         void IRaycastHitItem.RaycastHitForItemInteract()
         {
@@ -92,7 +89,7 @@ namespace MainCamera.Raycast
             {
                 stateData.isRayHitToItem = true;
                 stateData.isRayHitToInventoryLootBox = false;
-                windowUI?.SetInteractText("Take (F)");
+                onShowInfoHitPoint?.Invoke("Take (F)");
             }
             else RaycastHitForLootBox();
         }
@@ -121,7 +118,7 @@ namespace MainCamera.Raycast
        
         bool IRaycastHitParcour.SetRayHitParcour(out RaycastHit hitForward, out RaycastHit hitDown)
         {
-            bool isHitForward = GetRayForwardFromCharacter(charTransPointRay, offsetPointRayFor);
+            bool isHitForward = GetRayForwardFromCharacter(pointRayCharacterTr, offsetPointRayFor);
             bool isHitDown = GetRayDownFromCharacter(this.hitForward, isHitForward);
             stateData.isRayHitToObstacle = isHitDown;
             if (isHitDown)
@@ -145,19 +142,19 @@ namespace MainCamera.Raycast
             {
                 stateData.isRayHitToItem = false;
                 stateData.isRayHitToInventoryLootBox = true;
-                windowUI?.SetInteractText("Search (F)");
+                onShowInfoHitPoint?.Invoke("Search (F)");
             }
             else
             {
                 stateData.isRayHitToItem = false;
                 stateData.isRayHitToInventoryLootBox = false;
-                windowUI?.SetInteractText(" ");
+                onShowInfoHitPoint?.Invoke(" ");
             }
         }
         private bool PickUpWeapon(PickUpItems pickUpItem, RaycastHit hit)
         {
-            if (pickUpItem.IsWeapon())
-                return weapon.SetWeapon(hit.collider.gameObject);
+            if (pickUpItem.IsWeapon() && onSetParentByWeapon!=null)
+                return onSetParentByWeapon.Invoke(hit.collider.gameObject);
             else return false;
         }
         private bool GetRayForwardFromCharacter(Transform charTrans, Vector3 offset)
@@ -173,7 +170,7 @@ namespace MainCamera.Raycast
         }
         private Ray GetRayForwardFromCamera()
         {
-            return new Ray(pointRay.position, pointRay.forward);
+            return new Ray(pointRayCameraTr.position, pointRayCameraTr.forward);
         }
       
     }

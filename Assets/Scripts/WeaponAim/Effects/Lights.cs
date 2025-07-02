@@ -9,7 +9,7 @@ public class Lights : MonoBehaviour
     {
         if (isKeyDownLeft)
         {
-            gameObject.SetActive(true);
+            gameObject?.SetActive(true);
         }
     }
     public void DisableLight(float nextTime)
@@ -17,7 +17,7 @@ public class Lights : MonoBehaviour
         if (time < Time.time)
         {
             time = nextTime; 
-            gameObject.SetActive(false);
+            gameObject?.SetActive(false);
         }
     }
 }

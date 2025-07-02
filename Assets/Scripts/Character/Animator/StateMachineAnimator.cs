@@ -78,17 +78,17 @@ public class StateMachineAnimator : StateMachineBehaviour
     private void EquipWeaponEnter(AnimatorStateInfo stateInfo, bool isStart)
     {
         if (stateInfo.IsName("EquipWeapon"))
-            inputEvent.SetEquippWeaponAnimationState(isStart);
+            inputEvent?.SetEquippWeaponAnimationState(isStart);
     }
     private void UnequipWeaponEnter(AnimatorStateInfo stateInfo, bool isStart)
     {
         if (stateInfo.IsName("UnequipWeapon"))
-            inputEvent.SetEquippWeaponAnimationState(isStart);
+            inputEvent?.SetEquippWeaponAnimationState(isStart);
     }
     private void ReloadWeaponEnter(AnimatorStateInfo stateInfo,bool isStart)
     {
         if (stateInfo.IsName("Reloading_Stop"))
-            inputEvent.SetReloadWeaponAnimationState(isStart);
+            inputEvent?.SetReloadWeaponAnimationState(isStart);
     }
    
 }

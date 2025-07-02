@@ -2,12 +2,12 @@
 using NPC.Main;
 using System;
 using Zenject;
-using Character.Camera;
+using Character.MainCamera.BootStrap;
 
 public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializable, IDisposable
 {   
     public MainHandler(
-        CameraController camera, 
+        MainCameraEntryPoint camera, 
         CharacterMoveMain character, 
         CharacterAnimatorMain animator,
         NPC_Main mainNPC)
@@ -17,7 +17,7 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
         this.camera = camera; 
         this.mainNPC = mainNPC;
     }
-    private CameraController camera;
+    private MainCameraEntryPoint camera;
     private CharacterMoveMain character;
     private CharacterAnimatorMain animator; 
     private NPC_Main mainNPC;

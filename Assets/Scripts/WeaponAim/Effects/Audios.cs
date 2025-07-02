@@ -16,7 +16,7 @@ public class Audios : MonoBehaviour
     {
         if(isKeyDownLeft)
         {    
-            audioSource.PlayOneShot(audioClip); 
+            audioSource?.PlayOneShot(audioClip); 
         }
     }
 }

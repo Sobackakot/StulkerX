@@ -36,10 +36,10 @@ public class WeaponFreeParent : MonoBehaviour
     }
     private void SetParentWeapon()
     {
-        trWeapon = weaponOriginParent.GetComponentInChildren<Weapon>()?.transform;
+        trWeapon = weaponOriginParent?.GetComponentInChildren<Weapon>()?.transform;
         if (trWeapon != null)
         {
-            trWeapon.SetParent(newParent);
+            trWeapon?.SetParent(newParent);
             trWeapon.localPosition = Vector3.zero;
             trWeapon.localRotation = Quaternion.identity;
         }
@@ -48,7 +48,7 @@ public class WeaponFreeParent : MonoBehaviour
     { 
         if (trWeapon != null)
         {
-            trWeapon.SetParent(weaponOriginParent);
+            trWeapon?.SetParent(weaponOriginParent);
             trWeapon.localPosition = Vector3.zero;
             trWeapon.localRotation = Quaternion.identity;
         }

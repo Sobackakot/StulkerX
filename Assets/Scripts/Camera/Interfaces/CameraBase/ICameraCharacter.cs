@@ -1,7 +1,7 @@
  
 using UnityEngine; 
 
-namespace Character.Camera
+namespace Character.MainCamera
 {
     public interface ICameraCharacter
     {

@@ -8,7 +8,7 @@ public class AimWeaponBehaviour : BehaviourCharBase
 {
     public AimWeaponBehaviour(
 
-       CharacterInspector character,
+        CharacterInspector character,
         CharacterAnimatorInspector animator,
         CharacterStateContext stateData,
         IInputEvents inputEvent,

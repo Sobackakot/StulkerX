@@ -1,5 +1,3 @@
-
-using State.Character;
 using StateData.Character;
 
 public class CharacterAnimatorMain  
