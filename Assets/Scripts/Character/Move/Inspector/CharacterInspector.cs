@@ -5,6 +5,7 @@ using UnityEngine;
 using Zenject;
 using Character.MainCamera.Raycast;
 using Character.MainCamera;
+using UnityEngine.Assertions.Must;
 
 
 public class CharacterInspector : MonoBehaviour 
@@ -97,7 +98,7 @@ public class CharacterInspector : MonoBehaviour
         inputAxis = stateContext.inputAxis;
         directionForward = Vector3.ProjectOnPlane(currCamTr.forward, Vector3.up).normalized;
         directionRight = Vector3.ProjectOnPlane(currCamTr.right, Vector3.up).normalized;
-        newDirection = (inputAxis.z * directionForward) + (inputAxis.x * directionRight); 
+        newDirection = (inputAxis.z * directionForward) + (inputAxis.x * directionRight).normalized; 
     }
     public void SetActiveCamera()
     {

@@ -35,7 +35,7 @@ public class MoveBehaviour : BehaviourCharBase
  
     public override void MovingBehaviour(float speed, Vector3 direction)
     {
-        base.MovingBehaviour(speed, direction);
+        base.MovingBehaviour(speed, direction); 
     }  
  
 }

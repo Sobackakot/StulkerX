@@ -4,7 +4,7 @@ using Behaviour.Handler;
 using StateData.Character;
 using Character.InputEvents;
 using UnityEngine;
-public class CrouchBehaviour : BehaviourCharBase
+public class CrouchBehaviour : MoveBehaviour
 {
     public CrouchBehaviour(
 
@@ -39,6 +39,7 @@ public class CrouchBehaviour : BehaviourCharBase
  
     public override void CrouchingBehaviour(float speed, Vector3 direction) 
     {
-        base.MovingBehaviour(speed, direction); 
+        MovingBehaviour(speed, direction);
+        Debug.Log("crouch");
     }  
 }

@@ -1,10 +1,9 @@
 using Behaviour.Character;
-using Behaviour.Character.Base;
 using Behaviour.Handler;
+using Character.InputEvents;
 using StateData.Character;
 using UnityEngine;
-using Character.InputEvents;
-public class SprintBehaviour : BehaviourCharBase
+public class SprintBehaviour : MoveBehaviour
 {
     public SprintBehaviour(
 
@@ -40,8 +39,9 @@ public class SprintBehaviour : BehaviourCharBase
  
     public override void SprintingBehaviour(float speed, Vector3 direction) 
     {
-        base.MovingBehaviour(speed, direction);
+        MovingBehaviour(speed, direction);
         animator?.MoveAnimation(animator.speedSprint, stateData.inputAxis);
-    } 
+        Debug.Log("sprint"); 
+    }
 
 }

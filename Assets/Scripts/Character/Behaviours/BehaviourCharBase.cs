@@ -60,6 +60,7 @@ namespace Behaviour.Character.Base
         public virtual void MovingBehaviour(float speed, Vector3 direction) 
         { 
             character.rbCharacter.MovePosition(character.rbCharacter.position + direction * speed * Time.fixedDeltaTime);
+            Debug.Log(speed);
         }
         public virtual void WalkingBehaviour(float speed, Vector3 direction) { }
         public virtual void RunningBehaviour(float speed, Vector3 direction) { }

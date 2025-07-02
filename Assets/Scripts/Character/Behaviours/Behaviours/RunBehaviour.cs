@@ -4,7 +4,7 @@ using Behaviour.Handler;
 using StateData.Character;
 using UnityEngine;
 using Character.InputEvents;
-public class RunBehaviour : BehaviourCharBase
+public class RunBehaviour : MoveBehaviour
 {
     public RunBehaviour(
 
@@ -36,8 +36,9 @@ public class RunBehaviour : BehaviourCharBase
         RunningBehaviour(speedMove, newDirection); 
     }
     public override void RunningBehaviour(float speed, Vector3 direction)
-    {
-        base.MovingBehaviour(speed, direction); 
+    { 
+        MovingBehaviour(speed, direction); 
         animator?.MoveAnimation(animator.speedRun,stateData.inputAxis);
-    } 
+        Debug.Log("Running"); 
+    }
 }

@@ -5,7 +5,6 @@ using State.Character.Move;
 using State.CoreFSM;
 using StateData.Character;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class MoveStateCrouch : MoveStateBase
 {

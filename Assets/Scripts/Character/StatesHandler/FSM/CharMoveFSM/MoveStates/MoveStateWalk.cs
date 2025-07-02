@@ -21,8 +21,7 @@ public class MoveStateWalk : MoveStateBase
              behaviourHandler?.Get<IPickUpItemBehaviour>(),
              behaviourHandler?.Get<IRotateBehaviour>(),
              behaviourHandler?.Get<IJumpBehaviour>(),
-             behaviourHandler?.Get<IParkourBehaviour>(),
-             behaviourHandler?.Get<IMoveBehaviour>()
+             behaviourHandler?.Get<IParkourBehaviour>()
         };
     }
 

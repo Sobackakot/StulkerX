@@ -4,7 +4,7 @@ using Behaviour.Handler;
 using StateData.Character;
 using UnityEngine;
 using Character.InputEvents;
-public class WalkBehaviour : BehaviourCharBase
+public class WalkBehaviour : MoveBehaviour
 {
     public WalkBehaviour(
 
@@ -38,7 +38,8 @@ public class WalkBehaviour : BehaviourCharBase
     } 
     public override void WalkingBehaviour(float speed, Vector3 direction) 
     {
-        base.MovingBehaviour(speed, direction);
+        MovingBehaviour(speed, direction);
         animator?.MoveAnimation(animator.speedWalk, stateData.inputAxis);
-    } 
+        Debug.Log("walking"); 
+    }
 }
