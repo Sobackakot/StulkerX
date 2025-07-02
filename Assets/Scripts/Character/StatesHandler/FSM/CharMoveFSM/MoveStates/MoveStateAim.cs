@@ -19,8 +19,7 @@ public class MoveStateAim : MoveStateBase
             behaviourHandler?.Get<IAimWeaponBehaviour>(),
             behaviourHandler?.Get<ICrouchBehaviour >(),
             behaviourHandler?.Get<IWalkBehaviour >(),
-            behaviourHandler?.Get<IRotateBehaviour >(),
-            behaviourHandler?.Get<IMoveBehaviour >()
+            behaviourHandler?.Get<IRotateBehaviour >()
         };
     }
 

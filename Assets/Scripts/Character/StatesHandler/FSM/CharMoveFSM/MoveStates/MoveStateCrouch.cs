@@ -19,8 +19,7 @@ public class MoveStateCrouch : MoveStateBase
             behaviourHandler?.Get<ICrouchBehaviour>(),
             behaviourHandler?.Get<IWalkBehaviour>(),
             behaviourHandler?.Get<IPickUpItemBehaviour>(),
-            behaviourHandler?.Get<IRotateBehaviour>(),
-            behaviourHandler?.Get<IMoveBehaviour>()
+            behaviourHandler?.Get<IRotateBehaviour>()
         };
     }
 
