@@ -101,22 +101,22 @@ public class CharacterInspector : MonoBehaviour
     }
     public void SetActiveCamera()
     {
-        bool isActive = stateContext.isFirstCamera;
+        bool isActive = stateContext.IsFirstCamera;
         firstCam.enabled = isActive;
         tirdCam.enabled = !isActive;
         head.SetActive(!isActive);
         capOnHead.SetActive(!isActive);
-        currCamTr = stateContext.isFirstCamera ? firstCamTr : tirdCamTr;
+        currCamTr = stateContext.IsFirstCamera ? firstCamTr : tirdCamTr;
     }
 
 
     private void OnCollisionStay(Collision collision)
     {
-        stateContext.isCollision = true;
+        stateContext.IsCollision = true;
     }
     private void OnCollisionExit(Collision collision)
     {
-        stateContext.isCollision = false;
+        stateContext.IsCollision = false;
     } 
    
 }

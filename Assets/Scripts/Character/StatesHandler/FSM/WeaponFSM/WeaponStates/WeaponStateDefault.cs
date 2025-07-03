@@ -51,7 +51,7 @@ public class WeaponStateDefault : WeaponStateBase
     private void AddTransition()
     { 
         var type = WeaponStateType.Default; 
-        weaponFSM?.AddTransition(type, () => stateData.isAim ? WeaponStateType.Aim : type);
-        weaponFSM?.AddTransition(type, () => stateData.isReloadingState ? WeaponStateType.Reload : type);
+        weaponFSM?.AddTransition(type, () => stateData.IsAim ? WeaponStateType.Aim : type);
+        weaponFSM?.AddTransition(type, () => stateData.IsReloadingState ? WeaponStateType.Reload : type);
     }
 }

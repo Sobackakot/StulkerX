@@ -2,7 +2,7 @@ using System;
 
 namespace Character.Context
 {
-    public interface IContext
+    public interface IContextEvents
     { 
         event Action onExecuteMoveTransition;
         event Action onExecuteReadyTransition;

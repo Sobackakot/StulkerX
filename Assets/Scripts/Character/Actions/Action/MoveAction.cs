@@ -7,13 +7,13 @@ public class MoveAction : CharacterAction
 {
     public MoveAction(IStateMachine<MoveStateType, IMoveState> fsm) : base(fsm) { }
 
-    public override void Subscribe(IContext context)
+    public override void Subscribe(IContextEvents context)
     {
         if (context == null || fsm == null) return;
         context.onExecuteMoveTransition += fsm.TransitionFSM;
     }
 
-    public override void Unsubscribe(IContext context)
+    public override void Unsubscribe(IContextEvents context)
     {
         if (context == null || fsm == null) return;
         context.onExecuteMoveTransition -= fsm.TransitionFSM;

@@ -2,10 +2,10 @@ using Character.Context;
 
 namespace Character.Actions
 {
-    public interface IAction<in T> where T : IContext
+    public interface IAction<in T> where T : IContextEvents
     {
-        void Subscribe(IContext context);
-        void Unsubscribe(IContext context); 
+        void Subscribe(IContextEvents context);
+        void Unsubscribe(IContextEvents context); 
     }
 }
 

@@ -3,7 +3,7 @@ using System;
 
 namespace Character.Context
 {
-    public abstract class CharacterContext : IContext
+    public abstract class CharacterContext : IContextEvents
     { 
         public abstract event Action onExecuteMoveTransition;
         public abstract event Action onExecuteReadyTransition;

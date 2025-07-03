@@ -18,11 +18,11 @@ public class EquipWeaponBehaviour : BehaviourCharBase
     } 
     public override void EnableBeh()
     {
-        EquipingWeapon(stateData.isReadyForBattle);
+        EquipingWeapon(stateData.IsReadyForBattle);
     }
     public override void DisableBeh()
     {
-        EquipingWeapon(stateData.isReadyForBattle);
+        EquipingWeapon(stateData.IsReadyForBattle);
     }
     public override void UpdateBeh()
     {

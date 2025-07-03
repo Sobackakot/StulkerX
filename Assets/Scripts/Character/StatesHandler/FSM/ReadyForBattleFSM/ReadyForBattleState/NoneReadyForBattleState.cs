@@ -52,6 +52,6 @@ public class NoneReadyForBattleState : ReadyForBattleStateBase
     private void AddTransition()
     { 
         var type = ReadyStateType.None; 
-        battleFSM?.AddTransition(type, () => stateData.isReadyForBattle ? ReadyStateType.Ready : type);
+        battleFSM?.AddTransition(type, () => stateData.IsReadyForBattle ? ReadyStateType.Ready : type);
     }
 }

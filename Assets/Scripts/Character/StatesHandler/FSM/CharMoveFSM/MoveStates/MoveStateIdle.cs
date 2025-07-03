@@ -53,10 +53,10 @@ public class MoveStateIdle : MoveStateBase
     private void AddTransition()
     {  
         var moveType = MoveStateType.Idle;  
-        moveFSM?.AddTransition(moveType, () => stateData.isRun ? MoveStateType.Run : moveType);
-        moveFSM?.AddTransition(moveType, () => stateData.isSprint ? MoveStateType.Sprint : moveType);
-        moveFSM?.AddTransition(moveType, () => stateData.isCrouch ? MoveStateType.Crouch : moveType);
-        moveFSM?.AddTransition(moveType, () => stateData.isWalk ? MoveStateType.Walk : moveType);
-        moveFSM?.AddTransition(moveType, () => stateData.isAim ? MoveStateType.Aim : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.IsRun ? MoveStateType.Run : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.IsSprint ? MoveStateType.Sprint : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.IsCrouch ? MoveStateType.Crouch : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.IsWalk ? MoveStateType.Walk : moveType);
+        moveFSM?.AddTransition(moveType, () => stateData.IsAim ? MoveStateType.Aim : moveType);
     }  
 }

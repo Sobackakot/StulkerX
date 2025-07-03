@@ -28,13 +28,13 @@ public class FireEffectsMain
  
     public void LateTick()
     {
-        if (stateData.isAim && nextTime < Time.time)
+        if (stateData.IsAim && nextTime < Time.time)
         {
             nextTime = Time.time + intervalTime / coefficient;
-            particles?.PlayParticleShooting(stateData.isFire);
-            audios?.PlayAudioShooting(stateData.isFire);
-            lights?.EnableLight(stateData.isFire);
-            fireMesh?.EnableRenderer(stateData.isFire);
+            particles?.PlayParticleShooting(stateData.IsFire);
+            audios?.PlayAudioShooting(stateData.IsFire);
+            lights?.EnableLight(stateData.IsFire);
+            fireMesh?.EnableRenderer(stateData.IsFire);
         }
         else
         {

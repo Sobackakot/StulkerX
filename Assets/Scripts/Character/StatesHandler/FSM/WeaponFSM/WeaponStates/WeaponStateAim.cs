@@ -55,7 +55,7 @@ public class WeaponStateAim : WeaponStateBase
     private void AddTransition()
     {
         var type = WeaponStateType.Aim; 
-        weaponFSM?.AddTransition(type, () => !stateData.isAim ? WeaponStateType.Default : type);
+        weaponFSM?.AddTransition(type, () => !stateData.IsAim ? WeaponStateType.Default : type);
     }
     
 }

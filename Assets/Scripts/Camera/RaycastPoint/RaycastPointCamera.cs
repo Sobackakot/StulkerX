@@ -87,8 +87,8 @@ namespace Character.MainCamera.Raycast
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskItem.value))
             {
-                stateData.isRayHitToItem = true;
-                stateData.isRayHitToInventoryLootBox = false;
+                stateData.IsRayHitToItem = true;
+                stateData.IsRayHitToInventoryLootBox = false;
                 onShowTextByHitPoint?.Invoke("Take (F)");
             }
             else RaycastHitForLootBox();
@@ -120,7 +120,7 @@ namespace Character.MainCamera.Raycast
         {
             bool isHitForward = GetRayForwardFromCharacter(pointRayCharacterTr, offsetPointRayFor);
             bool isHitDown = GetRayDownFromCharacter(this.hitForward, isHitForward);
-            stateData.isRayHitToObstacle = isHitDown;
+            stateData.IsRayHitToObstacle = isHitDown;
             if (isHitDown)
             {
                 hitForward = this.hitForward;
@@ -140,14 +140,14 @@ namespace Character.MainCamera.Raycast
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskLootBox.value))
             {
-                stateData.isRayHitToItem = false;
-                stateData.isRayHitToInventoryLootBox = true;
+                stateData.IsRayHitToItem = false;
+                stateData.IsRayHitToInventoryLootBox = true;
                 onShowTextByHitPoint?.Invoke("Search (F)");
             }
             else
             {
-                stateData.isRayHitToItem = false;
-                stateData.isRayHitToInventoryLootBox = false;
+                stateData.IsRayHitToItem = false;
+                stateData.IsRayHitToInventoryLootBox = false;
                 onShowTextByHitPoint?.Invoke(" ");
             }
         }

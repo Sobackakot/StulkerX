@@ -37,7 +37,7 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
     }
     public void Tick()
     {
-        if (context.isActiveInventory) return;
+        if (context.IsActiveInventory) return;
         character?.Tick();
         animator?.Tick();  
         mainNPC?.Tick();
@@ -45,7 +45,7 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
     }
     public void LateTick()
     {
-        if (context.isActiveInventory) return;
+        if (context.IsActiveInventory) return;
         character?.LateTick();
         animator?.LateTick();  
         mainNPC?.LateTick();
@@ -53,7 +53,7 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable , IInitializ
     }
     public void FixedTick()
     {
-        if (context.isActiveInventory) return;
+        if (context.IsActiveInventory) return;
         character?.FixedTick();
         animator?.FixedTick();  
         mainNPC?.FixedTick();

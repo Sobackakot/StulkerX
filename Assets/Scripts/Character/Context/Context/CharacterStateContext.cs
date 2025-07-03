@@ -11,7 +11,7 @@ namespace StateData.Character
         public override event Action onExecuteWeaponTransition;
         public override event Action<bool> onStoppingExecute;
 
-         
+        public Vector3 inputAxis { get; set; }
         public Vector2 inputAxisCamera;
         private float _currentAngle;
         public float currentAngle 
@@ -20,17 +20,17 @@ namespace StateData.Character
             set { _currentAngle = value; }
         }
         private bool _isFirstCamera; 
-        public bool isFirstCamera 
+        public bool IsFirstCamera 
         {
             get => _isFirstCamera;
             set { _isFirstCamera = value; } 
         } 
 
 
-        public Vector3 inputAxis { get; set; }
+       
 
         private bool _isActiveInventory;
-        public bool isActiveInventory 
+        public bool IsActiveInventory 
         {
             get => _isActiveInventory;
             set
@@ -43,7 +43,7 @@ namespace StateData.Character
 
 
         private bool _isIdle;
-        public bool isIdle 
+        public bool IsIdle 
         {
             get => _isIdle;
             set
@@ -54,7 +54,7 @@ namespace StateData.Character
             }
         }
         private bool _isWalk;
-        public bool isWalk 
+        public bool IsWalk 
         { 
             get => _isWalk;
             set
@@ -65,7 +65,7 @@ namespace StateData.Character
             }
         }
         private bool _isRun;
-        public bool isRun 
+        public bool IsRun 
         { 
             get => _isRun;
             set
@@ -76,7 +76,7 @@ namespace StateData.Character
             }
         }
         private bool _isSprint;
-        public bool isSprint 
+        public bool IsSprint 
         {
             get => _isSprint;
             set
@@ -87,7 +87,7 @@ namespace StateData.Character
             }
         }
         private bool _isCrouch;
-        public bool isCrouch 
+        public bool IsCrouch 
         {
             get => _isCrouch;
             set
@@ -98,7 +98,7 @@ namespace StateData.Character
             }
         }
         private bool _isAim;
-        public bool isAim 
+        public bool IsAim 
         {
             get => _isAim;
             set
@@ -110,7 +110,7 @@ namespace StateData.Character
             }
         }
         private bool _isReadyForBattle;
-        public bool isReadyForBattle
+        public bool IsReadyForBattle
         {
             get => _isReadyForBattle;
             set
@@ -121,7 +121,7 @@ namespace StateData.Character
             }
         }
         private bool _isReloadingState;
-        public bool isReloadingState 
+        public bool IsReloadingState 
         {
             get => _isReloadingState;
             set
@@ -131,26 +131,25 @@ namespace StateData.Character
                 onExecuteWeaponTransition?.Invoke();
             }
         }
-        public bool isCollision { get; set; } 
-        public bool isMove { get; set; } 
-        public bool isLeanRight { get; set; } 
-        public bool isLeanLeft { get; set; } 
+        public bool IsCollision { get; set; }  
+        public bool IsLeanRight { get; set; } 
+        public bool IsLeanLeft { get; set; } 
         
-        public bool isLeftTargerPoint { get; set; } 
+        public bool IsLeftTargerPoint { get; set; } 
          
-        public bool isParkour { get; set; }  
+        public bool IsParkour { get; set; }  
 
         
-        public bool isFire { get; set; } 
+        public bool IsFire { get; set; } 
         
-        public bool isHasWeapon { get; set; }
-        public bool isEquippingState { get; set; }
+        public bool IsHasWeapon { get; set; }
+        public bool IsEquippingState { get; set; }
         
          
 
-        public bool isRayHitToInventoryLootBox { get; set; }
-        public bool isRayHitToItem { get; set; }
-        public bool isRayHitToObstacle { get; set; }
+        public bool IsRayHitToInventoryLootBox { get; set; }
+        public bool IsRayHitToItem { get; set; }
+        public bool IsRayHitToObstacle { get; set; }
 
         
     }

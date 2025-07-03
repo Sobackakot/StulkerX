@@ -8,13 +8,13 @@ public class ReadyAction : CharacterAction
 {
     public ReadyAction(IStateMachine<ReadyStateType, IReadyForBattleState> fsm) : base(fsm) { }
 
-    public override void Subscribe(IContext context)
+    public override void Subscribe(IContextEvents context)
     {
         if (context == null || fsm == null) return;
         context.onExecuteReadyTransition += fsm.TransitionFSM;
     }
 
-    public override void Unsubscribe(IContext context)
+    public override void Unsubscribe(IContextEvents context)
     {
         if (context == null || fsm == null) return;
         context.onExecuteReadyTransition -= fsm.TransitionFSM;

@@ -18,11 +18,11 @@ public class ReadyForBattleBehaviour : BehaviourCharBase
     }
     public override void EnableBeh()
     { 
-        ReadyForBattle(stateData.isReadyForBattle);
+        ReadyForBattle(stateData.IsReadyForBattle);
     }
     public override void DisableBeh()
     {
-        ReadyForBattle(stateData.isReadyForBattle);
+        ReadyForBattle(stateData.IsReadyForBattle);
     }
     public override void UpdateBeh()
     { 

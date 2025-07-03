@@ -16,13 +16,13 @@ public class CharacterAnimatorMain
     private CharacterIK characterIK; 
     public void FixedTick()
     { 
-        characterIK.WeightIKWeapon(stateData.isReloadingState, stateData.isEquippingState);
-        if (!stateData.isReloadingState || !stateData.isEquippingState)
+        characterIK.WeightIKWeapon(stateData.IsReloadingState, stateData.IsEquippingState);
+        if (!stateData.IsReloadingState || !stateData.IsEquippingState)
         {
-            characterIK.BodyLoockTargetIK(stateData.isIdle, stateData.isAim);
-            characterIK.WeaponParentIK(stateData.isReadyForBattle, stateData.isEquippingState);
-            characterIK.AimWeaponParentIK(stateData.isAim, stateData.isReloadingState);
-            characterIK.EquipWeaponParentIK(stateData.isReadyForBattle, stateData.isHasWeapon);
+            characterIK.BodyLoockTargetIK(stateData.IsIdle, stateData.IsAim);
+            characterIK.WeaponParentIK(stateData.IsReadyForBattle, stateData.IsEquippingState);
+            characterIK.AimWeaponParentIK(stateData.IsAim, stateData.IsReloadingState);
+            characterIK.EquipWeaponParentIK(stateData.IsReadyForBattle, stateData.IsHasWeapon);
         }
     }
     public void Tick()

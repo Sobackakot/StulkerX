@@ -52,6 +52,6 @@ public class MoveStateCrouch : MoveStateBase
     private void AddTransition()
     { 
         var moveType = MoveStateType.Crouch; 
-        moveFSM?.AddTransition(moveType, () => !stateData.isCrouch ? MoveStateType.Run: moveType);
+        moveFSM?.AddTransition(moveType, () => !stateData.IsCrouch ? MoveStateType.Run: moveType);
     } 
 }

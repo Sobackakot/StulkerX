@@ -18,11 +18,11 @@ public class CrouchBehaviour : MoveBehaviour
     }
     public override void EnableBeh()
     {
-        animator?.CrouchAnimation(stateData.isCrouch);
+        animator?.CrouchAnimation(stateData.IsCrouch);
     }
     public override void DisableBeh()
     {
-        animator?.CrouchAnimation(stateData.isCrouch);
+        animator?.CrouchAnimation(stateData.IsCrouch);
     }
     public override void UpdateBeh()
     { 

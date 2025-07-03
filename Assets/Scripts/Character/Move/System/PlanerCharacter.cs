@@ -3,7 +3,7 @@ using Character.Context;
 using System;
 using System.Collections.Generic;
 
-public class PlanerCharacter <T> where T : IContext
+public class PlanerCharacter <T> where T : IContextEvents
 { 
     public List<IAction<T>> actions = new();
 

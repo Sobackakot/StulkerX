@@ -64,7 +64,7 @@ namespace Inventory.UI
                 inventory.UpdatePickItem(dataItem, index, slotType);
                 inventoryEquip.RemoveItemFromInventory(dataItem);
             }
-            else if (index1 != -1 && stateData.isActiveInventory)
+            else if (index1 != -1 && stateData.IsActiveInventory)
             {
                 inventoryBox.UpdatePickItem(dataItem, index, slotType);
                 inventoryEquip.RemoveItemFromInventory(dataItem);

@@ -18,11 +18,11 @@ public class AimWeaponBehaviour : BehaviourCharBase
     } 
     public override void EnableBeh()
     { 
-        AimingWeapon(stateData.isAim);
+        AimingWeapon(stateData.IsAim);
     }
     public override void DisableBeh()
     {
-        AimingWeapon(stateData.isAim);
+        AimingWeapon(stateData.IsAim);
     }
     public override void UpdateBeh()
     {

@@ -83,108 +83,108 @@ namespace Character.InputEvents
         }
         public void InputCamera_OnSwitchCamera(SwitchEventCamera a)
         {
-            stateData.isFirstCamera = !stateData.isFirstCamera;
+            stateData.IsFirstCamera = !stateData.IsFirstCamera;
             OnSwichCamera?.Invoke();
         }
 
         public void ExitInventory(InventoryExitEvent inventory)
         {
-            stateData.isActiveInventory = false;
+            stateData.IsActiveInventory = false;
             OnExitInventory?.Invoke();
         }
         public void InventoryLootBoxActive(InventoryLootBoxActiveEvent inventory)
         {
-            if (stateData.isRayHitToInventoryLootBox)
+            if (stateData.IsRayHitToInventoryLootBox)
             {
-                stateData.isActiveInventory = !stateData.isActiveInventory;
-                OnActiveInventoryLootBox?.Invoke(stateData.isActiveInventory);
+                stateData.IsActiveInventory = !stateData.IsActiveInventory;
+                OnActiveInventoryLootBox?.Invoke(stateData.IsActiveInventory);
             }
         }
         public void InventoryActive(InventoryActiveEvent inventory)
         {
-            stateData.isActiveInventory = !stateData.isActiveInventory;
-            OnActiveInventory?.Invoke(stateData.isActiveInventory);
+            stateData.IsActiveInventory = !stateData.IsActiveInventory;
+            OnActiveInventory?.Invoke(stateData.IsActiveInventory);
         }
         public void JumpingBehaviour(InputEventJump jump)
         {
-            if (stateData.isCollision && !stateData.isRayHitToObstacle)
+            if (stateData.IsCollision && !stateData.IsRayHitToObstacle)
             {
                 OnJump?.Invoke();
             }
         }
         public void PickUpItemBehaviour(PickUpItemEvent pickUp)
         {
-            if (stateData.isRayHitToItem)
+            if (stateData.IsRayHitToItem)
             {
-                if (OnHasWeapon.Invoke()) stateData.isHasWeapon = true;
+                if (OnHasWeapon.Invoke()) stateData.IsHasWeapon = true;
                 OnPickUpItem?.Invoke();
             }
         }
         public void ParkouringBehaviour(InputEventJump jump)
         {
-            if (stateData.isRayHitToObstacle)
+            if (stateData.IsRayHitToObstacle)
                 OnParkour?.Invoke();
         }
 
         public void MovingBehaviour(InputEventMove move)
         {
             stateData.inputAxis = new Vector3(move.inputValue.x, 0, move.inputValue.y);
-            stateData.isRun = stateData.inputAxis.sqrMagnitude > 0.2f && !stateData.isWalk && !stateData.isCrouch;
+            stateData.IsRun = stateData.inputAxis.sqrMagnitude > 0.2f && !stateData.IsWalk && !stateData.IsCrouch;
         }
         public void CrouchingBehaviour(ToggleEventCrouch crouch)
         {
-            stateData.isCrouch = !stateData.isCrouch;
+            stateData.IsCrouch = !stateData.IsCrouch;
         }
         public void WalkingBehaviour(InputEventWalk walk)
         {
-            stateData.isWalk = walk.inputValue;
+            stateData.IsWalk = walk.inputValue;
         }
         public void SprintingBehaviour(InputEventSprint sprint)
         {
-            if (!stateData.isCrouch)
-                stateData.isSprint = sprint.inputValue;
+            if (!stateData.IsCrouch)
+                stateData.IsSprint = sprint.inputValue;
         }
 
         public void LeaningLeftBehaviour(InputEventLeanLeft lean)
         {
-            stateData.isLeanLeft = lean.inputValue;
-            stateData.isLeftTargerPoint = true;
+            stateData.IsLeanLeft = lean.inputValue;
+            stateData.IsLeftTargerPoint = true;
         }
         public void LeaningRightBehaviour(InputEventLeanRight lean)
         {
-            stateData.isLeanRight = lean.inputValue;
-            stateData.isLeftTargerPoint = false;
+            stateData.IsLeanRight = lean.inputValue;
+            stateData.IsLeftTargerPoint = false;
         }
 
 
         public void EquipWeaponBehaviour(EquipWeaponToggleEvent equip)
         {
-            if (!stateData.isAim && stateData.isHasWeapon && !stateData.isReloadingState)
+            if (!stateData.IsAim && stateData.IsHasWeapon && !stateData.IsReloadingState)
             {
-                stateData.isReadyForBattle = !stateData.isReadyForBattle;
+                stateData.IsReadyForBattle = !stateData.IsReadyForBattle;
             }
         }
         public void FireWeaponInput(FireInputEvent fire)
         {
-            if (stateData.isAim && stateData.isHasWeapon && stateData.isReadyForBattle && !stateData.isReloadingState)
-                stateData.isFire = fire.inputValue;
+            if (stateData.IsAim && stateData.IsHasWeapon && stateData.IsReadyForBattle && !stateData.IsReloadingState)
+                stateData.IsFire = fire.inputValue;
         }
         public void ReloadWeaponBehaviour(ReloadWeaponEvent reload)
         {
-            if (!stateData.isAim && stateData.isHasWeapon && stateData.isReadyForBattle && !stateData.isReloadingState)
+            if (!stateData.IsAim && stateData.IsHasWeapon && stateData.IsReadyForBattle && !stateData.IsReloadingState)
                 OnReloadWeapon?.Invoke();
         }
         public void AimWeaponBehaviour(AimInputEvent aim)
         {
-            if (stateData.isHasWeapon && stateData.isReadyForBattle && !stateData.isReloadingState)
+            if (stateData.IsHasWeapon && stateData.IsReadyForBattle && !stateData.IsReloadingState)
             {
-                stateData.isAim = aim.inputValue;
+                stateData.IsAim = aim.inputValue;
             }
         }
 
         public void SetReloadWeaponAnimationState(bool isReload) // call from StateMachineAnimator
         {
-            stateData.isReloadingState = isReload;
+            stateData.IsReloadingState = isReload;
             if (isReload)
                 OnSetParentWeapon?.Invoke(); // subscribe from WeaponFreeParent
             else
@@ -193,7 +193,7 @@ namespace Character.InputEvents
 
         public void SetEquippWeaponAnimationState(bool isEquipping) // call from StateMachineAnimator
         {
-            stateData.isEquippingState = isEquipping;
+            stateData.IsEquippingState = isEquipping;
             if (isEquipping)
                 OnSetParentWeapon?.Invoke(); // subscribe from WeaponFreeParent
             else

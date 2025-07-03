@@ -34,29 +34,29 @@ namespace Character.MainCamera.BootStrap
         private void SwitchCamera()
         {
             if (stateContext == null) return;
-            activeCamera = stateContext.isFirstCamera ? firstCamera : freeCamera;
+            activeCamera = stateContext.IsFirstCamera ? firstCamera : freeCamera;
         }
         public void Tick()
         {
             SwitchCamera();
-            activeCamera?.SwitchLookPointCamera(stateContext.isLeftTargerPoint, stateContext.isCrouch);  
+            activeCamera?.SwitchLookPointCamera(stateContext.IsLeftTargerPoint, stateContext.IsCrouch);  
             stateContext.currentAngle = activeCamera.CheckCameraRotateAngle();
             activeCamera?.SetInputAxis(stateContext.inputAxisCamera);
         }
         public void LateTick()
         { 
             activeCamera?.FollowCamera();
-            activeCamera?.RotateCamera(stateContext.isAim);
-            activeCamera?.ZoomCamera(stateContext.isAim, stateContext.isReloadingState); 
+            activeCamera?.RotateCamera(stateContext.IsAim);
+            activeCamera?.ZoomCamera(stateContext.IsAim, stateContext.IsReloadingState); 
         }
 
         public void FixedTick()
         {
             raycastHitItem?.RaycastHitForItemInteract();
-            if (stateContext.isAim)
+            if (stateContext.IsAim)
             {
                 raycastHitFPS?.UpdateRaycastHitPointAim();
-                raycastHitFPS?.RaycastHitShooting(stateContext.isFire);
+                raycastHitFPS?.RaycastHitShooting(stateContext.IsFire);
             }
         }
     }
