@@ -1,9 +1,8 @@
 using Behaviour.Character;
-using Behaviour.Character.Base;
 using Behaviour.Handler;
+using Character.InputEvents;
 using StateData.Character;
 using UnityEngine;
-using Character.InputEvents;
 public class RunBehaviour : MoveBehaviour
 {
     public RunBehaviour(

@@ -1,11 +1,10 @@
 using Character.InputEvents;
+using Character.MainCamera;
+using Character.MainCamera.Raycast;
 using StateData.Character;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Character.MainCamera.Raycast;
-using Character.MainCamera;
-using UnityEngine.Assertions.Must;
 
 
 public class CharacterInspector : MonoBehaviour 

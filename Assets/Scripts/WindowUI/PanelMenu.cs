@@ -1,6 +1,7 @@
 using Character.MainCamera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Window.UI;
 
 namespace Menu 
 {
@@ -15,9 +16,9 @@ namespace Menu
 
         private void OnEnable()
         {
-            charCam = FindObjectOfType<FreeCameraCharacter>()?.gameObject;
-            windowUI = FindObjectOfType<WindowUI>()?.gameObject;
+            charCam = FindObjectOfType<FreeCameraCharacter>()?.gameObject; 
             menuUI = GetComponentInChildren<MenuGameObjectUI>()?.gameObject;
+            windowUI = WindowUI.instanceUI?.GetComponent<WindowUI>().gameObject;
             SetMenuState(false);
             UpdateCursorLockState();
         }

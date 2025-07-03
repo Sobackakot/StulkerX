@@ -9,6 +9,7 @@ namespace StateData.Character
         public override event Action onExecuteMoveTransition;
         public override event Action onExecuteReadyTransition;
         public override event Action onExecuteWeaponTransition;
+        public override event Action<bool> onStoppingExecute;
 
          
         public Vector2 inputAxisCamera;
@@ -28,7 +29,17 @@ namespace StateData.Character
 
         public Vector3 inputAxis { get; set; }
 
-        public bool isActiveInventory { get;   set; }
+        private bool _isActiveInventory;
+        public bool isActiveInventory 
+        {
+            get => _isActiveInventory;
+            set
+            {
+                if (_isActiveInventory == value) return;
+                _isActiveInventory = value;
+                onStoppingExecute?.Invoke(_isActiveInventory);
+            }
+        }
 
 
         private bool _isIdle;

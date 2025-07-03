@@ -7,6 +7,7 @@ namespace Character.Context
         event Action onExecuteMoveTransition;
         event Action onExecuteReadyTransition;
         event Action onExecuteWeaponTransition;
+        event Action<bool> onStoppingExecute;
     }
 }
 

@@ -10,7 +10,7 @@ namespace Character.MainCamera.Raycast
 {
     public class RaycastPointCamera : MonoBehaviour, IRaycastHitFPS, IRaycastHitItem, IRaycastHitParcour, IRaycastHitLootBox
     {
-        public event Action<string> onShowInfoHitPoint;
+        public event Action<string> onShowTextByHitPoint;
         public event Func<GameObject,bool> onSetParentByWeapon;
 
         private Transform targetAimingTr;
@@ -89,7 +89,7 @@ namespace Character.MainCamera.Raycast
             {
                 stateData.isRayHitToItem = true;
                 stateData.isRayHitToInventoryLootBox = false;
-                onShowInfoHitPoint?.Invoke("Take (F)");
+                onShowTextByHitPoint?.Invoke("Take (F)");
             }
             else RaycastHitForLootBox();
         }
@@ -142,13 +142,13 @@ namespace Character.MainCamera.Raycast
             {
                 stateData.isRayHitToItem = false;
                 stateData.isRayHitToInventoryLootBox = true;
-                onShowInfoHitPoint?.Invoke("Search (F)");
+                onShowTextByHitPoint?.Invoke("Search (F)");
             }
             else
             {
                 stateData.isRayHitToItem = false;
                 stateData.isRayHitToInventoryLootBox = false;
-                onShowInfoHitPoint?.Invoke(" ");
+                onShowTextByHitPoint?.Invoke(" ");
             }
         }
         private bool PickUpWeapon(PickUpItems pickUpItem, RaycastHit hit)

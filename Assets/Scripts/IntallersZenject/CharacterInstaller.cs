@@ -25,8 +25,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         BindAnimatorChar();
         BindTargetSystem();
         BindWeaponEffects();
-        Container.BindInterfacesAndSelfTo<MainHandler>().AsSingle().NonLazy(); 
-        Container.Bind<WindowUI>().FromComponentInHierarchy(this).AsSingle(); 
+        Container.BindInterfacesAndSelfTo<MainHandler>().AsSingle().NonLazy();  
     }
     private void BindWeaponEffects()
     {

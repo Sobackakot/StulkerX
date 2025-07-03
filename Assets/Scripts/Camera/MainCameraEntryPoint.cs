@@ -1,5 +1,6 @@
 using StateData.Character;
 using Character.MainCamera.Raycast;
+using Window.UI;
 
 namespace Character.MainCamera.BootStrap
 {
@@ -43,11 +44,10 @@ namespace Character.MainCamera.BootStrap
             activeCamera?.SetInputAxis(stateContext.inputAxisCamera);
         }
         public void LateTick()
-        {
-            
-            activeCamera?.FollowCamera(); 
+        { 
+            activeCamera?.FollowCamera();
             activeCamera?.RotateCamera(stateContext.isAim);
-            activeCamera?.ZoomCamera(stateContext.isAim, stateContext.isReloadingState);
+            activeCamera?.ZoomCamera(stateContext.isAim, stateContext.isReloadingState); 
         }
 
         public void FixedTick()

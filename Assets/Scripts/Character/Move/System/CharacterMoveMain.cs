@@ -3,7 +3,8 @@ using Character.InputEvents;
 using State.Character.Battle;
 using State.Character.Move;
 using State.Character.Weapon;
-using StateData.Character; 
+using StateData.Character;
+using Window.UI;
 public class CharacterMoveMain  
 {
     public CharacterMoveMain(
@@ -36,7 +37,7 @@ public class CharacterMoveMain
     private MoveStateHandler moveFSM;
     private ReadyForBattleStateHandler readyFSM;
     private WeaponStateHandler weaponFSM;
-
+     
     public void Initialize()
     {
         inputEvent.Initialize();
@@ -124,7 +125,7 @@ public class CharacterMoveMain
     }
 
     public void Tick()
-    { 
+    {
         charac.UpdateDirectionMove();
         moveFSM?.UpdateFSM();
         readyFSM?.UpdateFSM();

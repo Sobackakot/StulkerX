@@ -1,8 +1,6 @@
-using System;
+using Character.InputEvents;
 using UnityEngine;
 using Zenject;
-using Character.InputEvents;
-using State.Character;
 
 
 namespace Inventory

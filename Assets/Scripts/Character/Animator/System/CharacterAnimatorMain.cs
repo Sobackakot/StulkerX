@@ -1,4 +1,6 @@
 using StateData.Character;
+using UnityEngine;
+using Window.UI;
 
 public class CharacterAnimatorMain  
 { 
@@ -11,19 +13,9 @@ public class CharacterAnimatorMain
     }
     private CharacterStateContext stateData;
     private CharacterAnimatorInspector characterAnimator; 
-    private CharacterIK characterIK;
-
-    public void Tick()
-    {
-        characterAnimator.SwitchAnimationTurn(stateData.currentAngle);
-        characterAnimator.TurnAnimation(stateData.inputAxisCamera);
-    }  
-    public void LateTick()
-    {
-       
-    }
+    private CharacterIK characterIK; 
     public void FixedTick()
-    {
+    { 
         characterIK.WeightIKWeapon(stateData.isReloadingState, stateData.isEquippingState);
         if (!stateData.isReloadingState || !stateData.isEquippingState)
         {
@@ -33,5 +25,15 @@ public class CharacterAnimatorMain
             characterIK.EquipWeaponParentIK(stateData.isReadyForBattle, stateData.isHasWeapon);
         }
     }
+    public void Tick()
+    {
+        characterAnimator.SwitchAnimationTurn(stateData.currentAngle);
+        characterAnimator.TurnAnimation(stateData.inputAxisCamera);
+    }  
+    public void LateTick()
+    {
+       
+    }
+  
 
 }
