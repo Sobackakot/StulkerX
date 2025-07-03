@@ -1,22 +1,11 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
-using Character.InputEvents;
 using UnityEngine;
 public class MoveBehaviour : BehaviourCharBase
 {
-    public MoveBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public MoveBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<IMoveBehaviour>(this);
     }
-    
+
     public override void EnableBeh()
     { 
     }

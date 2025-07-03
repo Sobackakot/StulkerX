@@ -1,18 +1,17 @@
-using Behaviour.Character;
 using Behaviour;
+using Behaviour.Character;
 using Behaviour.Handler;
-using State;
+using Character.Context;
 using State.Character.Weapon;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
 
 public class WeaponStateDefault : WeaponStateBase
 {
     public WeaponStateDefault(
 
-        IStateMachine<WeaponStateType, IWeaponState> weaponHandler, 
-        CharacterStateContext stateData, 
+        IStateMachine<WeaponStateType, IWeaponState> weaponHandler,
+        IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(weaponHandler, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -51,7 +50,7 @@ public class WeaponStateDefault : WeaponStateBase
     private void AddTransition()
     { 
         var type = WeaponStateType.Default; 
-        weaponFSM?.AddTransition(type, () => stateData.IsAim ? WeaponStateType.Aim : type);
-        weaponFSM?.AddTransition(type, () => stateData.IsReloadingState ? WeaponStateType.Reload : type);
+        weaponFSM?.AddTransition(type, () => contextStates.IsAim ? WeaponStateType.Aim : type);
+        weaponFSM?.AddTransition(type, () => contextStates.IsReloadingState ? WeaponStateType.Reload : type);
     }
 }

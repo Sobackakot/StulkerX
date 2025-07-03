@@ -1,28 +1,17 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
-using Character.InputEvents;
-using UnityEngine;
 public class EquipWeaponBehaviour : BehaviourCharBase
 {
-    public EquipWeaponBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public EquipWeaponBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<IEquipWeaponBehaviour>(this);
-    } 
+    }
+
     public override void EnableBeh()
     {
-        EquipingWeapon(stateData.IsReadyForBattle);
+        EquipingWeapon(character.contextStates.IsReadyForBattle);
     }
     public override void DisableBeh()
     {
-        EquipingWeapon(stateData.IsReadyForBattle);
+        EquipingWeapon(character.contextStates.IsReadyForBattle);
     }
     public override void UpdateBeh()
     {

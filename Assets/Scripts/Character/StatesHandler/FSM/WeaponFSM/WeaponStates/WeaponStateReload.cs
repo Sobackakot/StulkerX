@@ -1,18 +1,17 @@
 using Behaviour;
 using Behaviour.Character;
 using Behaviour.Handler;
+using Character.Context;
 using State.Character.Weapon;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class WeaponStateReload : WeaponStateBase
 {
     public WeaponStateReload(
 
-        IStateMachine<WeaponStateType, IWeaponState> weaponHandler, 
-        CharacterStateContext stateData, 
+        IStateMachine<WeaponStateType, IWeaponState> weaponHandler,
+        IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(weaponHandler, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -50,6 +49,6 @@ public class WeaponStateReload : WeaponStateBase
     private void AddTransition()
     { 
         var type = WeaponStateType.Reload; 
-        weaponFSM?.AddTransition(type, () => !stateData.IsReloadingState ? WeaponStateType.Default : type);
+        weaponFSM?.AddTransition(type, () => !contextStates.IsReloadingState ? WeaponStateType.Default : type);
     }
 }

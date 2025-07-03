@@ -1,17 +1,17 @@
 using Behaviour;
 using Behaviour.Character;
 using Behaviour.Handler;
+using Character.Context;
 using State.Character.Move;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
 
 public class MoveStateAim : MoveStateBase
 {
     public MoveStateAim(
 
-        IStateMachine<MoveStateType, IMoveState> moveFSM, 
-        CharacterStateContext stateData, 
+        IStateMachine<MoveStateType, IMoveState> moveFSM,
+        IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(moveFSM, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -52,7 +52,7 @@ public class MoveStateAim : MoveStateBase
     private void AddTransition()
     { 
         var typeAim = MoveStateType.Aim;
-        moveFSM?.AddTransition(typeAim, () => !stateData.IsAim ? MoveStateType.Run : typeAim);
-        moveFSM?.AddTransition(typeAim, () => stateData.IsCrouch ? MoveStateType.Crouch : typeAim);
+        moveFSM?.AddTransition(typeAim, () => !contextStates.IsAim ? MoveStateType.Run : typeAim);
+        moveFSM?.AddTransition(typeAim, () => contextStates.IsCrouch ? MoveStateType.Crouch : typeAim);
     } 
 }

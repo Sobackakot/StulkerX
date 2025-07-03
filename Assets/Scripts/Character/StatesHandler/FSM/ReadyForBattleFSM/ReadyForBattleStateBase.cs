@@ -1,8 +1,7 @@
 using Behaviour;
 using Behaviour.Handler;
-using State.Character.Move;
+using Character.Context;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
 
 namespace State.Character.Battle 
@@ -11,18 +10,18 @@ namespace State.Character.Battle
     {
         public ReadyForBattleStateBase(
             
-            IStateMachine<ReadyStateType, IReadyForBattleState> battleFSM, 
-            CharacterStateContext stateData,  
+            IStateMachine<ReadyStateType, IReadyForBattleState> battleFSM,
+            IContextStates contextStates,  
             IBehaviourHandler behaviourHandler)
         {
             this.battleFSM = battleFSM;
-            this.stateData = stateData;
+            this.contextStates = contextStates;
             this.behaviourHandler = behaviourHandler;
         }
         protected List<IUnitBehaviour> activeBehaviours = new();
 
         protected readonly IStateMachine<ReadyStateType, IReadyForBattleState> battleFSM;
-        protected readonly CharacterStateContext stateData;
+        protected readonly IContextStates contextStates;
         protected readonly IBehaviourHandler behaviourHandler;
         public abstract void EnterState();
 

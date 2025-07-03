@@ -1,28 +1,18 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
-using Character.InputEvents;
 using UnityEngine;
 public class JumpBehaviour : BehaviourCharBase
 {
-    public JumpBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public JumpBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<IJumpBehaviour>(this);
     }
+
     public override void EnableBeh()
     {
-        inputEvent.OnJump += JumpingBehaviour; 
+        character.inputEvent.OnJump += JumpingBehaviour; 
     }
     public override void DisableBeh()
     {
-        inputEvent.OnJump -= JumpingBehaviour; 
+        character.inputEvent.OnJump -= JumpingBehaviour; 
     }
     public override void UpdateBeh()
     { 

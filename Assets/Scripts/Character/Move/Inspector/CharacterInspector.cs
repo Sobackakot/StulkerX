@@ -1,3 +1,4 @@
+using Character.Context;
 using Character.InputEvents;
 using Character.MainCamera;
 using Character.MainCamera.Raycast;
@@ -47,13 +48,15 @@ public class CharacterInspector : MonoBehaviour
 
 
     public FireEffectsMain weaponEfect { get; private set; }
-    public CharacterStateContext stateContext { get; private set; }
+    public IContextStates contextStates { get; private set; }
+    public IContextCommands contextCommands { get; private set; }
     public IInputEvents inputEvent { get; private set; }
 
     [Inject] 
-    private void Construct(CharacterStateContext stateData, IInputEvents inputEvent, FireEffectsMain weaponEfect)
+    private void Construct(IContextStates contextStates, IContextCommands contextCommands, IInputEvents inputEvent, FireEffectsMain weaponEfect)
     {
-        this.stateContext = stateData;
+        this.contextStates = contextStates;
+        this.contextCommands = contextCommands;
         this.inputEvent = inputEvent;
         this.weaponEfect = weaponEfect;
     }
@@ -94,29 +97,28 @@ public class CharacterInspector : MonoBehaviour
     }
     public void UpdateDirectionMove()
     { 
-        inputAxis = stateContext.inputAxis;
+        inputAxis = contextStates.InputAxis;
         directionForward = Vector3.ProjectOnPlane(currCamTr.forward, Vector3.up).normalized;
         directionRight = Vector3.ProjectOnPlane(currCamTr.right, Vector3.up).normalized;
         newDirection = (inputAxis.z * directionForward) + (inputAxis.x * directionRight).normalized; 
     }
     public void SetActiveCamera()
     {
-        bool isActive = stateContext.IsFirstCamera;
+        bool isActive = contextStates.IsFirstCamera;
         firstCam.enabled = isActive;
         tirdCam.enabled = !isActive;
         head.SetActive(!isActive);
         capOnHead.SetActive(!isActive);
-        currCamTr = stateContext.IsFirstCamera ? firstCamTr : tirdCamTr;
+        currCamTr = contextStates.IsFirstCamera ? firstCamTr : tirdCamTr;
     }
 
 
     private void OnCollisionStay(Collision collision)
     {
-        stateContext.IsCollision = true;
+        contextCommands.SetIsCollision(true);
     }
     private void OnCollisionExit(Collision collision)
     {
-        stateContext.IsCollision = false;
-    } 
-   
+        contextCommands.SetIsCollision(false);
+    }  
 }

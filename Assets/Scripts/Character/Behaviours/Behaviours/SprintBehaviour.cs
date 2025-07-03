@@ -1,21 +1,11 @@
-using Behaviour.Character;
-using Behaviour.Handler;
-using Character.InputEvents;
-using StateData.Character;
 using UnityEngine;
 public class SprintBehaviour : MoveBehaviour
-{
-    public SprintBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+{ 
+    public SprintBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<ISprintBehaviour>(this);
     }
     private float speedMove;
+
     public override void EnableBeh()
     { 
     }
@@ -31,7 +21,7 @@ public class SprintBehaviour : MoveBehaviour
     }
     public override void FixedUpdateBeh()
     {
-        speedMove = stateData?.inputAxis.z < 0 ? character.speedRunBack : character.speedSprint;
+        speedMove = character.contextStates?.InputAxis.z < 0 ? character.speedRunBack : character.speedSprint;
         Vector3 newDirection = character.newDirection;
         SprintingBehaviour(speedMove, newDirection);
        
@@ -40,7 +30,7 @@ public class SprintBehaviour : MoveBehaviour
     public override void SprintingBehaviour(float speed, Vector3 direction) 
     {
         MovingBehaviour(speed, direction);
-        animator?.MoveAnimation(animator.speedSprint, stateData.inputAxis);
+        animator?.MoveAnimation(animator.speedSprint, character.contextStates.InputAxis);
         Debug.Log("sprint"); 
     }
 

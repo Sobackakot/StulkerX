@@ -1,28 +1,17 @@
-using Behaviour.Character;
-using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
-using Character.InputEvents;
 using UnityEngine;
 public class CrouchBehaviour : MoveBehaviour
 {
-    public CrouchBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public CrouchBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<ICrouchBehaviour>(this);
     }
+
     public override void EnableBeh()
     {
-        animator?.CrouchAnimation(stateData.IsCrouch);
+        animator?.CrouchAnimation(character.contextStates.IsCrouch);
     }
     public override void DisableBeh()
     {
-        animator?.CrouchAnimation(stateData.IsCrouch);
+        animator?.CrouchAnimation(character.contextStates.IsCrouch);
     }
     public override void UpdateBeh()
     { 
@@ -39,7 +28,6 @@ public class CrouchBehaviour : MoveBehaviour
  
     public override void CrouchingBehaviour(float speed, Vector3 direction) 
     {
-        MovingBehaviour(speed, direction);
-        Debug.Log("crouch");
+        MovingBehaviour(speed, direction); 
     }  
 }

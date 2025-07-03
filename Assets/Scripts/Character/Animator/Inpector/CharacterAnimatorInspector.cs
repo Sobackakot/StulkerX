@@ -33,8 +33,7 @@ public class CharacterAnimatorInspector : MonoBehaviour
         if (inputAxis.sqrMagnitude > 0.2f)
         {
             anim?.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.smoothDeltaTime);
-            anim?.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime);
-            Debug.Log("moving anim");
+            anim?.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime); 
         }
         else
         { 

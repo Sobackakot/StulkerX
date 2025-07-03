@@ -12,6 +12,8 @@ using Zenject;
 using Character.MainCamera.Raycast;
 using Character.MainCamera.BootStrap;
 using Character.MainCamera;
+using Character.Context;
+using Behaviour.Handler;
 
 
 [CreateAssetMenu(fileName = "Installer(State)", menuName = "Installers/State")]
@@ -58,8 +60,9 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<CharacterMoveMain>().FromNew().AsSingle().NonLazy();
         
         Container.Bind<IInputEvents>().To<CharacterInputEventHandler>().FromNew().AsSingle().NonLazy();
+        Container.Bind<IBehaviourHandler>().To<BehaviourHandler>().FromNew().AsSingle().NonLazy();
 
-        Container.Bind<CharacterStateContext>().FromNew().AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterStateContext>().FromNew().AsCached().NonLazy(); 
         //MonoBehaviour  
         Container.Bind<CharacterInspector>().FromComponentInHierarchy(this).AsSingle();
         

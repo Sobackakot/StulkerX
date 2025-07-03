@@ -1,34 +1,23 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using Character.InputEvents;
-using StateData.Character;
 using System;
-using UnityEngine; 
+using UnityEngine;
 public class ParkourBehaviour : BehaviourCharBase
 {
-    public ParkourBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public ParkourBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<IParkourBehaviour>(this);
     }
     public event Action<string> onAnimParkour;  
     private ObstacleData curObst; 
     public AnimatorStateInfo animState; 
 
-    bool isStartParkour;
+    bool isStartParkour; 
     public override void EnableBeh()
     { 
-        inputEvent.OnParkour += ParkouringBehaviour;
+        character.inputEvent.OnParkour += ParkouringBehaviour;
     }
     public override void DisableBeh()
     {
-        inputEvent.OnParkour -= ParkouringBehaviour;
+        character.inputEvent.OnParkour -= ParkouringBehaviour;
     }
     public override void UpdateBeh()
     { 

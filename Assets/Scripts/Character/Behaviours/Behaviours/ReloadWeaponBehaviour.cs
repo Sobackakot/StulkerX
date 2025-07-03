@@ -1,32 +1,22 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
-using Character.InputEvents;
 public class ReloadWeaponBehaviour : BehaviourCharBase
 {
-    public ReloadWeaponBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public ReloadWeaponBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<IReloadWeaponBehaviour>(this);
     }
+
     public override void EnableBeh()
     {
-        if (inputEvent != null)
+        if (character.inputEvent != null)
         {
-            inputEvent.OnReloadWeapon += ReloadingWeapon;
+            character.inputEvent.OnReloadWeapon += ReloadingWeapon;
         } 
     }
     public override void DisableBeh()
     {
-        if (inputEvent != null)
+        if (character.inputEvent != null)
         {
-            inputEvent.OnReloadWeapon -= ReloadingWeapon;
+            character.inputEvent.OnReloadWeapon -= ReloadingWeapon;
         }
     }
     public override void UpdateBeh()

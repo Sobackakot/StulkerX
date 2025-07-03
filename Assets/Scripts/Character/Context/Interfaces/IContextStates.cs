@@ -5,12 +5,12 @@ namespace Character.Context
     public interface IContextStates  
     {
         Vector3 InputAxis { get; }
-        Vector2 InputAxisCamera { get; } 
-        bool IsFirstCamera { get; } 
+        Vector2 InputAxisCamera { get; }
+        float CurrentAngle { get; }
+        bool IsFirstCamera { get; }  
         bool IsIdle { get;}
         bool IsCrouch { get;}
-        bool IsWalk { get;}
-        bool IsMove { get; }
+        bool IsWalk { get;} 
         bool IsRun { get; }
         bool IsSprint { get; }
 

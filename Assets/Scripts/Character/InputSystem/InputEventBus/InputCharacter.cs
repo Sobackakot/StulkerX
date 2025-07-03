@@ -96,60 +96,59 @@ public struct InputEventJump { }
 
 public struct InputEventSprint
 {
-    public InputEventSprint(bool isRunning) => inputValue = isRunning;
-    public bool inputValue { get; set; } 
+    public InputEventSprint(bool isRunning) => isSprinting = isRunning;
+    public bool isSprinting { get; set; } 
 }  
 
 public struct InputEventWalk
 {
-    public InputEventWalk(bool isWalking) => inputValue = isWalking;
-    public bool inputValue { get; set; } 
+    public InputEventWalk(bool isWalking) => this.isWalking = isWalking;
+    public bool isWalking { get; set; } 
 }  
 
 public struct ReloadWeaponEvent { }  
 
 public struct AimInputEvent
 {
-    public AimInputEvent(bool isAiming) => inputValue = isAiming;
-    public bool inputValue { get; set; } 
+    public AimInputEvent(bool isAiming) => this.isAiming = isAiming;
+    public bool isAiming { get; set; } 
 }  
 
 public struct FireInputEvent
 {
-    public FireInputEvent(bool isFiring) => inputValue = isFiring;
-    public bool inputValue { get; set; } 
+    public FireInputEvent(bool isFiring) => isFire = isFiring;
+    public bool isFire { get; set; } 
 }  
 
 public struct EquipWeaponToggleEvent { } 
 
 public struct InputEventLeanRight
 {
-    public InputEventLeanRight(bool isLeaningRight) => inputValue = isLeaningRight;
-    public bool inputValue { get; set; } 
+    public InputEventLeanRight(bool isLeaningRight) => isLeanRight = isLeaningRight;
+    public bool isLeanRight { get; set; } 
 }    
 
 public struct InputEventLeanLeft
 {
-    public InputEventLeanLeft(bool isLeaningLeft) => inputValue = isLeaningLeft;
-    public bool inputValue { get; set; } 
+    public InputEventLeanLeft(bool isLeaningLeft) => isLeanLeft = isLeaningLeft;
+    public bool isLeanLeft { get; set; } 
 }  
   
 public struct ToggleEventCrouch 
 { 
 }  
 
-public struct InventoryExitEvent { } 
+public struct InventoryExitEvent 
+{ 
+} 
 public struct InventoryActiveEvent
-{
-    public bool inputValue { get; set; }
+{ 
 } 
 
 public struct InventoryLootBoxActiveEvent
-{
-    public bool inputValue { get; set; }
+{ 
 } 
 
 public struct PickUpItemEvent 
-{
-    public bool inputValue { get; set; }
+{ 
 }  

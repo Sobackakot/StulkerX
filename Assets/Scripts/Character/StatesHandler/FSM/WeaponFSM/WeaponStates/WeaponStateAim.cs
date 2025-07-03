@@ -1,19 +1,17 @@
 using Behaviour;
 using Behaviour.Character;
 using Behaviour.Handler;
-using State;
+using Character.Context;
 using State.Character.Weapon;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class WeaponStateAim : WeaponStateBase
 {
     public WeaponStateAim(
 
-        IStateMachine<WeaponStateType, IWeaponState> weaponHandler, 
-        CharacterStateContext stateData, 
+        IStateMachine<WeaponStateType, IWeaponState> weaponHandler,
+        IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(weaponHandler, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -55,7 +53,7 @@ public class WeaponStateAim : WeaponStateBase
     private void AddTransition()
     {
         var type = WeaponStateType.Aim; 
-        weaponFSM?.AddTransition(type, () => !stateData.IsAim ? WeaponStateType.Default : type);
+        weaponFSM?.AddTransition(type, () => !contextStates.IsAim ? WeaponStateType.Default : type);
     }
     
 }

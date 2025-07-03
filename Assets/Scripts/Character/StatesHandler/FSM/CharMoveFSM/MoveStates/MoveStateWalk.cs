@@ -1,9 +1,9 @@
 using Behaviour;
 using Behaviour.Character;
 using Behaviour.Handler;
+using Character.Context;
 using State.Character.Move;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
 
 public class MoveStateWalk : MoveStateBase
@@ -11,7 +11,7 @@ public class MoveStateWalk : MoveStateBase
     public MoveStateWalk(
 
         IStateMachine<MoveStateType, IMoveState> moveFSM,
-        CharacterStateContext stateData, 
+         IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(moveFSM, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -54,9 +54,9 @@ public class MoveStateWalk : MoveStateBase
     private void AddTransition()
     { 
         var moveType = MoveStateType.Walk; 
-        moveFSM?.AddTransition(moveType, () => !stateData.IsWalk ? MoveStateType.Run : moveType);
-        moveFSM?.AddTransition(moveType, () => stateData.IsCrouch ? MoveStateType.Crouch : moveType); 
-        moveFSM?.AddTransition(moveType, () => stateData.IsRun ? MoveStateType.Run : moveType); 
-        moveFSM?.AddTransition(moveType, () => stateData.IsSprint ? MoveStateType.Sprint : moveType); 
+        moveFSM?.AddTransition(moveType, () => !contextStates.IsWalk ? MoveStateType.Run : moveType);
+        moveFSM?.AddTransition(moveType, () => contextStates.IsCrouch ? MoveStateType.Crouch : moveType); 
+        moveFSM?.AddTransition(moveType, () => contextStates.IsRun ? MoveStateType.Run : moveType); 
+        moveFSM?.AddTransition(moveType, () => contextStates.IsSprint ? MoveStateType.Sprint : moveType); 
     } 
 }

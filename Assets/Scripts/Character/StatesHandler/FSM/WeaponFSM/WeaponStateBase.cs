@@ -1,7 +1,7 @@
 using Behaviour;
 using Behaviour.Handler;
+using Character.Context;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
 
 namespace State.Character.Weapon
@@ -10,17 +10,17 @@ namespace State.Character.Weapon
     {
         public WeaponStateBase(
             
-            IStateMachine<WeaponStateType, IWeaponState> weaponHandler, 
-            CharacterStateContext stateData, 
+            IStateMachine<WeaponStateType, IWeaponState> weaponHandler,
+            IContextStates contextStates, 
             IBehaviourHandler behaviourHandler)
         {
             this.weaponFSM = weaponHandler;
-            this.stateData = stateData;
+            this.contextStates = contextStates;
             this.behaviourHandler = behaviourHandler;
         }
         protected List<IUnitBehaviour> activeBehaviours = new();
         protected readonly IStateMachine<WeaponStateType, IWeaponState> weaponFSM;
-        protected readonly CharacterStateContext stateData;
+        protected readonly IContextStates contextStates;
         protected readonly IBehaviourHandler behaviourHandler;
         public abstract void EnterState();
 

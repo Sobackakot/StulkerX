@@ -1,4 +1,4 @@
-using StateData.Character;
+using Character.Context;
 using System;
 using UnityEngine;
 
@@ -6,11 +6,15 @@ namespace Character.InputEvents
 {
     public class CharacterInputEventHandler : IInputEvents
     {
-        public CharacterInputEventHandler(CharacterStateContext stateData)
+        public CharacterInputEventHandler(
+            IContextCommands contextCommands,
+            IContextStates contextStates)
         {
-            this.stateData = stateData; 
+            this.contextCommands = contextCommands;
+            this.contextStates = contextStates;
         }
-        private CharacterStateContext stateData;
+        private IContextCommands contextCommands;
+        private IContextStates contextStates;
 
         public event Action OnJump;
         public event Action OnParkour;
@@ -78,113 +82,114 @@ namespace Character.InputEvents
         }
 
         public void InputCamera_OnInputAxisCamera(InputEventCamera inputAxis)
-        { 
-            stateData.inputAxisCamera = inputAxis.InputAxis; 
+        {
+            contextCommands.SetInputAxisCamera(inputAxis.InputAxis); 
         }
         public void InputCamera_OnSwitchCamera(SwitchEventCamera a)
-        {
-            stateData.IsFirstCamera = !stateData.IsFirstCamera;
+        { 
+            contextCommands.SetIsFirstCamera(!contextStates.IsFirstCamera);
             OnSwichCamera?.Invoke();
         }
 
         public void ExitInventory(InventoryExitEvent inventory)
         {
-            stateData.IsActiveInventory = false;
+            contextCommands.SetIsActiveInventory(false);
             OnExitInventory?.Invoke();
         }
         public void InventoryLootBoxActive(InventoryLootBoxActiveEvent inventory)
         {
-            if (stateData.IsRayHitToInventoryLootBox)
+            if (contextStates.IsRayHitToInventoryLootBox)
             {
-                stateData.IsActiveInventory = !stateData.IsActiveInventory;
-                OnActiveInventoryLootBox?.Invoke(stateData.IsActiveInventory);
+                contextCommands.SetIsActiveInventory(!contextStates.IsActiveInventory);
+                OnActiveInventoryLootBox?.Invoke(contextStates.IsActiveInventory);
             }
         }
         public void InventoryActive(InventoryActiveEvent inventory)
         {
-            stateData.IsActiveInventory = !stateData.IsActiveInventory;
-            OnActiveInventory?.Invoke(stateData.IsActiveInventory);
+            contextCommands.SetIsActiveInventory(!contextStates.IsActiveInventory);
+            OnActiveInventory?.Invoke(contextStates.IsActiveInventory);
         }
         public void JumpingBehaviour(InputEventJump jump)
         {
-            if (stateData.IsCollision && !stateData.IsRayHitToObstacle)
+            if (contextStates.IsCollision && !contextStates.IsRayHitToObstacle)
             {
                 OnJump?.Invoke();
             }
         }
         public void PickUpItemBehaviour(PickUpItemEvent pickUp)
         {
-            if (stateData.IsRayHitToItem)
+            if (contextStates.IsRayHitToItem)
             {
-                if (OnHasWeapon.Invoke()) stateData.IsHasWeapon = true;
+                if (OnHasWeapon.Invoke()) contextCommands.SetIsHasWeapon(true);
                 OnPickUpItem?.Invoke();
             }
         }
         public void ParkouringBehaviour(InputEventJump jump)
         {
-            if (stateData.IsRayHitToObstacle)
+            if (contextStates.IsRayHitToObstacle)
                 OnParkour?.Invoke();
         }
 
         public void MovingBehaviour(InputEventMove move)
         {
-            stateData.inputAxis = new Vector3(move.inputValue.x, 0, move.inputValue.y);
-            stateData.IsRun = stateData.inputAxis.sqrMagnitude > 0.2f && !stateData.IsWalk && !stateData.IsCrouch;
+            contextCommands.SetInputAxis(new Vector3(move.inputValue.x, 0, move.inputValue.y));
+            contextCommands.SetIsRun(contextStates.InputAxis.sqrMagnitude > 0.2f 
+                && !contextStates.IsWalk && !contextStates.IsCrouch);
         }
         public void CrouchingBehaviour(ToggleEventCrouch crouch)
         {
-            stateData.IsCrouch = !stateData.IsCrouch;
+            contextCommands.SetIsCrouch(!contextStates.IsCrouch);
         }
         public void WalkingBehaviour(InputEventWalk walk)
         {
-            stateData.IsWalk = walk.inputValue;
+            contextCommands.SetIsWalk(walk.isWalking);
         }
         public void SprintingBehaviour(InputEventSprint sprint)
         {
-            if (!stateData.IsCrouch)
-                stateData.IsSprint = sprint.inputValue;
+            if (!contextStates.IsCrouch)
+                contextCommands.SetIsSprint(sprint.isSprinting);
         }
 
         public void LeaningLeftBehaviour(InputEventLeanLeft lean)
         {
-            stateData.IsLeanLeft = lean.inputValue;
-            stateData.IsLeftTargerPoint = true;
+            contextCommands.SetIsLeanLeft(lean.isLeanLeft);
+            contextCommands.SetIsLeftTargerPoint(true);
         }
         public void LeaningRightBehaviour(InputEventLeanRight lean)
         {
-            stateData.IsLeanRight = lean.inputValue;
-            stateData.IsLeftTargerPoint = false;
+            contextCommands.SetIsLeanRight (lean.isLeanRight);
+            contextCommands.SetIsLeftTargerPoint(false);
         }
 
 
         public void EquipWeaponBehaviour(EquipWeaponToggleEvent equip)
         {
-            if (!stateData.IsAim && stateData.IsHasWeapon && !stateData.IsReloadingState)
+            if (!contextStates.IsAim && contextStates.IsHasWeapon && !contextStates.IsReloadingState)
             {
-                stateData.IsReadyForBattle = !stateData.IsReadyForBattle;
+                contextCommands.SetIsReadyForBattle(!contextStates.IsReadyForBattle);
             }
         }
         public void FireWeaponInput(FireInputEvent fire)
         {
-            if (stateData.IsAim && stateData.IsHasWeapon && stateData.IsReadyForBattle && !stateData.IsReloadingState)
-                stateData.IsFire = fire.inputValue;
+            if (contextStates.IsAim && contextStates.IsHasWeapon && contextStates.IsReadyForBattle && !contextStates.IsReloadingState)
+                contextCommands.SetIsFire(fire.isFire);
         }
         public void ReloadWeaponBehaviour(ReloadWeaponEvent reload)
         {
-            if (!stateData.IsAim && stateData.IsHasWeapon && stateData.IsReadyForBattle && !stateData.IsReloadingState)
+            if (!contextStates.IsAim && contextStates.IsHasWeapon && contextStates.IsReadyForBattle && !contextStates.IsReloadingState)
                 OnReloadWeapon?.Invoke();
         }
         public void AimWeaponBehaviour(AimInputEvent aim)
         {
-            if (stateData.IsHasWeapon && stateData.IsReadyForBattle && !stateData.IsReloadingState)
+            if (contextStates.IsHasWeapon && contextStates.IsReadyForBattle && !contextStates.IsReloadingState)
             {
-                stateData.IsAim = aim.inputValue;
+                contextCommands.SetIsAim (aim.isAiming);
             }
         }
 
         public void SetReloadWeaponAnimationState(bool isReload) // call from StateMachineAnimator
         {
-            stateData.IsReloadingState = isReload;
+            contextCommands.SetIsReloadingState(isReload);
             if (isReload)
                 OnSetParentWeapon?.Invoke(); // subscribe from WeaponFreeParent
             else
@@ -193,7 +198,7 @@ namespace Character.InputEvents
 
         public void SetEquippWeaponAnimationState(bool isEquipping) // call from StateMachineAnimator
         {
-            stateData.IsEquippingState = isEquipping;
+            contextCommands.SetIsEquippingState(isEquipping);
             if (isEquipping)
                 OnSetParentWeapon?.Invoke(); // subscribe from WeaponFreeParent
             else

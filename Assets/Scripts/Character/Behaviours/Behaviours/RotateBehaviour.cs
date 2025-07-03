@@ -1,20 +1,9 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
 using UnityEngine;
-using Character.InputEvents;
 public class RotateBehaviour : BehaviourCharBase
 {
-    public RotateBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
+    public RotateBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
     {
-        behaviourHandler?.Register<IRotateBehaviour>(this);
     }
 
     public override void EnableBeh()

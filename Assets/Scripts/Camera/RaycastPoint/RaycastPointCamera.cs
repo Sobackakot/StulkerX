@@ -1,3 +1,4 @@
+using Character.Context;
 using Character.InputEvents;
 using Inventory;
 using StateData.Character;
@@ -35,14 +36,14 @@ namespace Character.MainCamera.Raycast
         private RaycastHit hitDown;
          
 
-        private CharacterStateContext stateData;
+        private IContextCommands contextCommands;
         private IInputEvents inputEvent;
 
         [Inject]
-        private void Construct(IInputEvents inputEvent, CharacterStateContext stateData)
+        private void Construct(IInputEvents inputEvent, IContextCommands contextCommands)
         {
             this.inputEvent = inputEvent;
-            this.stateData = stateData;
+            this.contextCommands = contextCommands;
         }
         private void Awake()
         {
@@ -87,8 +88,8 @@ namespace Character.MainCamera.Raycast
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskItem.value))
             {
-                stateData.IsRayHitToItem = true;
-                stateData.IsRayHitToInventoryLootBox = false;
+                contextCommands.SetIsRayHitToItem(true);
+                contextCommands.SetIsRayHitToInventoryLootBox(false);
                 onShowTextByHitPoint?.Invoke("Take (F)");
             }
             else RaycastHitForLootBox();
@@ -120,7 +121,7 @@ namespace Character.MainCamera.Raycast
         {
             bool isHitForward = GetRayForwardFromCharacter(pointRayCharacterTr, offsetPointRayFor);
             bool isHitDown = GetRayDownFromCharacter(this.hitForward, isHitForward);
-            stateData.IsRayHitToObstacle = isHitDown;
+            contextCommands.SetIsRayHitToObstacle(isHitDown);
             if (isHitDown)
             {
                 hitForward = this.hitForward;
@@ -140,14 +141,14 @@ namespace Character.MainCamera.Raycast
             rayForward = GetRayForwardFromCamera();
             if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskLootBox.value))
             {
-                stateData.IsRayHitToItem = false;
-                stateData.IsRayHitToInventoryLootBox = true;
+                contextCommands.SetIsRayHitToItem(false);
+                contextCommands.SetIsRayHitToInventoryLootBox(true);
                 onShowTextByHitPoint?.Invoke("Search (F)");
             }
             else
             {
-                stateData.IsRayHitToItem = false;
-                stateData.IsRayHitToInventoryLootBox = false;
+                contextCommands.SetIsRayHitToItem(false);
+                contextCommands.SetIsRayHitToInventoryLootBox(false);
                 onShowTextByHitPoint?.Invoke(" ");
             }
         }

@@ -14,6 +14,19 @@ namespace Behaviour.Handler
                 ? behaviour as T
                 : null;
         }
+        public void Register<T>(T behaviour) where T : class, IUnitBehaviour
+        {
+            if (behaviour == null || behaviours.ContainsKey(typeof(T))) return;
+            behaviours.Add(typeof(T), behaviour);
+        }
+
+
+
+
+
+
+
+
         public bool TryGet<T>(out T behaviour) where T : class, IUnitBehaviour
         {
             if (behaviours.TryGetValue(typeof(T), out var value) && value is T typed)
@@ -30,11 +43,7 @@ namespace Behaviour.Handler
            behaviours.ContainsKey(typeof(T));
 
 
-        public void Register<T>(T behaviour) where T : class, IUnitBehaviour
-        {
-            if (behaviour == null || behaviours.ContainsKey(typeof(T))) return;
-            behaviours.Add(typeof(T), behaviour);
-        }
+     
         public void RegisterAll(object target)
         {
             var interfaces = target.GetType().GetInterfaces();

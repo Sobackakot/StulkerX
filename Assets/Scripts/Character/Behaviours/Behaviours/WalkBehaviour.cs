@@ -1,22 +1,12 @@
-using Behaviour.Character;
-using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
 using UnityEngine;
-using Character.InputEvents;
 public class WalkBehaviour : MoveBehaviour
-{
-    public WalkBehaviour(
-
-        CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
-    {
-        behaviourHandler?.Register<IWalkBehaviour>(this);
-    }
+{ 
     private float speedMove;
+
+    public WalkBehaviour(CharacterInspector character, CharacterAnimatorInspector animator) : base(character, animator)
+    {
+    }
+
     public override void EnableBeh()
     { 
     }
@@ -32,14 +22,13 @@ public class WalkBehaviour : MoveBehaviour
     }
     public override void FixedUpdateBeh()
     {
-        speedMove = stateData?.inputAxis.z < 0 ? character.speedWalkBack : character.speedWalkForward;
+        speedMove = character.contextStates?.InputAxis.z < 0 ? character.speedWalkBack : character.speedWalkForward;
         Vector3 newDirection = character.newDirection;
         WalkingBehaviour(speedMove, newDirection); 
     } 
     public override void WalkingBehaviour(float speed, Vector3 direction) 
     {
         MovingBehaviour(speed, direction);
-        animator?.MoveAnimation(animator.speedWalk, stateData.inputAxis);
-        Debug.Log("walking"); 
+        animator?.MoveAnimation(animator.speedWalk, character.contextStates.InputAxis); 
     }
 }

@@ -1,34 +1,32 @@
-using StateData.Character;
-using UnityEngine;
-using Window.UI;
+using Character.Context;
 
 public class CharacterAnimatorMain  
 { 
     public CharacterAnimatorMain(CharacterAnimatorInspector characterAnimator,
-        CharacterStateContext stateData, CharacterIK characterIK)
+        IContextStates stateData, CharacterIK characterIK)
     {
         this.characterAnimator = characterAnimator; 
-        this.stateData = stateData;
+        this.contextStates = stateData;
         this.characterIK = characterIK;
     }
-    private CharacterStateContext stateData;
+    private IContextStates contextStates;
     private CharacterAnimatorInspector characterAnimator; 
     private CharacterIK characterIK; 
     public void FixedTick()
     { 
-        characterIK.WeightIKWeapon(stateData.IsReloadingState, stateData.IsEquippingState);
-        if (!stateData.IsReloadingState || !stateData.IsEquippingState)
+        characterIK.WeightIKWeapon(contextStates.IsReloadingState, contextStates.IsEquippingState);
+        if (!contextStates.IsReloadingState || !contextStates.IsEquippingState)
         {
-            characterIK.BodyLoockTargetIK(stateData.IsIdle, stateData.IsAim);
-            characterIK.WeaponParentIK(stateData.IsReadyForBattle, stateData.IsEquippingState);
-            characterIK.AimWeaponParentIK(stateData.IsAim, stateData.IsReloadingState);
-            characterIK.EquipWeaponParentIK(stateData.IsReadyForBattle, stateData.IsHasWeapon);
+            characterIK.BodyLoockTargetIK(contextStates.IsIdle, contextStates.IsAim);
+            characterIK.WeaponParentIK(contextStates.IsReadyForBattle, contextStates.IsEquippingState);
+            characterIK.AimWeaponParentIK(contextStates.IsAim, contextStates.IsReloadingState);
+            characterIK.EquipWeaponParentIK(contextStates.IsReadyForBattle, contextStates.IsHasWeapon);
         }
     }
     public void Tick()
     {
-        characterAnimator.SwitchAnimationTurn(stateData.currentAngle);
-        characterAnimator.TurnAnimation(stateData.inputAxisCamera);
+        characterAnimator.SwitchAnimationTurn(contextStates.CurrentAngle);
+        characterAnimator.TurnAnimation(contextStates.InputAxisCamera);
     }  
     public void LateTick()
     {

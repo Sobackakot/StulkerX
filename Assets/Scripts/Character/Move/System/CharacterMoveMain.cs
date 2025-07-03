@@ -1,38 +1,42 @@
 using Behaviour.Handler;
+using Character.Context;
 using Character.InputEvents;
 using State.Character.Battle;
 using State.Character.Move;
 using State.Character.Weapon;
-using StateData.Character;
-using Window.UI;
+using Behaviour.Character;
 public class CharacterMoveMain  
 {
     public CharacterMoveMain(
-
+        
         CharacterInspector charac, 
         CharacterAnimatorInspector animator,
+        IBehaviourHandler behaviourHandler, 
         IInputEvents inputEvent,
-        CharacterStateContext stateContex)
+        IContextEvents contextEvents,
+        IContextStates contextStates)
     {
-        behaviourHandler = new();
-        this.charac = charac;
-        this.animator = animator;
+        
+        this.characterMove = charac;
+        this.characterAnimator = animator;
+        this.behaviourHandler = behaviourHandler;
         this.inputEvent = inputEvent;
-        this.stateContext = stateContex;
-         
-        bootstrap = new();
+        this.contextEvents = contextEvents;
+        this.contextStates = contextStates;
+
+          
         planer = new();
     } 
-    private CharacterInspector charac;
-    private CharacterAnimatorInspector animator; 
+    private CharacterInspector characterMove;
+    private CharacterAnimatorInspector characterAnimator; 
 
      
     private IInputEvents inputEvent;
-    public CharacterStateContext stateContext { get; private set; }
-    private PlanerCharacter<CharacterStateContext> planer;
+    public IContextEvents contextEvents { get; private set; }
+    public IContextStates contextStates { get; private set; }
+    private PlanerCharacter<IContextEvents> planer;
 
-    private BehaviourHandler behaviourHandler;
-    private BehaviourBootstrap bootstrap;
+    private IBehaviourHandler behaviourHandler; 
 
     private MoveStateHandler moveFSM;
     private ReadyForBattleStateHandler readyFSM;
@@ -45,17 +49,17 @@ public class CharacterMoveMain
         InitializeMoveState();
         InitializeReadyForBattleState();
         InitializeWeaponState(); 
-        charac.UpdateDirectionMove();
+        characterMove.UpdateDirectionMove();
 
 
         InitializeActions();
-        planer.OnEnable(stateContext);
+        planer.OnEnable(contextEvents);
     }
 
     public void Dispose()
     {
         inputEvent.Dispose();
-        planer.OnDisable(stateContext);
+        planer.OnDisable(contextEvents);
     }
     private void InitializeActions()
     {
@@ -65,49 +69,47 @@ public class CharacterMoveMain
     }
     private void InitializeBehaviour()
     {
-        bootstrap.InitBehaviourHandler(behaviourHandler);
-        bootstrap.InitIdleBeh(new IdleBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitJumpBeh(new JumpBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitRotateBeh(new RotateBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitMoveBeh(new MoveBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler)); 
-        bootstrap.InitRunBeh(new RunBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitSprintBeh(new SprintBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitWalkBeh(new WalkBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitCrouchBeh(new CrouchBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitEquipWeaponBeh(new EquipWeaponBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitFireWeaponBeh(new FireWeaponBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitAimBeh(new AimWeaponBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler)); 
-        bootstrap.InitPickUpBeh(new PickUpItemBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitLeanBeh(new LeanBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler)); 
-        bootstrap.InitParkourBeh(new ParkourBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitReadyBeh(new ReadyForBattleBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        bootstrap.InitReloadWeaponBeh(new ReloadWeaponBehaviour(charac, animator, stateContext, inputEvent, behaviourHandler));
-        
+        behaviourHandler.Register<IIdleBehaviour>(new IdleBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IAimWeaponBehaviour>(new AimWeaponBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<ICrouchBehaviour>(new CrouchBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IEquipWeaponBehaviour>(new EquipWeaponBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IFireWeaponBehaviour>(new FireWeaponBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IJumpBehaviour>(new JumpBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<ILeanBehaviour>(new LeanBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IMoveBehaviour>(new MoveBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IParkourBehaviour>(new ParkourBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IPickUpItemBehaviour>(new PickUpItemBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IReadyForBattleBehaviour>(new ReadyForBattleBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IReloadWeaponBehaviour>(new ReloadWeaponBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IRotateBehaviour>(new RotateBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IRunBehaviour>(new RunBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<ISprintBehaviour>(new SprintBehaviour(characterMove, characterAnimator));
+        behaviourHandler.Register<IWalkBehaviour>(new WalkBehaviour(characterMove, characterAnimator));
     }
     private void InitializeWeaponState()
     {
         weaponFSM = new WeaponStateHandler();
-        weaponFSM.RegisterFSM(WeaponStateType.Aim, new WeaponStateAim(weaponFSM, stateContext, behaviourHandler)); 
-        weaponFSM.RegisterFSM(WeaponStateType.Reload, new WeaponStateReload(weaponFSM, stateContext, behaviourHandler));
-        weaponFSM.RegisterFSM(WeaponStateType.Default, new WeaponStateDefault(weaponFSM, stateContext, behaviourHandler));
+        weaponFSM.RegisterFSM(WeaponStateType.Aim, new WeaponStateAim(weaponFSM, contextStates, behaviourHandler)); 
+        weaponFSM.RegisterFSM(WeaponStateType.Reload, new WeaponStateReload(weaponFSM, contextStates, behaviourHandler));
+        weaponFSM.RegisterFSM(WeaponStateType.Default, new WeaponStateDefault(weaponFSM, contextStates, behaviourHandler));
         weaponFSM.SetFSM(WeaponStateType.Default); 
     }
     private void InitializeReadyForBattleState()
     {
         readyFSM = new ReadyForBattleStateHandler(); 
-        readyFSM.RegisterFSM(ReadyStateType.Ready, new ReadyForBattleState(readyFSM, stateContext, behaviourHandler));
-        readyFSM.RegisterFSM(ReadyStateType.None, new NoneReadyForBattleState(readyFSM, stateContext, behaviourHandler));
+        readyFSM.RegisterFSM(ReadyStateType.Ready, new ReadyForBattleState(readyFSM, contextStates, behaviourHandler));
+        readyFSM.RegisterFSM(ReadyStateType.None, new NoneReadyForBattleState(readyFSM, contextStates, behaviourHandler));
         readyFSM.SetFSM(ReadyStateType.None); 
     }
     private void InitializeMoveState()
     {
         moveFSM = new MoveStateHandler(); 
-        moveFSM.RegisterFSM(MoveStateType.Idle, new MoveStateIdle(moveFSM, stateContext, behaviourHandler));
-        moveFSM.RegisterFSM(MoveStateType.Walk, new MoveStateWalk(moveFSM, stateContext, behaviourHandler)); 
-        moveFSM.RegisterFSM(MoveStateType.Run, new MoveStateRun(moveFSM, stateContext, behaviourHandler)); 
-        moveFSM.RegisterFSM(MoveStateType.Sprint, new MoveStateSprint(moveFSM, stateContext, behaviourHandler));
-        moveFSM.RegisterFSM(MoveStateType.Crouch, new MoveStateCrouch(moveFSM, stateContext, behaviourHandler));
-        moveFSM.RegisterFSM(MoveStateType.Aim, new MoveStateAim(moveFSM, stateContext, behaviourHandler));
+        moveFSM.RegisterFSM(MoveStateType.Idle, new MoveStateIdle(moveFSM, contextStates, behaviourHandler));
+        moveFSM.RegisterFSM(MoveStateType.Walk, new MoveStateWalk(moveFSM, contextStates, behaviourHandler)); 
+        moveFSM.RegisterFSM(MoveStateType.Run, new MoveStateRun(moveFSM, contextStates, behaviourHandler)); 
+        moveFSM.RegisterFSM(MoveStateType.Sprint, new MoveStateSprint(moveFSM, contextStates, behaviourHandler));
+        moveFSM.RegisterFSM(MoveStateType.Crouch, new MoveStateCrouch(moveFSM, contextStates, behaviourHandler));
+        moveFSM.RegisterFSM(MoveStateType.Aim, new MoveStateAim(moveFSM, contextStates, behaviourHandler));
         moveFSM.SetFSM(MoveStateType.Idle); 
     }
     public void FixedTick()  
@@ -126,7 +128,7 @@ public class CharacterMoveMain
 
     public void Tick()
     {
-        charac.UpdateDirectionMove();
+        characterMove.UpdateDirectionMove();
         moveFSM?.UpdateFSM();
         readyFSM?.UpdateFSM();
         weaponFSM?.UpdateFSM();

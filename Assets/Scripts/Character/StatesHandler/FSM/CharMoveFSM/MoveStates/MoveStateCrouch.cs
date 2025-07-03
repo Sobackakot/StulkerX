@@ -1,6 +1,7 @@
 using Behaviour;
 using Behaviour.Character;
 using Behaviour.Handler;
+using Character.Context;
 using State.Character.Move;
 using State.CoreFSM;
 using StateData.Character;
@@ -11,7 +12,7 @@ public class MoveStateCrouch : MoveStateBase
     public MoveStateCrouch(
 
         IStateMachine<MoveStateType, IMoveState> moveFSM,
-        CharacterStateContext stateData, 
+        IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(moveFSM, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -52,6 +53,6 @@ public class MoveStateCrouch : MoveStateBase
     private void AddTransition()
     { 
         var moveType = MoveStateType.Crouch; 
-        moveFSM?.AddTransition(moveType, () => !stateData.IsCrouch ? MoveStateType.Run: moveType);
+        moveFSM?.AddTransition(moveType, () => !contextStates.IsCrouch ? MoveStateType.Run: moveType);
     } 
 }

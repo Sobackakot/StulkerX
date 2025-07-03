@@ -1,6 +1,5 @@
-using StateData.Character;
+using Character.Context;
 using Character.MainCamera.Raycast;
-using Window.UI;
 
 namespace Character.MainCamera.BootStrap
 {
@@ -8,20 +7,23 @@ namespace Character.MainCamera.BootStrap
     {
         public MainCameraEntryPoint(
 
-            CharacterStateContext stateContext, 
+            IContextStates contextStates,
+            IContextCommands contextCommands, 
             IRaycastHitItem raycastHitItem, 
             IRaycastHitFPS raycastHitFPS,
             IFreeCamera freeCamera, 
             IFirstCamera firstCamera)
         {
+            this.contextStates = contextStates;
+            this.contextCommands = contextCommands;
             this.raycastHitItem = raycastHitItem;
-            this.raycastHitFPS = raycastHitFPS;
-            this.stateContext = stateContext;
+            this.raycastHitFPS = raycastHitFPS; 
             this.freeCamera = freeCamera;
             this.firstCamera = firstCamera;
         }
 
-        public CharacterStateContext stateContext { get; private set; }
+        public IContextStates contextStates { get; private set; }
+        public IContextCommands contextCommands { get; private set; }
 
         private IRaycastHitItem raycastHitItem;
         private IRaycastHitFPS raycastHitFPS;
@@ -33,30 +35,30 @@ namespace Character.MainCamera.BootStrap
 
         private void SwitchCamera()
         {
-            if (stateContext == null) return;
-            activeCamera = stateContext.IsFirstCamera ? firstCamera : freeCamera;
+            if (contextCommands == null) return;
+            activeCamera = contextStates.IsFirstCamera ? firstCamera : freeCamera;
         }
         public void Tick()
         {
             SwitchCamera();
-            activeCamera?.SwitchLookPointCamera(stateContext.IsLeftTargerPoint, stateContext.IsCrouch);  
-            stateContext.currentAngle = activeCamera.CheckCameraRotateAngle();
-            activeCamera?.SetInputAxis(stateContext.inputAxisCamera);
+            activeCamera?.SwitchLookPointCamera(contextStates.IsLeftTargerPoint, contextStates.IsCrouch);  
+            contextCommands.SetCurrentAngle(activeCamera.CheckCameraRotateAngle());
+            activeCamera?.SetInputAxis(contextStates.InputAxisCamera);
         }
         public void LateTick()
         { 
             activeCamera?.FollowCamera();
-            activeCamera?.RotateCamera(stateContext.IsAim);
-            activeCamera?.ZoomCamera(stateContext.IsAim, stateContext.IsReloadingState); 
+            activeCamera?.RotateCamera(contextStates.IsAim);
+            activeCamera?.ZoomCamera(contextStates.IsAim, contextStates.IsReloadingState); 
         }
 
         public void FixedTick()
         {
             raycastHitItem?.RaycastHitForItemInteract();
-            if (stateContext.IsAim)
+            if (contextStates.IsAim)
             {
                 raycastHitFPS?.UpdateRaycastHitPointAim();
-                raycastHitFPS?.RaycastHitShooting(stateContext.IsFire);
+                raycastHitFPS?.RaycastHitShooting(contextStates.IsFire);
             }
         }
     }

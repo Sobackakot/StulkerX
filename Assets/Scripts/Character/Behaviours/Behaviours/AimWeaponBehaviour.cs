@@ -1,28 +1,17 @@
-using Behaviour.Character;
 using Behaviour.Character.Base;
-using Behaviour.Handler;
-using StateData.Character;
-using Character.InputEvents;
-using UnityEngine;
 public class AimWeaponBehaviour : BehaviourCharBase
 {
     public AimWeaponBehaviour(
 
         CharacterInspector character,
-        CharacterAnimatorInspector animator,
-        CharacterStateContext stateData,
-        IInputEvents inputEvent,
-        IBehaviourHandler behaviourHandler) : base(character, animator, stateData, inputEvent, behaviourHandler)
-    {
-        behaviourHandler?.Register<IAimWeaponBehaviour>(this);
-    } 
+        CharacterAnimatorInspector animator) : base(character, animator) { }
     public override void EnableBeh()
     { 
-        AimingWeapon(stateData.IsAim);
+        AimingWeapon(character.contextStates.IsAim);
     }
     public override void DisableBeh()
     {
-        AimingWeapon(stateData.IsAim);
+        AimingWeapon(character.contextStates.IsAim);
     }
     public override void UpdateBeh()
     {

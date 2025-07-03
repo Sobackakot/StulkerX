@@ -1,18 +1,17 @@
 using Behaviour;
 using Behaviour.Character;
-using Behaviour.Handler; 
+using Behaviour.Handler;
+using Character.Context;
 using State.Character.Battle;
 using State.CoreFSM;
-using StateData.Character;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ReadyForBattleState : ReadyForBattleStateBase
 {
     public ReadyForBattleState(
 
-        IStateMachine<ReadyStateType, IReadyForBattleState> battleFSM, 
-        CharacterStateContext stateData, 
+        IStateMachine<ReadyStateType, IReadyForBattleState> battleFSM,
+        IContextStates stateData, 
         IBehaviourHandler behaviourHandler) : base(battleFSM, stateData, behaviourHandler)
     {
         activeBehaviours = new List<IUnitBehaviour>
@@ -52,7 +51,7 @@ public class ReadyForBattleState : ReadyForBattleStateBase
     private void AddTransition()
     { 
         var type = ReadyStateType.Ready; 
-        battleFSM?.AddTransition(type, () => !stateData.IsReadyForBattle ? ReadyStateType.None : type);
+        battleFSM?.AddTransition(type, () => !contextStates.IsReadyForBattle ? ReadyStateType.None : type);
     }
     
 }
