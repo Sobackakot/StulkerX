@@ -15,7 +15,10 @@ namespace State.CoreFSM
         //это словарь списков, где каждое состояние может иметь несколько правил перехода.
         private readonly Dictionary<StateType, List<Func<StateType>>> transitionRules = new();
 
-
+        public virtual void RegisterFSM(StateType type, TInterface state)
+        {
+            states[type] = state;
+        }
         public virtual void SetFSM(StateType newState)
         { 
             if (!states.ContainsKey(newState)) return;  
@@ -24,31 +27,16 @@ namespace State.CoreFSM
             currentStateType = newState;
             (currentState as IState)?.EnterState();
         }
-        public virtual void TransitionFSM()
-        { 
-            if (transitionRules.TryGetValue(currentStateType, out var rules))
-            {
-                foreach (var rule in rules)
-                {
-                    var next = rule.Invoke(); 
-                    if (!EqualityComparer<StateType>.Default.Equals(next, currentStateType))
-                    {
-                        //Debug.Log($"[FSM] Transitioning from {currentStateType} to {next}");
-                        SetFSM(next);
-                        break;
-                    }
-                }
-            }
-        }
+
         public virtual void UpdateFSM() => (currentState as IState)?.UpdateState();
      
         public virtual void LateUpdateFSM() => (currentState as IState)?.LateUpdateState();
         public virtual void FixedUpdateFSM() => (currentState as IState)?.FixedUpdateState();
         // назначаем ключ и присваиваем новое значение.
-        public virtual void RegisterFSM(StateType type, TInterface state)
-        {
-            states[type] = state; 
-        }
+    
+
+
+
         public virtual void AddTransition(StateType fromState, Func<StateType> transition)
         { 
             //инициализируем пустой список, только если он не существует.
@@ -58,6 +46,22 @@ namespace State.CoreFSM
             } 
             //добавляем функцию перехода в этот список.
             transitionRules[fromState].Add(transition);
+        }
+        public virtual void TransitionFSM()
+        {
+            if (transitionRules.TryGetValue(currentStateType, out var rules))
+            {
+                foreach (var rule in rules)
+                {
+                    var next = rule.Invoke();
+                    if (!EqualityComparer<StateType>.Default.Equals(next, currentStateType))
+                    {
+                        //Debug.Log($"[FSM] Transitioning from {currentStateType} to {next}");
+                        SetFSM(next);
+                        break;
+                    }
+                }
+            }
         }
     } 
 }

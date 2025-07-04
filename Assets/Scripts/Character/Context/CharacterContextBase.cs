@@ -1,3 +1,4 @@
+using State.Character.Move;
 using System;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ namespace Character.Context
         public abstract event Action onExecuteMoveTransition;
         public abstract event Action onExecuteReadyTransition;
         public abstract event Action onExecuteWeaponTransition; 
+        public abstract event Action<MoveStateType> OnMovementStateChanged;
+
+        public abstract MoveStateType MoveStateType { get; }
+        public abstract void SetMoveStateType(MoveStateType stateType);
         public abstract Vector3 InputAxis { get; }
 
         public abstract Vector2 InputAxisCamera { get; }

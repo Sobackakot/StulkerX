@@ -27,7 +27,6 @@ public class MoveStateSprint : MoveStateBase
 
     public override void EnterState()
     {
-        AddTransition();
         foreach (var behaviour in activeBehaviours)
             behaviour?.EnableBeh();
     }

@@ -1,4 +1,5 @@
 using Character.Context;
+using State.Character.Move;
 using System;  
 using UnityEngine; 
 
@@ -9,6 +10,7 @@ namespace StateData.Character
         public override event Action onExecuteMoveTransition;
         public override event Action onExecuteReadyTransition;
         public override event Action onExecuteWeaponTransition; 
+        public override event Action<MoveStateType> OnMovementStateChanged; 
 
         Vector3 _inputAxis;
         public override Vector3 InputAxis => _inputAxis;
@@ -25,10 +27,21 @@ namespace StateData.Character
         bool _isActiveInventory;
         public override bool IsActiveInventory => _isActiveInventory;
 
+        private MoveStateType _moveStateType;
+        public override MoveStateType MoveStateType => _moveStateType;
+        public override void SetMoveStateType(MoveStateType stateType)
+        {
+            if (_moveStateType == stateType) return;
+            _moveStateType = stateType;
+            OnMovementStateChanged?.Invoke(_moveStateType);
+        }
+
+
         bool _isIdle;
         public override bool IsIdle => _isIdle;
         bool _isWalk;
         public override bool IsWalk => _isWalk;
+
         bool _isRun;
         public override bool IsRun => _isRun;
         bool _isSprint;

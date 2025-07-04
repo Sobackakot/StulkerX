@@ -1,9 +1,11 @@
+using State.Character.Move;
 using UnityEngine;
 
 namespace Character.Context
 {
     public interface IContextStates  
     {
+        MoveStateType MoveStateType { get; }
         Vector3 InputAxis { get; }
         Vector2 InputAxisCamera { get; }
         float CurrentAngle { get; }

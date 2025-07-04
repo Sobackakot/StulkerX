@@ -64,8 +64,8 @@ public class CharacterMoveMain
     private void InitializeActions()
     {
         planer.AddAction(new MoveAction(moveFSM)); 
-        planer.AddAction(new ReadyAction(readyFSM)); 
-        planer.AddAction(new WeaponAction(weaponFSM)); 
+        //planer.AddAction(new ReadyAction(readyFSM)); 
+        //planer.AddAction(new WeaponAction(weaponFSM)); 
     }
     private void InitializeBehaviour()
     {

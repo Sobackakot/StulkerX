@@ -1,9 +1,11 @@
+using State.Character.Move;
 using UnityEngine;
 
 namespace Character.Context
 {
     public interface IContextCommands
     {
+        void SetMoveStateType(MoveStateType stateType);
         void SetInputAxis(Vector3 axis);
         void SetInputAxisCamera(Vector3 axis);
         void SetCurrentAngle(float angle);

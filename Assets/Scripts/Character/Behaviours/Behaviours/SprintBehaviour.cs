@@ -30,8 +30,7 @@ public class SprintBehaviour : MoveBehaviour
     public override void SprintingBehaviour(float speed, Vector3 direction) 
     {
         MovingBehaviour(speed, direction);
-        animator?.MoveAnimation(animator.speedSprint, character.contextStates.InputAxis);
-        Debug.Log("sprint"); 
+        animator?.MoveAnimation(animator.speedSprint, character.contextStates.InputAxis); 
     }
 
 }
